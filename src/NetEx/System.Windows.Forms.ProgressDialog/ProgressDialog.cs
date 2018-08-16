@@ -1,0 +1,538 @@
+﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms.Internal;
+
+namespace System.Windows.Forms
+{
+    /// <summary>
+    /// Informs the user of progress using a standard progress dialog. This class cannot be inherited.
+    /// </summary> 
+    [DefaultEvent("Closed")]
+    [DefaultProperty("Value")]
+    [Description("Displays a dialog box to inform the user of the progress of an action.")]
+    [ToolboxBitmap(typeof(ProgressDialog), "ToolboxBitmap.png")]
+    public sealed class ProgressDialog : CommonDialog
+    {
+        #region Fields
+
+        private bool _dialogResponse;
+        private bool _hasCanceled;
+        private bool _hasClosed;
+        private bool _hasCompleted;
+        private IProgressDialog _iProgressDialog;
+        private readonly string[] _lines = new string[3];
+        private bool _invokedModal = true;
+        private bool _modal;
+        private IntPtr _parentHandle = IntPtr.Zero;
+        private ProgressDialogProgressBarStyle _progressBarStyle;
+        private AutoResetEvent _updated = new AutoResetEvent(false);
+        private ulong _value;
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when the user clicks the cancel button on the <see cref="ProgressDialog"/>. The event is not raised if the dialog box was shown using <see cref="CommonDialog.ShowDialog()"/> or one of its overloads.
+        /// </summary> 
+        public event EventHandler Canceled;
+        /// <summary>
+        /// Occurs when the <see cref="ProgressDialog"/> is closed. The event is not raised if the dialog box was shown using <see cref="CommonDialog.ShowDialog()"/> or one of its overloads.
+        /// </summary>
+        public event EventHandler Closed;
+        /// <summary>
+        /// Occurs when the <see cref="ProgressDialog"/> <see cref="Value"/> reaches the specified maximum. The event is not raised if the dialog box was shown using <see cref="CommonDialog.ShowDialog()"/> or one of its overloads.
+        /// </summary> 
+        public event EventHandler Completed;
+
+        #endregion
+
+        #region Construction
+
+        /// <summary>
+        /// Initializes an instance of the <see cref="T:System.Windows.Forms.ProgressDialog" /> class.
+        /// </summary>
+        public ProgressDialog() => Reset();
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the resource that contains an Audio-Video Interleaved (AVI) clip to run in the dialog box. Not supported in Windows Vista and later.
+        /// </summary>
+        /// <value>
+        /// An <see cref="AnimationResource"/> which points to a file and the index of the animation resource within that file. The default value is null.
+        /// </value>
+        [Browsable(false)]
+        [CLSCompliant(false)]
+        [DefaultValue(null)]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public AnimationResource Animation { get; set; }
+        /// <summary>
+        /// Gets or sets a value that indicates whether the progress dialog should automatically close upon cancelation or completion. This property only applies if the progress dialog is shown using the <see cref="Show()"/> method or one of its overloads.
+        /// </summary>
+        /// <value>true if the dialog box should automatically close upon cancelation or completion; otherwise false.</value>
+        [Category("Behavior")]
+        [DefaultValue(true)]
+        [Description("Specifies whether the ProgressDialog will automatically close upon cancelation or completion.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public bool AutoClose { get; set; }
+        /// <summary>
+        /// Gets or sets a value that indicates whether the dialog calculates the time remaining based on its active time and progress. If this property is set to true, text can only be displayed on lines 1 and 2.
+        /// </summary>
+        /// <value>true if the dialog box automatically estimate the remaining time; otherwise, false. The default is true.</value>
+        [Category("Behavior")]
+        [DefaultValue(true)]
+        [Description("Specifies whether the ProgressDialog will automatically calculate the time remaining.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public bool AutoTime { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether the Cancel button is displayed in the client area of the dialog box. If set to false the operation cannot be canceled. Use this only when absolutely necessary. Only applies to Windows Vista and later.
+        /// </summary>
+        /// <value>true to display a Cancel button for the dialog box; otherwise, false. The default is true.</value>
+        [Category("Appearance")]
+        [DefaultValue(true)]
+        [Description("Determines whether the ProgressDialog has a cancel button. Only applies to Windows Vista and later.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public bool CancelButton { get; set; }
+        /// <summary>
+        /// Gets or sets a message to be displayed if the user cancels the operation.
+        /// </summary>
+        /// <value>The progress dialog cancel message. The default value is an empty string ("").</value>
+        /// <remarks>Even though the user clicks Cancel, the application may not immediately call <see cref="Close"/> to close the dialog box. Since this delay might be significant, the progress dialog box provides the user with immediate feedback by clearing text lines 1 and 2 and displaying the cancel message on line 3. The message is intended to let the user know that the delay is normal and that the progress dialog box will be closed shortly. It is typically is set to something like "Please wait while ...".</remarks>
+        [Category("Appearance")]
+        [DefaultValue("")]
+        [Description("The string to display if the user cancels the operation.")]
+        [Localizable(true)]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public string CancelMessage { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether to truncate path strings for text on lines 1, 2 and 3 of the dialog box. If set to true paths are compacted with PathCompactPath.
+        /// </summary>
+        /// <value>true to have path strings compacted if they are too large to fit on a line; otherwise, false. The default is true.</value>
+        [Category("Behavior")]
+        [DefaultValue(true)]
+        [Description("Determines whether the ProgressDialog truncates path strings if they are too large to fit on a line.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public bool CompactPath { get; set; }
+        /// <summary>
+        /// Gets or sets the maximum value of the range of the control.
+        /// </summary>
+        /// <value>The maximum value of the range. The default is 100.</value>
+        [Category("Behavior")]
+        [CLSCompliant(false)]
+        [DefaultValue(typeof(ulong), "100")]
+        [Description("The upper bound of the range this ProgressDialog is working with.")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public ulong Maximum { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether the Minimize button is displayed in the caption bar of the dialog box.
+        /// </summary>
+        /// <value>true to display a Minimize button for the dialog box; otherwise, false. The default is true.</value>
+        [Category("Appearance")]
+        [DefaultValue(true)]
+        [Description("Determines whether the ProgressDialog has a minimize box in the upper-right corner of its caption bar.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public bool MinimizeBox { get; set; }
+        /// <summary>
+        /// Gets or sets the manner in which progress should be indicated on the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to false. Only applies to Windows Vista and later.
+        /// </summary>
+        /// <value>One of the <see cref="ProgressDialogProgressBarStyle"/> values. The default value is <see cref="ProgressDialogProgressBarStyle.Continuous"/>.</value>
+        /// <exception cref="InvalidEnumArgumentException">
+        /// <paramref name="value"/> is not a member of the <see cref="ProgressDialogProgressBarStyle"/> enumeration.
+        /// </exception>
+        [Category("Appearance")]
+        [DefaultValue(typeof(ProgressDialogProgressBarStyle), "Continuous")]
+        [Description("This property allows the user to set the style of the progress bar within the ProgressDialog. Only applies to Windows Vista and later.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        public ProgressDialogProgressBarStyle ProgressBarStyle
+        {
+            get => _progressBarStyle;
+            set
+            {
+                if (!Enum.IsDefined(typeof(ProgressDialogProgressBarStyle), value))
+                    throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(ProgressDialogProgressBarStyle));
+
+                _progressBarStyle = value;
+            }
+        }
+        /// <summary>
+        /// Gets or sets a value indicating whether a progress bar is displayed in the client area of the dialog box.
+        /// </summary>
+        /// <value>true to display a progress bar for the dialog box; otherwise, false. The default is true.</value>
+        /// <remarks>Typically, an application can quantitatively determine how much of the operation remains and periodically pass that value to the progress dialog box. The progress dialog box then uses this information to update its progress bar. You would typically set this property to false if the calling application must wait for an operation to finish but does not have any quantitative information it can use to update the dialog box.</remarks>
+        [Category("Appearance")]
+        [DefaultValue(true)]
+        [Description("Determines whether the ProgressDialog has a progress bar.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public bool ShowProgressBar { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether time remaining is displayed in the client area of the dialog box.
+        /// </summary>
+        /// <value>true to display the time remaining for the dialog box; otherwise, false. The default is true.</value>
+        [Category("Appearance")]
+        [DefaultValue(true)]
+        [Description("Determines whether the ProgressDialog shows \"time remaining\" information.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        public bool ShowRemainingTime { get; set; }
+        /// <summary>
+        /// Gets or sets the progress dialog box title.
+        /// </summary>
+        /// <value>The progress dialog box title. The default value is an empty string ("").</value>
+        [Category("Appearance")]
+        [DefaultValue("")]
+        [Description("The string to display in the title bar of the ProgressDialog.")]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [Localizable(true)]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current position of the progress bar within the dialog box.
+        /// </summary>
+        /// <value>The position within the range of the progress bar. The default is 0.</value>
+        [Bindable(true)]
+        [Category("Behavior")]
+        [CLSCompliant(false)]
+        [DefaultValue(typeof(ulong), "0")]
+        [Description(
+            "The current value for the ProgressDialog, in the range specified between 0 and the maximum property.")]
+        public ulong Value
+        {
+            get => _value;
+            set
+            {
+                if (value > Maximum)
+                    value = Maximum;
+
+                // Update the value.
+                _value = value;
+
+                // Trigger our polling loop to update the dialog.
+                _updated.Set();
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        #region Protected
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Call our "Close" method to do the intial cleanup
+                Close();
+
+                // Now dispose of any managed resources
+                _iProgressDialog = null;
+                _updated.Close();
+                _updated = null;
+            }
+
+            base.Dispose(disposing);
+        }
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+        [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
+        protected override bool RunDialog(IntPtr hwndOwner)
+        {
+            if (_iProgressDialog != null)
+                return false;
+
+            // Copy the modal state, then reset the variable so a possible
+            // ShowDialog call in the future will work correctly.
+            _modal = _invokedModal;
+            _invokedModal = true;
+
+            // Set our flags
+            _hasCanceled = false;
+            _hasClosed = false;
+            _hasCompleted = false;
+
+            // Keep a reference to the owner for if we are running modeless.
+            _parentHandle = hwndOwner;
+
+            // Dialog thread
+            var runDialogThread = new Thread(delegate ()
+            {
+                // Copy the settings for the dialog box instance
+                var autoTimeCopy = AutoTime;
+                var compactPathCopy = CompactPath;
+
+                // Create an IntPtr for if we load an AnimationResource. We create
+                // the variable here so we can use it in the finally block to free
+                // up any resources.
+                var animationModuleHandle = IntPtr.Zero;
+
+                // Create a new IProgressDialog
+                _iProgressDialog = (IProgressDialog)new WindowsProgressDialog();
+
+                // We run the following in a try block so that if something unexpected
+                // goes wrong we can still clean up in the finally block.
+                try
+                {
+                    // Build the progress dialog flags based on the properties the user has set
+                    var flags = (uint)ProgressDialogFlags.PROGDLG_NORMAL;
+                    if (_modal)
+                        flags += (uint)ProgressDialogFlags.PROGDLG_MODAL;
+                    if (!ShowRemainingTime)
+                        flags += (uint)ProgressDialogFlags.PROGDLG_NOTIME;
+                    if (AutoTime)
+                        flags += (uint)ProgressDialogFlags.PROGDLG_AUTOTIME;
+                    if (!MinimizeBox)
+                        flags += (uint)ProgressDialogFlags.PROGDLG_NOMINIMIZE;
+                    if (!ShowProgressBar)
+                        flags += (uint)ProgressDialogFlags.PROGDLG_NOPROGRESSBAR;
+                    if (ProgressBarStyle == ProgressDialogProgressBarStyle.Marquee)
+                        flags += (uint)ProgressDialogFlags.PROGDLG_MARQUEEPROGRESS;
+                    if (!CancelButton)
+                        flags += (uint)ProgressDialogFlags.PROGDLG_NOCANCEL;
+
+                    // We do a check on CancelMessage before we apply it and replace it
+                    // with a blank space if the user has set it to null or empty. This
+                    // prevents a UI issue with the dialog which causes its contents to
+                    // shrink and leave an "unpainted" strip along the bottom of the
+                    // dialog if CancelMessage is null or empty when user presses Cancel.
+                    _iProgressDialog.SetCancelMsg(string.IsNullOrEmpty(CancelMessage) ? " " : CancelMessage, null);
+
+                    // Apply the remaining properties
+                    _iProgressDialog.SetProgress64(Value, Maximum);
+                    _iProgressDialog.SetTitle(Title);
+
+                    // Set the dialog animation
+                    // Note: Animations only apply to Windows versions earlier than Vista, so if we
+                    // detect that we are running on Vista or later we skip setting the animation
+                    // as it wouldn't do anything anyway.
+                    if (Environment.OSVersion.Version.Major < 6 && Animation != null)
+                    {
+                        animationModuleHandle = NativeMethods.LoadLibraryEx(string.Format(CultureInfo.InvariantCulture, "{0}\0", Animation.FileName), IntPtr.Zero, 0x03); // Win32: DONT_RESOLVE_DLL_REFERENCES | LOAD_LIBRARY_AS_DATAFILE
+                        if (animationModuleHandle != IntPtr.Zero)
+                            _iProgressDialog.SetAnimation(animationModuleHandle, Animation.ResourceIndex);
+                    }
+
+                    // Show the progress dialog
+                    var hResult = _iProgressDialog.StartProgressDialog(_parentHandle, null, flags, IntPtr.Zero);
+                    if (hResult != 0)
+                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Unable to start the progress dialog. HRESULT: {0}", hResult));
+
+                    // Reset the timer dialog to begin time remaining calculations
+                    _iProgressDialog.Timer(0x01, null); // Win32: PDTIMER_RESET
+
+                    // Monitor for property updates and/or the user pressing cancel
+                    while (!_hasClosed)
+                    {
+                        if (_iProgressDialog.HasUserCancelled() && !_hasCanceled)
+                        {
+                            // The user has pressed 'Cancel' on the dialog and we haven't
+                            // already processed it.
+
+                            // We use this flag to indicate that we have already processed
+                            // the user cancelling the dialog. This prevents us from raising
+                            // the Canceled event multiple times.
+                            _hasCanceled = true;
+
+                            // Set the dialog response to false as the dialog was cancelled.
+                            _dialogResponse = false;
+
+                            // If we are modeless raise the Canceled event.
+                            if (!_modal)
+                                Canceled?.Invoke(this, EventArgs.Empty);
+
+                            // If we are modal, or if we are modeless and AutoClose is set to
+                            // true then close the dialog.
+                            if (_modal || AutoClose)
+                                Close();
+                        }
+                        else if (Value >= Maximum && !_hasCompleted)
+                        {
+                            // The user has set the Value for the progress of the dialog to
+                            // greater than or equal to the Maximum value (in which case the
+                            // dialog has 'Completed') and we haven't already processed this.
+
+                            // We use this flag to indicate that we have already processed
+                            // the user 'completing' the dialog. This prevents us from raising
+                            // the Completed event multiple times.
+                            _hasCompleted = true;
+
+                            // For neatness of presentation, we set the progress of the dialog
+                            // to it's maximum value.
+                            _iProgressDialog.SetProgress64(Maximum, Maximum);
+
+                            // Set the dialog response to true as the dialog completed.
+                            _dialogResponse = true;
+
+                            // If we are modeless raise the Completed event.
+                            if (!_modal)
+                                Completed?.Invoke(this, EventArgs.Empty);
+
+                            // If we are modal, or if we are modeless and AutoClose is set to
+                            // true then close the dialog.
+                            if (_modal || AutoClose)
+                                Close();
+                        }
+                        else
+                        {
+                            // Update the text lines of our dialog, accounting for whether
+                            // AutoTime is enabled.
+                            for (uint x = 0; x < (autoTimeCopy ? 2 : 3); x++)
+                                _iProgressDialog.SetLine(x + 1, _lines[x], compactPathCopy, IntPtr.Zero);
+
+                            // Set the Progress and Title of our dialog. To simplify the code we
+                            // always use SetProgress64.
+                            _iProgressDialog.SetTitle(Title);
+                            _iProgressDialog.SetProgress64(Value, Maximum);
+                        }
+
+                        // We use a reset event here as we need to continuously poll the
+                        // HasUserCancelled to check whether the user has pressed Cancel.
+                        // We set this polling rate fairly low to minimise the impact on
+                        // system performance, but high enough to keep it responsive. But
+                        // the user may wish to send updates to the value of the progress
+                        // bar or the lines of text at a greater rate. By using the reset
+                        // event we can poll and update at a fixed rate, but also trigger
+                        // an immediate update whenever Value or SetLine() are updated.
+                        _updated.WaitOne(250, true);
+                    }
+                }
+                finally
+                {
+                    // Stop the progress dialog and release it's resources
+                    _iProgressDialog.StopProgressDialog();
+                    Marshal.ReleaseComObject(_iProgressDialog);
+                    _iProgressDialog = null;
+
+                    // Release any resources used loading an AnimationResource
+                    if (animationModuleHandle != IntPtr.Zero)
+                        NativeMethods.FreeLibrary(animationModuleHandle);
+                }
+            });
+
+            // Run the dialog thread, which will show the dialog, update it
+            // and monitor for completion/cancellation.
+            runDialogThread.Start();
+
+            // If we are running modally then we need to block the calling
+            // thread and wait for the dialog to close.
+            if (_modal)
+                runDialogThread.Join();
+
+            // Return the dialog response (only applicable for ShowDialog() calls).
+            return _dialogResponse;
+        }
+
+        #endregion
+
+        #region Public
+
+        /// <summary>
+        /// Closes the progress dialog box.
+        /// </summary>
+        [SuppressMessage("ReSharper", "InvertIf")]
+        public void Close()
+        {
+            // If the dialog has already been closed then return immediately.
+            if (_hasClosed)
+                return;
+
+            // Set a flag to indicate that the dialog has been closed.
+            _hasClosed = true;
+
+            // Check that the dialog object exists.
+            if (_iProgressDialog != null)
+            {
+                // If we are modeless then invoke the Closed event.
+                if (!_modal)
+                    Closed?.Invoke(this, EventArgs.Empty);
+
+                // Set the owner of the dialog (the parent window) as the
+                // foreground window. This should make for a nicer user
+                // experience as when the dialog closes it will return
+                // focus to the window that called it.
+                NativeMethods.SetForegroundWindow(_parentHandle);
+            }
+        }
+        /// <summary>
+        /// Resets all properties to their default values.
+        /// </summary>
+        public override void Reset()
+        {
+            // All configurable properties have a DefaultValueAttribute associated
+            // with them. So for easy consistency we just grab each property, grab
+            // the default value, then assign that value to the property.
+            foreach (var property in GetType().GetProperties())
+            {
+                var dvList = property.GetCustomAttributes(typeof(DefaultValueAttribute), true);
+                if (dvList.Length > 0 && dvList[0] is DefaultValueAttribute attribute)
+                    property.SetValue(this, attribute.Value, null);
+            }
+        }
+        /// <summary>
+        /// Displays a message in the progress dialog.
+        /// </summary>
+        /// <param name="line">The line number on which the text is to be displayed. Currently there are three lines — 1, 2, and 3. If <see cref="AutoTime"/> is set to true only lines 1 and 2 can be used. The estimated time will be displayed on line 3.</param>
+        /// <param name="message">The message to be displayed on the line specified.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="line"/> is less than 1 or greater than 3.
+        /// </exception>
+        public void SetLine(int line, string message)
+        {
+            // Check that the line parameter does not fall outside the possible range.
+            if (line < 1 || line > 3)
+                throw new ArgumentOutOfRangeException(nameof(line), string.Format(CultureInfo.InvariantCulture, "{0} must be a value of 1, 2 or 3.", nameof(line)));
+
+            // Set the specified line to the message supplied.
+            _lines[line - 1] = message;
+
+            // Trigger our polling loop to update the dialog.
+            _updated.Set();
+        }
+        /// <summary>
+        /// Runs a common dialog box in a non-modal fashion with a default owner.
+        /// </summary>
+        [SuppressMessage("ReSharper", "IntroduceOptionalParameters.Global")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+        public void Show()
+        {
+            Show(null);
+        }
+        /// <summary>
+        /// Runs a common dialog box in a non-modal fashion with the specified owner.
+        /// </summary>
+        /// <param name="owner">Any object that implements <see cref="IWin32Window"/> that represents the top-level window that will own the modal dialog box.</param>
+        public void Show(IWin32Window owner)
+        {
+            // There is already a dialog shown so return immediately.
+            if (_iProgressDialog != null)
+                return;
+
+            // The ShowDialog command does a lot of checks to make sure
+            // it is possible to show a dialog, and to get a window handle
+            // if the user doesn't supply one. Rather than replicate that code
+            // here we can just set a flag to tell RunDialog to show the dialog
+            // in a modeless fashion, and then just call the base ShowDialog
+            // method to benefit from all of those checks.
+            _invokedModal = false;
+            ShowDialog(owner);
+        }
+
+        #endregion
+
+        #endregion
+    }
+}
