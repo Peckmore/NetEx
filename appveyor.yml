@@ -2,7 +2,6 @@ version: 1.0.{build}
 branches:
   only:
   - master
-skip_non_tags: true
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
@@ -12,6 +11,13 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+before_build:
+- ps: nuget restore
 build:
+  publish_nuget: true
+  publish_nuget_symbols: true
   parallel: true
   verbosity: minimal
+artifacts:
+- path: bin\Release\System.Windows.Forms.ProgressDialog.dll
+  name: System.Windows.Forms.ProgressDialog.dll
