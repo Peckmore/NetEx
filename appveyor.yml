@@ -19,5 +19,5 @@ build:
   parallel: true
   verbosity: minimal
 artifacts:
-- path: bin\Release\System.Windows.Forms.ProgressDialog.dll
+- path: src\NetEx\System.Windows.Forms.ProgressDialog\bin\Release\System.Windows.Forms.ProgressDialog.dll
   name: System.Windows.Forms.ProgressDialog.dll
