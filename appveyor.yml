@@ -21,3 +21,8 @@ build:
 artifacts:
 - path: src\NetEx\System.Windows.Forms.ProgressDialog\bin\Release\System.Windows.Forms.ProgressDialog.dll
   name: System.Windows.Forms.ProgressDialog.dll
+deploy:
+- provider: NuGet
+  api_key:
+    secure: f61AuiPjK/d/mSrOUwrlm5xCsm2wQy6dSvctx0i+4cflNYI9HZO3Fes2X0Q0oZmo
+  skip_symbols: true
