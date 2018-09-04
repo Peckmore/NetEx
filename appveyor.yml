@@ -19,8 +19,10 @@ build:
   parallel: true
   verbosity: minimal
 artifacts:
-- path: src\NetEx\System.Windows.Forms.ProgressDialog\bin\Release\System.Windows.Forms.ProgressDialog.dll
+- path: bin\Release\System.Windows.Forms.ProgressDialog.dll
   name: System.Windows.Forms.ProgressDialog.dll
+- path: bin\Release\NetExDemo.exe
+  name: NetExDemo.exe
 deploy:
 - provider: NuGet
   api_key:
@@ -29,4 +31,5 @@ deploy:
 - provider: GitHub
   auth_token:
     secure: isEFYOVaEKqlpeedx1hkwBRLJmJ203QY5aD78YjoJMkTRE06axrX48fPfXNP5BNu
+  artifact: System.Windows.Forms.ProgressDialog.dll,NetExDemo.exe
   draft: true
