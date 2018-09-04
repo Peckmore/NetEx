@@ -26,3 +26,7 @@ deploy:
   api_key:
     secure: lp4jynubZ3xe3mEnGZVCb68/tWmL/W0w4phOKXTCJfquR4RMnugHxrjGDD4EiWK5
   skip_symbols: true
+- provider: GitHub
+  auth_token:
+    secure: isEFYOVaEKqlpeedx1hkwBRLJmJ203QY5aD78YjoJMkTRE06axrX48fPfXNP5BNu
+  draft: true
