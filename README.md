@@ -11,8 +11,6 @@ Each project is designed (where possible) to compile into it's own library based
 
 All projects target the lowest framework version or standard possible in order to try and maximise compatibility with existing projects. Please note that projects will not all target *the same* framework version or standard, as some rely on functionality introduced in later versions.
 
-Each project has it's own README to provide more detailed information.
-
 ## Nuget
 
 All projects are available on NuGet. Each project is listed as a separate NuGet package so that you only need to add the functionality you require. The packages currently available are:
@@ -37,3 +35,7 @@ The source for this repository is effectively split into two categories:
 **NetExDemo** currently contains the following projects:
 
 * **NetExDemo**: A test project which demonstrates usage of the **ProgressDialog**.
+
+##  License
+
+The code is licensed under the [MIT license](https://github.com/Peckmore/NetEx/blob/master/LICENSE).
