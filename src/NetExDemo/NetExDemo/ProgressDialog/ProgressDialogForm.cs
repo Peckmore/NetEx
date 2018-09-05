@@ -123,6 +123,9 @@ namespace NetExDemo.ProgressDialog
                 closeButton.Enabled = false;
                 showButton.Enabled = true;
                 showDialogButton.Enabled = true;
+
+                // Refresh the property grid
+                propertyGrid.Refresh();
             }));
         }
 
