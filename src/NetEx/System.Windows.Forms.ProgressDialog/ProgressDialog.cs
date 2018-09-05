@@ -288,21 +288,21 @@ namespace System.Windows.Forms
                 try
                 {
                     // Build the progress dialog flags based on the properties the user has set
-                    var flags = (uint)ProgressDialogFlags.PROGDLG_NORMAL;
+                    var flags = (uint)PROGDLG.PROGDLG_NORMAL;
                     if (_modal)
-                        flags += (uint)ProgressDialogFlags.PROGDLG_MODAL;
+                        flags += (uint)PROGDLG.PROGDLG_MODAL;
                     if (!ShowRemainingTime)
-                        flags += (uint)ProgressDialogFlags.PROGDLG_NOTIME;
+                        flags += (uint)PROGDLG.PROGDLG_NOTIME;
                     if (AutoTime)
-                        flags += (uint)ProgressDialogFlags.PROGDLG_AUTOTIME;
+                        flags += (uint)PROGDLG.PROGDLG_AUTOTIME;
                     if (!MinimizeBox)
-                        flags += (uint)ProgressDialogFlags.PROGDLG_NOMINIMIZE;
+                        flags += (uint)PROGDLG.PROGDLG_NOMINIMIZE;
                     if (!ShowProgressBar)
-                        flags += (uint)ProgressDialogFlags.PROGDLG_NOPROGRESSBAR;
+                        flags += (uint)PROGDLG.PROGDLG_NOPROGRESSBAR;
                     if (ProgressBarStyle == ProgressDialogProgressBarStyle.Marquee)
-                        flags += (uint)ProgressDialogFlags.PROGDLG_MARQUEEPROGRESS;
+                        flags += (uint)PROGDLG.PROGDLG_MARQUEEPROGRESS;
                     if (!CancelButton)
-                        flags += (uint)ProgressDialogFlags.PROGDLG_NOCANCEL;
+                        flags += (uint)PROGDLG.PROGDLG_NOCANCEL;
 
                     // We do a check on CancelMessage before we apply it and replace it
                     // with a blank space if the user has set it to null or empty. This
