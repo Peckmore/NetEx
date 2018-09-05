@@ -56,6 +56,7 @@ namespace System.Windows.Forms
         /// <summary>
         /// Initializes an instance of the <see cref="ProgressDialog" /> class.
         /// </summary>
+        [SuppressMessage("ReSharper", "InheritdocConsiderUsage")]
         public ProgressDialog() => Reset();
 
         #endregion
