@@ -208,8 +208,7 @@ namespace System.Windows.Forms
         [Category("Behavior")]
         [CLSCompliant(false)]
         [DefaultValue(typeof(ulong), "0")]
-        [Description(
-            "The current value for the ProgressDialog, in the range specified between 0 and the maximum property.")]
+        [Description("The current value for the ProgressDialog, in the range specified between 0 and the maximum property.")]
         public ulong Value
         {
             get => _value;
