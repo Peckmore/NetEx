@@ -15,6 +15,7 @@ All projects target the lowest framework version or standard possible in order t
 
 All projects are available on NuGet. Each project is listed as a separate NuGet package so that you only need to add the functionality you require. The packages currently available are:
 
+* [NetEx-CredentialDialog](https://www.nuget.org/packages/NetEx-CredentialDialog/)
 * [NetEx-ProgressDialog](https://www.nuget.org/packages/NetEx-ProgressDialog/)
 
 ## Projects
@@ -28,13 +29,14 @@ The source for this repository is effectively split into two categories:
 
 **NetEx** currently contains the following projects:
 
+* **CredentialDialog**: A managed implementation of the standard Windows credential dialog.
 * **ProgressDialog**: A managed implementation of the standard Windows progress dialog.
 
 ### NetExDemo
 
 **NetExDemo** currently contains the following projects:
 
-* **NetExDemo**: A test project which demonstrates usage of the **ProgressDialog**.
+* **NetExDemo**: A test project which demonstrates usage of the **NetEx** libraries.
 
 ##  License
 
