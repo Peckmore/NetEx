@@ -54,7 +54,7 @@ namespace System.Windows.Forms
         #region Construction
 
         /// <summary>
-        /// Initializes an instance of the <see cref="T:System.Windows.Forms.ProgressDialog" /> class.
+        /// Initializes an instance of the <see cref="ProgressDialog" /> class.
         /// </summary>
         public ProgressDialog() => Reset();
 
@@ -470,6 +470,7 @@ namespace System.Windows.Forms
         /// <summary>
         /// Resets all properties to their default values.
         /// </summary>
+        [SuppressMessage("ReSharper", "InheritdocConsiderUsage")]
         public override void Reset()
         {
             // All configurable properties have a DefaultValueAttribute associated

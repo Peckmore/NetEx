@@ -16,7 +16,7 @@ namespace System.Windows.Forms
         /// </summary>
         /// <param name="fileName">The filename of the resource containing the Audio-Video Interleaved (AVI) clip.</param>
         /// <param name="resourceIndex">The index of the Audio-Video Interleaved (AVI) clip within the resources contained in the file.</param>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// <paramref name="fileName" /> is null or empty.
         /// </exception>
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
@@ -50,8 +50,8 @@ namespace System.Windows.Forms
 
         /// <summary>Determines whether two specified <see cref="AnimationResource"/> objects are equal.</summary>
         /// <returns>true if <paramref name="left"/> equals <paramref name="right"/>; otherwise, false.</returns>
-        /// <param name="left">The first <see cref="T:System.Version" /> object.</param>
-        /// <param name="right">The second <see cref="T:System.Version" /> object.</param>
+        /// <param name="left">The first <see cref="Version" /> object.</param>
+        /// <param name="right">The second <see cref="Version" /> object.</param>
         public static bool operator ==(AnimationResource left, AnimationResource right) => left?.FileName == right?.FileName && left?.ResourceIndex == right?.ResourceIndex;
         /// <summary>Determines whether two specified <see cref="AnimationResource"/> objects are not equal.</summary>
         /// <returns>true if <paramref name="left" /> does not equal <paramref name="right" />; otherwise, false.</returns>
