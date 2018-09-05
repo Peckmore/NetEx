@@ -11,6 +11,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>$copyright$</copyright>
-    <tags>progress dialog</tags>
+    <tags>progress dialog progressdialog winforms</tags>
   </metadata>
 </package>
