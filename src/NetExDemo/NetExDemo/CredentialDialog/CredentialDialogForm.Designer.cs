@@ -30,7 +30,6 @@ namespace NetExDemo.CredentialDialog
         /// </summary>
         private void InitializeComponent()
         {
-            System.Security.SecureString secureString1 = new System.Security.SecureString();
             this.promptButton = new System.Windows.Forms.Button();
             this.credentialDialogPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.credentialDialog = new System.Windows.Forms.CredentialDialog();
@@ -48,39 +47,24 @@ namespace NetExDemo.CredentialDialog
             // 
             // credentialDialogPropertyGrid
             // 
-            this.credentialDialogPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.credentialDialogPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.credentialDialogPropertyGrid.Location = new System.Drawing.Point(12, 41);
             this.credentialDialogPropertyGrid.Name = "credentialDialogPropertyGrid";
             this.credentialDialogPropertyGrid.Size = new System.Drawing.Size(314, 470);
             this.credentialDialogPropertyGrid.TabIndex = 4;
             // 
-            // credentialDialog
-            // 
-            this.credentialDialog.AutoUpgradeEnabled = true;
-            this.credentialDialog.Banner = null;
-            this.credentialDialog.CredentialFilter = System.Windows.Forms.CredentialDialogCredentialFilter.AllCredentials;
-            this.credentialDialog.Domain = "";
-            this.credentialDialog.ErrorCode = 0;
-            this.credentialDialog.IncorrectPasswordPrompt = false;
-            this.credentialDialog.Message = "";
-            this.credentialDialog.Password = secureString1;
-            this.credentialDialog.SaveChecked = false;
-            this.credentialDialog.ShowSave = true;
-            this.credentialDialog.Title = "";
-            this.credentialDialog.Username = "credentialDialog1";
-            // 
-            // Form1
+            // CredentialDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 523);
             this.Controls.Add(this.credentialDialogPropertyGrid);
             this.Controls.Add(this.promptButton);
-            this.Name = "Form1";
+            this.Name = "CredentialDialogForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CredentialDialog Demo";
+            this.Text = "Credential Dialog Demo";
             this.ResumeLayout(false);
 
         }
