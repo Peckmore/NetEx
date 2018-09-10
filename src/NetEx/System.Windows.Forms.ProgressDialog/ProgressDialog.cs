@@ -66,9 +66,7 @@ namespace System.Windows.Forms
         /// <summary>
         /// Gets or sets the resource that contains an Audio-Video Interleaved (AVI) clip to run in the dialog box. Not supported in Windows Vista and later.
         /// </summary>
-        /// <value>
-        /// An <see cref="AnimationResource"/> which points to a file and the index of the animation resource within that file. The default value is null.
-        /// </value>
+        /// <value>An <see cref="AnimationResource"/> which points to a file and the index of the animation resource within that file. The default value is null.</value>
         [Browsable(false)]
         [CLSCompliant(false)]
         [DefaultValue(null)]
