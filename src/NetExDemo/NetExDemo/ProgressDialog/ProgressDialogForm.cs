@@ -41,6 +41,9 @@ namespace NetExDemo.ProgressDialog
         }
         private void ProgressDialog_Closed(object sender, EventArgs e)
         {
+            // Terminate the worker thread.
+            _t.Abort();
+
             // Unlock the form buttons.
             UnlockButtons();
         }
