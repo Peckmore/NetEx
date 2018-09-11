@@ -21,7 +21,7 @@ namespace System.Windows.Forms
 
         private bool _dialogResponse;
         private bool _hasCanceled;
-        private bool _hasClosed;
+        private bool _hasClosed = true;
         private bool _hasCompleted;
         private IProgressDialog _iProgressDialog;
         private readonly string[] _lines = new string[3];
@@ -29,6 +29,7 @@ namespace System.Windows.Forms
         private bool _modal;
         private IntPtr _parentHandle = IntPtr.Zero;
         private ProgressDialogProgressBarStyle _progressBarStyle;
+        private AutoResetEvent _threadCompleted = new AutoResetEvent(false);
         private AutoResetEvent _updated = new AutoResetEvent(false);
         private ulong _value;
 
@@ -228,6 +229,42 @@ namespace System.Windows.Forms
 
         #region Methods
 
+        #region Private
+
+        private void CloseDialog()
+        {
+            // If the COM dialog exists then close it and clean up
+            if (_iProgressDialog != null)
+            {
+                // Stop the progress dialog and release it's resources
+                _iProgressDialog.StopProgressDialog();
+                Marshal.ReleaseComObject(_iProgressDialog);
+                _iProgressDialog = null;
+            }
+        }
+        private void OnClosed(Boolean waitForThread)
+        {
+            // Set a flag to indicate that the dialog has been closed - this also
+            // tells our thread to stop
+            _hasClosed = true;
+
+            // Wait for the dialog thread to stop if requested
+            if (waitForThread)
+                _threadCompleted.WaitOne();
+
+            // Set the owner of the dialog (the parent window) as the
+            // foreground window. This should make for a nicer user
+            // experience as when the dialog closes it will return
+            // focus to the window that called it.
+            NativeMethods.SetForegroundWindow(_parentHandle);
+
+            // If we are modeless then invoke the Closed event.
+            if (!_modal)
+                Closed?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
         #region Protected
 
         protected override void Dispose(bool disposing)
@@ -238,7 +275,13 @@ namespace System.Windows.Forms
                 Close();
 
                 // Now dispose of any managed resources
-                _iProgressDialog = null;
+
+                // Check to make sure that the COM dialog object has been cleaned up
+                CloseDialog();
+
+                // Close our reset event objects
+                _threadCompleted.Close();
+                _threadCompleted = null;
                 _updated.Close();
                 _updated = null;
             }
@@ -269,6 +312,9 @@ namespace System.Windows.Forms
             // Dialog thread
             var runDialogThread = new Thread(delegate ()
             {
+                // Clear the thread completed AutoResetEvent to indicate that the thread has started
+                _threadCompleted.Reset();
+
                 // Copy the settings for the dialog box instance
                 var autoTimeCopy = AutoTime;
                 var compactPathCopy = CompactPath;
@@ -278,13 +324,13 @@ namespace System.Windows.Forms
                 // up any resources.
                 var animationModuleHandle = IntPtr.Zero;
 
-                // Create a new IProgressDialog
-                _iProgressDialog = (IProgressDialog)new WindowsProgressDialog();
-
                 // We run the following in a try block so that if something unexpected
-                // goes wrong we can still clean up in the finally block.
+                // goes wrong we can still clean up the COM object for the dialog
                 try
                 {
+                    // Create a new IProgressDialog
+                    _iProgressDialog = (IProgressDialog)new WindowsProgressDialog();
+
                     // Build the progress dialog flags based on the properties the user has set
                     var flags = (uint)PROGDLG.PROGDLG_NORMAL;
                     if (_modal)
@@ -353,9 +399,9 @@ namespace System.Windows.Forms
                                 Canceled?.Invoke(this, EventArgs.Empty);
 
                             // If we are modal, or if we are modeless and AutoClose is set to
-                            // true then close the dialog.
+                            // true then exit the loop.
                             if (_modal || AutoClose)
-                                Close();
+                                break;
                         }
                         else if (Value >= Maximum && !_hasCompleted)
                         {
@@ -380,12 +426,15 @@ namespace System.Windows.Forms
                                 Completed?.Invoke(this, EventArgs.Empty);
 
                             // If we are modal, or if we are modeless and AutoClose is set to
-                            // true then close the dialog.
+                            // true then exit the loop.
                             if (_modal || AutoClose)
-                                Close();
+                                break;
                         }
-                        else
+                        else if (!_hasCompleted && !_hasCanceled)
                         {
+                            // We only carry on updating if the dialog hasn't already completed or been
+                            // canceled. This allows the Cancel message to be correctly displayed.
+
                             // Update the text lines of our dialog, accounting for whether
                             // AutoTime is enabled.
                             for (uint x = 0; x < (autoTimeCopy ? 2 : 3); x++)
@@ -409,15 +458,20 @@ namespace System.Windows.Forms
                     }
                 }
                 finally
-                {
-                    // Stop the progress dialog and release it's resources
-                    _iProgressDialog.StopProgressDialog();
-                    Marshal.ReleaseComObject(_iProgressDialog);
-                    _iProgressDialog = null;
+                {   
+                    // Close the dialog COM object.
+                    CloseDialog();
 
-                    // Release any resources used loading an AnimationResource
+                    // Release any resources used loading an AnimationResource.
                     if (animationModuleHandle != IntPtr.Zero)
                         NativeMethods.FreeLibrary(animationModuleHandle);
+
+                    // Indicate that the thread has completed.
+                    _threadCompleted.Set();
+
+                    // Call the OnClosed() method to indicate that the dialog is closed and to fire
+                    // off the Closed event.
+                    OnClosed(false);
                 }
             });
 
@@ -448,22 +502,8 @@ namespace System.Windows.Forms
             if (_hasClosed)
                 return;
 
-            // Set a flag to indicate that the dialog has been closed.
-            _hasClosed = true;
-
-            // Check that the dialog object exists.
-            if (_iProgressDialog != null)
-            {
-                // If we are modeless then invoke the Closed event.
-                if (!_modal)
-                    Closed?.Invoke(this, EventArgs.Empty);
-
-                // Set the owner of the dialog (the parent window) as the
-                // foreground window. This should make for a nicer user
-                // experience as when the dialog closes it will return
-                // focus to the window that called it.
-                NativeMethods.SetForegroundWindow(_parentHandle);
-            }
+            // Call our method to close the dialog and fire off the Closed event.
+            OnClosed(true);
         }
         /// <summary>
         /// Resets all properties to their default values.
