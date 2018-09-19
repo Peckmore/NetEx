@@ -9,7 +9,7 @@ using System.Windows.Forms.Internal;
 namespace System.Windows.Forms
 {
     /// <summary>
-    /// Informs the user of progress using a standard progress dialog. This class cannot be inherited.
+    /// Displays a standard dialog box that informs the user of the progress of an action. This class cannot be inherited.
     /// </summary> 
     [DefaultEvent("Closed")]
     [DefaultProperty("Value")]
@@ -55,7 +55,7 @@ namespace System.Windows.Forms
         #region Construction
 
         /// <summary>
-        /// Initializes an instance of the <see cref="ProgressDialog" /> class.
+        /// Initializes a new instance of the <see cref="ProgressDialog" /> class.
         /// </summary>
         [SuppressMessage("ReSharper", "InheritdocConsiderUsage")]
         public ProgressDialog() => Reset();
@@ -75,22 +75,22 @@ namespace System.Windows.Forms
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public AnimationResource Animation { get; set; }
         /// <summary>
-        /// Gets or sets a value that indicates whether the progress dialog should automatically close upon cancelation or completion. This property only applies if the progress dialog is shown using the <see cref="Show()"/> method or one of its overloads.
+        /// Gets or sets a value that indicates whether the dialog box should automatically close upon cancelation or completion. This property only applies if the progress dialog is shown using the <see cref="Show()"/> method or one of its overloads.
         /// </summary>
         /// <value>true if the dialog box should automatically close upon cancelation or completion; otherwise false.</value>
         [Category("Behavior")]
         [DefaultValue(true)]
-        [Description("Specifies whether the ProgressDialog will automatically close upon cancelation or completion.")]
+        [Description("Controls whether the dialog box will automatically close upon cancelation or completion.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool AutoClose { get; set; }
         /// <summary>
-        /// Gets or sets a value that indicates whether the dialog calculates the time remaining based on its active time and progress. If this property is set to true, text can only be displayed on lines 1 and 2.
+        /// Gets or sets a value that indicates whether the dialog box calculates the time remaining based on its active time and progress. If this property is set to true, text can only be displayed on lines 1 and 2.
         /// </summary>
         /// <value>true if the dialog box automatically estimate the remaining time; otherwise, false. The default is true.</value>
         [Category("Behavior")]
         [DefaultValue(true)]
-        [Description("Specifies whether the ProgressDialog will automatically calculate the time remaining.")]
+        [Description("Controls whether the dialog box will automatically calculate the time remaining.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool AutoTime { get; set; }
@@ -100,7 +100,7 @@ namespace System.Windows.Forms
         /// <value>true to display a Cancel button for the dialog box; otherwise, false. The default is true.</value>
         [Category("Appearance")]
         [DefaultValue(true)]
-        [Description("Determines whether the ProgressDialog has a cancel button. Only applies to Windows Vista and later.")]
+        [Description("Controls whether the dialog box has a cancel button. Only applies to Windows Vista and later.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool CancelButton { get; set; }
@@ -122,18 +122,18 @@ namespace System.Windows.Forms
         /// <value>true to have path strings compacted if they are too large to fit on a line; otherwise, false. The default is true.</value>
         [Category("Behavior")]
         [DefaultValue(true)]
-        [Description("Determines whether the ProgressDialog truncates path strings if they are too large to fit on a line.")]
+        [Description("Controls whether the dialog box truncates path strings if they are too large to fit on a line.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool CompactPath { get; set; }
         /// <summary>
-        /// Gets or sets the maximum value of the range of the control.
+        /// Gets or sets the maximum value of the range of the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to false.
         /// </summary>
-        /// <value>The maximum value of the range. The default is 100.</value>
+        /// <value>The maximum value of the range of the progress bar within the dialog box. The default is 100.</value>
         [Category("Behavior")]
         [CLSCompliant(false)]
         [DefaultValue(typeof(ulong), "100")]
-        [Description("The upper bound of the range this ProgressDialog is working with.")]
+        [Description("The upper bound of the range the dialog box is working with.")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public ulong Maximum { get; set; }
         /// <summary>
@@ -142,7 +142,7 @@ namespace System.Windows.Forms
         /// <value>true to display a Minimize button for the dialog box; otherwise, false. The default is true.</value>
         [Category("Appearance")]
         [DefaultValue(true)]
-        [Description("Determines whether the ProgressDialog has a minimize box in the upper-right corner of its caption bar.")]
+        [Description("Determines whether the dialog box has a minimize box in the upper-right corner of its caption bar.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool MinimizeBox { get; set; }
@@ -155,7 +155,7 @@ namespace System.Windows.Forms
         /// </exception>
         [Category("Appearance")]
         [DefaultValue(typeof(ProgressDialogProgressBarStyle), "Continuous")]
-        [Description("This property allows the user to set the style of the progress bar within the ProgressDialog. Only applies to Windows Vista and later.")]
+        [Description("This property allows the user to set the style of the progress bar within the dialog box. Only applies to Windows Vista and later.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public ProgressDialogProgressBarStyle ProgressBarStyle
         {
@@ -175,7 +175,7 @@ namespace System.Windows.Forms
         /// <remarks>Typically, an application can quantitatively determine how much of the operation remains and periodically pass that value to the progress dialog box. The progress dialog box then uses this information to update its progress bar. You would typically set this property to false if the calling application must wait for an operation to finish but does not have any quantitative information it can use to update the dialog box.</remarks>
         [Category("Appearance")]
         [DefaultValue(true)]
-        [Description("Determines whether the ProgressDialog has a progress bar.")]
+        [Description("Controls whether the dialog box has a progress bar.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool ShowProgressBar { get; set; }
@@ -185,30 +185,29 @@ namespace System.Windows.Forms
         /// <value>true to display the time remaining for the dialog box; otherwise, false. The default is true.</value>
         [Category("Appearance")]
         [DefaultValue(true)]
-        [Description("Determines whether the ProgressDialog shows \"time remaining\" information.")]
+        [Description("Controls whether the dialog box shows \"time remaining\" information.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool ShowRemainingTime { get; set; }
         /// <summary>
-        /// Gets or sets the progress dialog box title.
+        /// Gets or sets the dialog box title.
         /// </summary>
-        /// <value>The progress dialog box title. The default value is an empty string ("").</value>
+        /// <value>The dialog box title. The default value is an empty string ("").</value>
         [Category("Appearance")]
         [DefaultValue("")]
-        [Description("The string to display in the title bar of the ProgressDialog.")]
+        [Description("The string to display in the title bar of the dialog box.")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [Localizable(true)]
         public string Title { get; set; }
-
         /// <summary>
-        /// Gets or sets the current position of the progress bar within the dialog box.
+        /// Gets or sets the current position of the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to false.
         /// </summary>
         /// <value>The position within the range of the progress bar. The default is 0.</value>
         [Bindable(true)]
         [Category("Behavior")]
         [CLSCompliant(false)]
         [DefaultValue(typeof(ulong), "0")]
-        [Description("The current value for the ProgressDialog, in the range specified between 0 and the maximum property.")]
+        [Description("The current value for the dialog box, in the range specified between 0 and the maximum property.")]
         public ulong Value
         {
             get => _value;
@@ -242,7 +241,7 @@ namespace System.Windows.Forms
                 _iProgressDialog = null;
             }
         }
-        private void OnClosed(Boolean waitForThread)
+        private void OnClosed(bool waitForThread)
         {
             // Set a flag to indicate that the dialog has been closed - this also
             // tells our thread to stop
@@ -493,7 +492,7 @@ namespace System.Windows.Forms
         #region Public
 
         /// <summary>
-        /// Closes the progress dialog box.
+        /// Closes the dialog box.
         /// </summary>
         [SuppressMessage("ReSharper", "InvertIf")]
         public void Close()
@@ -506,7 +505,7 @@ namespace System.Windows.Forms
             OnClosed(true);
         }
         /// <summary>
-        /// Resets all properties to their default values.
+        /// Resets properties to their default values.
         /// </summary>
         [SuppressMessage("ReSharper", "InheritdocConsiderUsage")]
         public override void Reset()
@@ -522,7 +521,7 @@ namespace System.Windows.Forms
             }
         }
         /// <summary>
-        /// Displays a message in the progress dialog.
+        /// Displays a message in the dialog.
         /// </summary>
         /// <param name="line">The line number on which the text is to be displayed. Currently there are three lines — 1, 2, and 3. If <see cref="AutoTime"/> is set to true only lines 1 and 2 can be used. The estimated time will be displayed on line 3.</param>
         /// <param name="message">The message to be displayed on the line specified.</param>
@@ -542,7 +541,7 @@ namespace System.Windows.Forms
             _updated.Set();
         }
         /// <summary>
-        /// Runs a common dialog box in a non-modal fashion with a default owner.
+        /// Runs a common dialog box with a default owner in a non-modal fashion.
         /// </summary>
         [SuppressMessage("ReSharper", "IntroduceOptionalParameters.Global")]
         [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -551,7 +550,7 @@ namespace System.Windows.Forms
             Show(null);
         }
         /// <summary>
-        /// Runs a common dialog box in a non-modal fashion with the specified owner.
+        /// Runs a common dialog box with the specified owner in a non-modal fashion.
         /// </summary>
         /// <param name="owner">Any object that implements <see cref="IWin32Window"/> that represents the top-level window that will own the modal dialog box.</param>
         public void Show(IWin32Window owner)
