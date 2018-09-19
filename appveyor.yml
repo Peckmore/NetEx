@@ -1,7 +1,8 @@
-version: 1.0.{build}
+version: 1.1.{build}
 branches:
   only:
   - master
+skip_tags: true
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
@@ -19,10 +20,12 @@ build:
   parallel: true
   verbosity: minimal
 artifacts:
-- path: bin\Release\System.Windows.Forms.ProgressDialog.dll
-  name: System.Windows.Forms.ProgressDialog.dll
 - path: bin\Release\NetExDemo.exe
   name: NetExDemo.exe
+- path: bin\Release\System.Windows.Forms.CredentialDialog.dll
+  name: System.Windows.Forms.CredentialDialog.dll
+- path: bin\Release\System.Windows.Forms.ProgressDialog.dll
+  name: System.Windows.Forms.ProgressDialog.dll
 deploy:
 - provider: NuGet
   api_key:
@@ -31,5 +34,5 @@ deploy:
 - provider: GitHub
   auth_token:
     secure: isEFYOVaEKqlpeedx1hkwBRLJmJ203QY5aD78YjoJMkTRE06axrX48fPfXNP5BNu
-  artifact: System.Windows.Forms.ProgressDialog.dll,NetExDemo.exe
+  artifact: System.Windows.Forms.CredentialDialog.dll,System.Windows.Forms.ProgressDialog.dll
   draft: true

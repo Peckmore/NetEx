@@ -1,5 +1,4 @@
-﻿using NetExDemo.ProgressDialog;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace NetExDemo
@@ -14,7 +13,7 @@ namespace NetExDemo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ProgressDialogForm());
+            Application.Run(new MainForm());
         }
     }
 }

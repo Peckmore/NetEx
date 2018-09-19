@@ -8,7 +8,7 @@ namespace System.Windows.Forms.Internal
     /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb775262(v=vs.85).aspx"/>
     [Flags]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    internal enum ProgressDialogFlags : uint
+    internal enum PROGDLG : uint
     {
         /// <summary>
         /// Normal progress dialog box behavior.
