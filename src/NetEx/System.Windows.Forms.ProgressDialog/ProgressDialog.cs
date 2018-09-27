@@ -395,7 +395,7 @@ namespace System.Windows.Forms
 
                             // If we are modeless raise the Canceled event.
                             if (!_modal)
-                                Canceled?.Invoke(this, EventArgs.Empty);
+                                Canceled?.BeginInvoke(this, EventArgs.Empty, null, null);
 
                             // If we are modal, or if we are modeless and AutoClose is set to
                             // true then exit the loop.
@@ -422,7 +422,7 @@ namespace System.Windows.Forms
 
                             // If we are modeless raise the Completed event.
                             if (!_modal)
-                                Completed?.Invoke(this, EventArgs.Empty);
+                                Completed?.BeginInvoke(this, EventArgs.Empty, null, null);
 
                             // If we are modal, or if we are modeless and AutoClose is set to
                             // true then exit the loop.
