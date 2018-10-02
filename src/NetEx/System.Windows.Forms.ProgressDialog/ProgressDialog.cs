@@ -225,7 +225,7 @@ namespace System.Windows.Forms
 
         #region Private
 
-        private void CloseDialog()
+        private void CloseComDialog()
         {
             // If the COM dialog exists then close it and clean up
             if (_iProgressDialog != null)
@@ -271,7 +271,7 @@ namespace System.Windows.Forms
                 // Now dispose of any managed resources
 
                 // Check to make sure that the COM dialog object has been cleaned up
-                CloseDialog();
+                CloseComDialog();
 
                 // Close our reset event objects
                 _threadCompleted.Close();
@@ -438,7 +438,7 @@ namespace System.Windows.Forms
                 finally
                 {
                     // Close the dialog COM object.
-                    CloseDialog();
+                    CloseComDialog();
 
                     // Release any resources used loading an AnimationResource.
                     if (animationModuleHandle != IntPtr.Zero)
