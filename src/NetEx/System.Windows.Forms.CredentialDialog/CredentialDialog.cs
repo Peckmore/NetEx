@@ -11,7 +11,7 @@ using System.Windows.Forms.Internal;
 namespace System.Windows.Forms
 {
     /// <summary>
-    /// Prompts the user for credentials using a standard credential dialog. This class cannot be inherited.
+    /// Displays a standard dialog box that prompts the user to enter credentials. This class cannot be inherited.
     /// </summary>
     [DefaultEvent("HelpRequest")]
     [DefaultProperty("Username")]
@@ -22,23 +22,23 @@ namespace System.Windows.Forms
         #region Constants
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int CREDUI_BANNER_HEIGHT = 60;
+        private const int CREDUI_BANNER_HEIGHT = 60;
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int CREDUI_BANNER_WIDTH = 320;
+        private const int CREDUI_BANNER_WIDTH = 320;
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int CREDUI_MAX_CAPTION_LENGTH = 128;
+        private const int CREDUI_MAX_CAPTION_LENGTH = 128;
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int CREDUI_MAX_DOMAIN_TARGET_LENGTH = 337;
+        private const int CREDUI_MAX_DOMAIN_TARGET_LENGTH = 337;
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int CREDUI_MAX_MESSAGE_LENGTH = 32767;
+        private const int CREDUI_MAX_MESSAGE_LENGTH = 32767;
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int CREDUI_MAX_PASSWORD_LENGTH = 256;
+        private const int CREDUI_MAX_PASSWORD_LENGTH = 256;
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int CREDUI_MAX_USERNAME_LENGTH = 513;
+        private const int CREDUI_MAX_USERNAME_LENGTH = 513;
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int ERROR_CANCELLED = 1223;
+        private const int ERROR_CANCELLED = 1223;
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public const int ERROR_SUCCESS = 0;
+        private const int ERROR_SUCCESS = 0;
 
         #endregion
 
@@ -57,7 +57,7 @@ namespace System.Windows.Forms
         #region Construction
 
         /// <summary>
-        /// Initializes an instance of the <see cref="CredentialDialog" /> class.
+        /// Initializes a new instance of the <see cref="CredentialDialog" /> class.
         /// </summary>
         [SuppressMessage("ReSharper", "InheritdocConsiderUsage")]
         public CredentialDialog() => Reset();
@@ -67,34 +67,31 @@ namespace System.Windows.Forms
         #region Properties
 
         /// <summary>
-        /// Gets or sets a value indicating a Windows error code to be displayed in the dialog box.
+        /// Gets or sets a value indicating a Windows error code to be displayed in the dialog box. This only applies to Windows Vista or later, and only when <see cref="AutoUpgradeEnabled"/> is set to true.
         /// </summary>
-        /// <remarks>On Windows Vista the corresponding error message is formatted and displayed in the dialog box unless <see cref="AutoUpgradeEnabled"/> is set to false.</remarks>
+        /// <value>The Windows error code for the corresponding error message to be formatted and displayed in the dialog box.</value>
         [Category("Behaviour")]
         [DefaultValue(0)]
-        [Description("Indicates why the CredentialDialog is needed.")]
+        [Description("Controls what Windows error message to show in the dialog.")]
         public int AuthenticationError { get; set; }
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="CredentialDialog"/> instance should automatically upgrade appearance and behavior when running on Windows Vista.
+        /// Gets or sets a value indicating whether the dialog box should automatically upgrade appearance and behavior when running on Windows Vista or later.
         /// </summary>
-        /// <value>true if this <see cref="CredentialDialog"/> instance should automatically upgrade appearance and behavior when running on Windows Vista; otherwise, false. The default is true.</value>
-        /// <remarks>
-        /// If this property is false, the <see cref="CredentialDialog"/> class will have a Windows XP-style appearance and behavior on Windows Vista.
-        /// <para>On Windows XP and Windows Server 2003, this property does not have any effect.</para>
-        /// </remarks>
+        /// <value>true if the dialog box should automatically upgrade appearance and behavior when running on Windows Vista or later; otherwise, false. The default is true.</value>
+        /// <remarks>If this property is false the dialog box will have a Windows XP-style appearance and behavior on Windows Vista. On Windows XP and Windows Server 2003 this property does not have any effect.</remarks>
         [DefaultValue(true)]
         public bool AutoUpgradeEnabled { get; set; }
         /// <summary>
         /// Gets or sets a value indicating the types of credentials that will be shown in the dialog box when running on Windows XP and Windows Server 2003, or when <see cref="AutoUpgradeEnabled"/> is set to false.
         /// </summary>
         /// <value>One of the <see cref="CredentialDialogCredentialFilter"/> values. The default value is <see cref="CredentialDialogCredentialFilter.AllCredentials"/>.</value>
-        /// <remarks>This property is only applicable on Windows XP and Windows Server 2003, or on later versions of Windows when using the <see cref="CredentialDialog"/> with <see cref="AutoUpgradeEnabled"/> set to false.</remarks>
+        /// <remarks>This property is only applicable on Windows XP and Windows Server 2003, or on later versions of Windows when using the dialog box with <see cref="AutoUpgradeEnabled"/> set to false.</remarks>
         [Category("Behaviour")]
         [DefaultValue(CredentialDialogCredentialFilter.AllCredentials)]
-        [Description("Indicates the types of credentials that will be shown in the CredentialDialog.")]
+        [Description("The types of credentials to display in the dialog.")]
         public CredentialDialogCredentialFilter CredentialFilter { get; set; }
         /// <summary>
-        /// Gets or sets a string containing the domain entered in the dialog box.
+        /// Gets or sets the domain entered in the dialog box.
         /// </summary>
         /// <value>The domain entered in the dialog box. The default value is an empty string ("").</value>
         /// <exception cref="ArgumentException">
@@ -102,7 +99,7 @@ namespace System.Windows.Forms
         /// </exception>
         [Category("Data")]
         [DefaultValue("")]
-        [Description("The domain entered in the CredentialDialog.")]
+        [Description("The domain entered in the dialog box.")]
         public string Domain
         {
             get => _domain;
@@ -110,8 +107,7 @@ namespace System.Windows.Forms
             {
                 if (value != null)
                     if (value.Length > CREDUI_MAX_DOMAIN_TARGET_LENGTH)
-                        throw new ArgumentException(
-                            $"The domain name has a maximum length of {CREDUI_MAX_DOMAIN_TARGET_LENGTH} characters.", nameof(value));
+                        throw new ArgumentException($"The domain name has a maximum length of {CREDUI_MAX_DOMAIN_TARGET_LENGTH} characters.", nameof(value));
 
                 _domain = value;
             }
@@ -119,10 +115,11 @@ namespace System.Windows.Forms
         /// <summary>
         /// Gets or sets a value indicating whether the dialog box should prevent the user from changing the supplied username when running on Windows XP and Windows Server 2003, or when <see cref="AutoUpgradeEnabled"/> is set to false.
         /// </summary>
-        /// <value>true if this <see cref="CredentialDialog"/> instance should prevent the user from changing the supplied username; otherwise, false. The default is true.</value>
+        /// <value>true if the dialog box should prevent the user from changing the supplied username; otherwise, false. The default is true.</value>
+        /// <remarks>This property is only applicable on Windows XP and Windows Server 2003, or on later versions of Windows when using the dialog box with <see cref="AutoUpgradeEnabled"/> set to false.</remarks>
         [Category("Behaviour")]
         [DefaultValue(false)]
-        [Description("Indicates whether the CredentialDialog should prevent the user from changing the username.")]
+        [Description("Controls whether the dialog box should prevent the user from changing the username.")]
         public bool DisableUsername { get; set; }
         /// <summary>
         /// Gets or sets the image that is displayed in the dialog box when running on Windows XP and Windows Server 2003, or when <see cref="AutoUpgradeEnabled"/> is set to false.
@@ -130,14 +127,14 @@ namespace System.Windows.Forms
         /// <value>The <see cref="Drawing.Image"/> to display.</value>
         /// <remarks>
         /// If this member is NULL, a default bitmap is used. The bitmap size is limited to 320x60 pixels.
-        /// <para>This property is only applicable on Windows XP and Windows Server 2003, or on later versions of Windows when using the <see cref="CredentialDialog"/> with <see cref="AutoUpgradeEnabled"/> set to false.</para>
+        /// <para>This property is only applicable on Windows XP and Windows Server 2003, or on later versions of Windows when using the dialog box with <see cref="AutoUpgradeEnabled"/> set to false.</para>
         /// </remarks>
         /// <exception cref="ArgumentException">
         /// <paramref name="value"/> does not have the correct height or width.
         /// </exception>
         [Category("Appearance")]
         [DefaultValue(null)]
-        [Description("The image displayed in the CredentialDialog.")]
+        [Description("The image to display in the dialog.")]
         public Image Image
         {
             get => _image;
@@ -158,11 +155,11 @@ namespace System.Windows.Forms
         /// <summary>
         /// Gets or sets a value indicating whether the dialog box should automatically notify the user of insufficient credentials by displaying the "Logon unsuccessful" balloon tip. This only applies when running on Windows XP and Windows Server 2003, or when <see cref="AutoUpgradeEnabled"/> is set to false.
         /// </summary>
-        /// <value>true if the credential dialog box should automatically notify the user of insufficient credentials by displaying the "Logon unsuccessful" balloon tip; otherwise, false. The default is false.</value>
-        /// <remarks>This property is only applicable on Windows XP and Windows Server 2003, or on later version of Windows when using the <see cref="CredentialDialog"/> with <see cref="AutoUpgradeEnabled"/> set to false.</remarks>
+        /// <value>true if the dialog box should automatically notify the user of insufficient credentials by displaying the "Logon unsuccessful" balloon tip; otherwise, false. The default is false.</value>
+        /// <remarks>This property is only applicable on Windows XP and Windows Server 2003, or on later versions of Windows when using the dialog box with <see cref="AutoUpgradeEnabled"/> set to false.</remarks>
         [Category("Behaviour")]
         [DefaultValue(false)]
-        [Description("Indicates whether the CredentialDialog should automatically notify the user of insufficient credentials by displaying the \"Logon unsuccessful\" balloon tip.")]
+        [Description("Controls whether the dialog box should automatically notify the user of insufficient credentials by displaying the \"Logon unsuccessful\" balloon tip.")]
         public bool IncorrectPasswordPrompt { get; set; }
         /// <summary>
         /// Gets or sets the text to display in the dialog box.
@@ -173,7 +170,7 @@ namespace System.Windows.Forms
         /// </exception>
         [Category("Appearance")]
         [DefaultValue("")]
-        [Description("The text to display in the CredentialDialog.")]
+        [Description("The text to display in the dialog.")]
         [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public string Message
         {
@@ -196,7 +193,7 @@ namespace System.Windows.Forms
         /// </exception>
         [Category("Data")]
         [DefaultValue(null)]
-        [Description("The password entered in the CredentialDialog.")]
+        [Description("The password entered in the dialog box.")]
         [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public SecureString Password
         {
@@ -217,7 +214,7 @@ namespace System.Windows.Forms
         /// <value>The value of <see cref="Password"/> converted to a <see cref="String"/>.</value>
         /// <remarks>This method is provided for debugging purposes only and is only included in debug builds.</remarks>
         [Category("Data")]
-        [Description("The password entered in the CredentialDialog.")]
+        [Description("The password entered in the dialog box.")]
         [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public string PasswordString
         {
@@ -246,7 +243,7 @@ namespace System.Windows.Forms
         /// <remarks>The <see cref="ShowSave"/> property must be set before in order for the save check box to appear in the dialog box.</remarks>
         [Category("Behaviour")]
         [DefaultValue(false)]
-        [Description("The state of the save check box in the CredentialDialog.")]
+        [Description("The state of the save check box in the dialog.")]
         [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public bool SaveChecked
         {
@@ -259,18 +256,18 @@ namespace System.Windows.Forms
         /// <value>true if the dialog box contains a save check box; otherwise, false. The default value is true.</value>
         [Category("Appearance")]
         [DefaultValue(true)]
-        [Description("Controls whether to show the save check box in the CredentialDialog.")]
+        [Description("Controls whether to show the save check box in the dialog.")]
         public bool ShowSave { get; set; }
         /// <summary>
-        /// Gets or sets the string to display as the caption of the credential dialog box.
+        /// Gets or sets the dialog box title.
         /// </summary>
-        /// <value>The text to display in the title bar of the dialog box. The default value is an empty string ("").</value>
+        /// <value>The dialog box title. The default value is an empty string ("").</value>
         /// <exception cref="ArgumentException">
         /// <paramref name="value"/> exceeds the maximum length for the title.
         /// </exception>
         [Category("Appearance")]
         [DefaultValue("")]
-        [Description("The string to display in the title bar of the CredentialDialog.")]
+        [Description("The string to display in the title bar of the dialog box.")]
         [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public string Title
         {
@@ -285,15 +282,15 @@ namespace System.Windows.Forms
             }
         }
         /// <summary>
-        /// Gets or sets a string containing the username entered in the credential dialog box.
+        /// Gets or sets the username entered in the dialog box.
         /// </summary>
-        /// <value>The username entered in the credential dialog box. The default value is an empty string ("").</value>
+        /// <value>The username entered in the dialog box. The default value is an empty string ("").</value>
         /// <exception cref="ArgumentException">
         /// <paramref name="value"/> exceeds the maximum length for a username.
         /// </exception>
         [Category("Data")]
         [DefaultValue("")]
-        [Description("The username entered in the CredentialDialog.")]
+        [Description("The username entered in the dialog box.")]
         public string Username
         {
             get => _username;
@@ -700,7 +697,7 @@ namespace System.Windows.Forms
         #region Public
 
         /// <summary>
-        /// Resets all properties to their default values.
+        /// Resets properties to their default values.
         /// </summary>
         [SuppressMessage("ReSharper", "InheritdocConsiderUsage")]
         public override void Reset()
