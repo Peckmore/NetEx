@@ -108,16 +108,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NetEx\System.Windows.Forms.CredentialDialog\System.Windows.Forms.CredentialDialog.csproj">
-      <Project>{5116d193-c76a-4e68-bd80-f9b7d55f0c0e}</Project>
-      <Name>System.Windows.Forms.CredentialDialog</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetEx\System.Windows.Forms.ProgressDialog\System.Windows.Forms.ProgressDialog.csproj">
-      <Project>{dad298fb-bb35-417c-b108-65d377acdaeb}</Project>
-      <Name>System.Windows.Forms.ProgressDialog</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="CredentialDialog\CredentialDialogForm.resx">
       <DependentUpon>CredentialDialogForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,6 +122,16 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetEx\System.Windows.Forms.CredentialDialog\System.Windows.Forms.CredentialDialog.csproj">
+      <Project>{5116d193-c76a-4e68-bd80-f9b7d55f0c0e}</Project>
+      <Name>System.Windows.Forms.CredentialDialog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetEx\System.Windows.Forms.ProgressDialog\System.Windows.Forms.ProgressDialog.csproj">
+      <Project>{dad298fb-bb35-417c-b108-65d377acdaeb}</Project>
+      <Name>System.Windows.Forms.ProgressDialog</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

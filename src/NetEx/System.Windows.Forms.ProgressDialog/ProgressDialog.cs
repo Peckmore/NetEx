@@ -22,7 +22,6 @@ namespace System.Windows.Forms
         private bool _dialogResponse;
         private bool _hasCanceled;
         private bool _hasClosed = true;
-        private bool _hasCompleted;
         private IProgressDialog _iProgressDialog;
         private readonly string[] _lines = new string[3];
         private bool _invokedModal = true;
@@ -45,10 +44,6 @@ namespace System.Windows.Forms
         /// Occurs when the <see cref="ProgressDialog"/> is closed. The event is not raised if the dialog box was shown using <see cref="CommonDialog.ShowDialog()"/> or one of its overloads.
         /// </summary>
         public event EventHandler Closed;
-        /// <summary>
-        /// Occurs when the <see cref="ProgressDialog"/> <see cref="Value"/> reaches the specified maximum. The event is not raised if the dialog box was shown using <see cref="CommonDialog.ShowDialog()"/> or one of its overloads.
-        /// </summary> 
-        public event EventHandler Completed;
 
         #endregion
 
@@ -75,7 +70,7 @@ namespace System.Windows.Forms
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public AnimationResource Animation { get; set; }
         /// <summary>
-        /// Gets or sets a value that indicates whether the dialog box should automatically close upon cancelation or completion. This property only applies if the progress dialog is shown using the <see cref="Show()"/> method or one of its overloads.
+        /// Gets or sets a value that indicates whether the dialog box should automatically close upon cancelation or completion.
         /// </summary>
         /// <value>true if the dialog box should automatically close upon cancelation or completion; otherwise false.</value>
         [Category("Behavior")]
@@ -303,7 +298,6 @@ namespace System.Windows.Forms
             // Set our flags
             _hasCanceled = false;
             _hasClosed = false;
-            _hasCompleted = false;
 
             // Keep a reference to the owner for if we are running modeless.
             _parentHandle = hwndOwner;
@@ -397,42 +391,27 @@ namespace System.Windows.Forms
                             if (!_modal)
                                 Canceled?.BeginInvoke(this, EventArgs.Empty, null, null);
 
-                            // If we are modal, or if we are modeless and AutoClose is set to
-                            // true then exit the loop.
-                            if (_modal || AutoClose)
+                            // If AutoClose is set to true then exit the loop.
+                            if (AutoClose)
                                 break;
                         }
-                        else if (Value >= Maximum && !_hasCompleted)
+                        else if (Value >= Maximum && AutoClose)
                         {
                             // The user has set the Value for the progress of the dialog to
                             // greater than or equal to the Maximum value (in which case the
-                            // dialog has 'Completed') and we haven't already processed this.
+                            // dialog has 'Completed'). If AutoClose is set to true then exit
+                            // the loop.
 
-                            // We use this flag to indicate that we have already processed
-                            // the user 'completing' the dialog. This prevents us from raising
-                            // the Completed event multiple times.
-                            _hasCompleted = true;
-
-                            // For neatness of presentation, we set the progress of the dialog
-                            // to it's maximum value.
-                            _iProgressDialog.SetProgress64(Maximum, Maximum);
-
-                            // Set the dialog response to true as the dialog completed.
+                            // Set the dialog response to true as the dialog has 'completed".
                             _dialogResponse = true;
 
-                            // If we are modeless raise the Completed event.
-                            if (!_modal)
-                                Completed?.BeginInvoke(this, EventArgs.Empty, null, null);
-
-                            // If we are modal, or if we are modeless and AutoClose is set to
-                            // true then exit the loop.
-                            if (_modal || AutoClose)
-                                break;
+                            // Exit the loop.
+                            break;
                         }
-                        else if (!_hasCompleted && !_hasCanceled)
+                        else if (!_hasCanceled)
                         {
-                            // We only carry on updating if the dialog hasn't already completed or been
-                            // canceled. This allows the Cancel message to be correctly displayed.
+                            // We only carry on updating if the dialog hasn't been canceled.
+                            // This allows the Cancel message to be correctly displayed.
 
                             // Update the text lines of our dialog, accounting for whether
                             // AutoTime is enabled.
@@ -457,7 +436,7 @@ namespace System.Windows.Forms
                     }
                 }
                 finally
-                {   
+                {
                     // Close the dialog COM object.
                     CloseDialog();
 
