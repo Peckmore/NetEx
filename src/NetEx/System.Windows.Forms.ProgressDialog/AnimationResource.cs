@@ -36,10 +36,12 @@ namespace System.Windows.Forms
         /// <summary>
         /// The filename of the resource containing the Audio-Video Interleaved (AVI) clip.
         /// </summary>
+        /// <value>A string containing the filename of the resource.</value>
         public string FileName { get; }
         /// <summary>
         /// The index of the Audio-Video Interleaved (AVI) clip within the resources contained in the file.
         /// </summary>
+        /// <value>A value represeting the index of the resource within the file.</value>
         public ushort ResourceIndex { get; }
 
         #endregion
