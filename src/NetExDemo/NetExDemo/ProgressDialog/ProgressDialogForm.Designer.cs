@@ -82,7 +82,6 @@
             this.progressDialog.Title = "progressDialog1";
             this.progressDialog.Canceled += new System.EventHandler(this.ProgressDialog_Canceled);
             this.progressDialog.Closed += new System.EventHandler(this.ProgressDialog_Closed);
-            this.progressDialog.Completed += new System.EventHandler(this.ProgressDialog_Completed);
             // 
             // ProgressDialogForm
             // 
