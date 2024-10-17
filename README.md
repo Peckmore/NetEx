@@ -18,7 +18,7 @@ This project is compatible with:
 The source for this repository contains two projects:
 
 - **NetEx.Windows.Forms.ProgressDialog**: The source for the managed implementation of the standard Windows progress dialog.
-- **NetEx.ProgressDialogDemo**: A test project which demonstrate the use of the progress dialog.
+- **NetEx.ProgressDialogDemo**: A test project which demonstrates the use of the progress dialog.
 
 ## Releases
 
