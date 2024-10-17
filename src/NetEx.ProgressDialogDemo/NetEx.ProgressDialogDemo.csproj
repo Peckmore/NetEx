@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>NetEx.ProgressDialogDemo</RootNamespace>
+		<AssemblyName>ProgressDialogDemo</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\NetEx.Windows.Forms.ProgressDialog\NetEx.Windows.Forms.ProgressDialog.csproj" />
+	</ItemGroup>
+
+</Project>
