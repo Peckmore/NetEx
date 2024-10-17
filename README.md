@@ -1,43 +1,31 @@
-# NetEx
-Extensions for the .Net Framework
+# NetEx-ProgressDialog
+A managed implementation of the standard Windows progress dialog.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/ajcp5ew8672akkme?svg=true)](https://ci.appveyor.com/project/Peckmore/netex)
+Part of the *[**NetEx**](https://github.com/Peckmore/netex) Extensions for .Net* project.
 
-This repository contains (hopefully!) useful extensions to the .Net Framework. This README serves as a quick overview of the functionality contained within the repository and how the project is structured.
+[![NuGet version (NetEx-ProgressDialog)](https://img.shields.io/nuget/v/NetEx-ProgressDialog.svg?style=flat-square)](https://www.nuget.org/packages/NetEx-ProgressDialog/)
 
 ## Overview
 
-Each project is designed (where possible) to compile into it's own library based around a single set of functionality. For example, the *ProgressDialog* project will compile into a standalone library which provides progress dialog support.
+This project implements a standard Windows progress dialog using the WinForms `CommonDialog` as its base. The project aims to match standard .Net Framework and WinForms behaviour as closely as possible.
 
-All projects target the lowest framework version or standard possible in order to try and maximise compatibility with existing projects. Please note that projects will not all target *the same* framework version or standard, as some rely on functionality introduced in later versions.
-
-## Nuget
-
-All projects are available on NuGet. Each project is listed as a separate NuGet package so that you only need to add the functionality you require. The packages currently available are:
-
-* [NetEx-CredentialDialog](https://www.nuget.org/packages/NetEx-CredentialDialog/)
-* [NetEx-ProgressDialog](https://www.nuget.org/packages/NetEx-ProgressDialog/)
+This project is compatible with:
+- **.Net Framework**: 2.0 to 4.8.1
+- **.Net**: 5.0+ *(Windows only)*
 
 ## Projects
 
-The source for this repository is effectively split into two categories:
+The source for this repository contains two projects:
 
-* **NetEx**: Projects which contain the extensions to the .Net Framework. This is the core of this repository.
-* **NetExDemo**: Test projects which demonstrate the use of the **NetEx** projects.
+- **NetEx.Windows.Forms.ProgressDialog**: The source for the managed implementation of the standard Windows progress dialog.
+- **NetEx.ProgressDialogDemo**: A test project which demonstrate the use of the progress dialog.
 
-### NetEx
+## Releases
 
-**NetEx** currently contains the following projects:
+Releases of this project are available on NuGet:
 
-* **CredentialDialog**: A managed implementation of the standard Windows credential dialog.
-* **ProgressDialog**: A managed implementation of the standard Windows progress dialog.
-
-### NetExDemo
-
-**NetExDemo** currently contains the following projects:
-
-* **NetExDemo**: A test project which demonstrates usage of the **NetEx** libraries.
+- [NetEx-ProgressDialog](https://www.nuget.org/packages/NetEx-ProgressDialog/)
 
 ##  License
 
-The code is licensed under the [MIT license](https://github.com/Peckmore/NetEx/blob/master/LICENSE).
+The code is licensed under the [MIT license](https://github.com/Peckmore/netex-progressdialog?tab=MIT-1-ov-file#readme).
