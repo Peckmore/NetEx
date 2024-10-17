@@ -1,4 +1,4 @@
-﻿namespace NetExDemo.ProgressDialog
+﻿namespace NetEx.ProgressDialogDemo
 {
     partial class ProgressDialogForm
     {
@@ -32,7 +32,7 @@
             this.showButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this.progressDialog = new System.Windows.Forms.ProgressDialog();
+            this.progressDialog = new NetEx.Windows.Forms.ProgressDialog();
             this.SuspendLayout();
             // 
             // showDialogButton
@@ -105,7 +105,7 @@
         private System.Windows.Forms.Button showButton;
         private System.Windows.Forms.PropertyGrid propertyGrid;
         private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.ProgressDialog progressDialog;
+        private NetEx.Windows.Forms.ProgressDialog progressDialog;
     }
 }
 

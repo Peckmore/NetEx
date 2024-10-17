@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace System.Windows.Forms
+namespace NetEx.Windows.Forms
 {
     /// <summary>
     /// Specifies the style of progress bar that a <see cref="ProgressDialog"/> uses to indicate the progress of an operation.

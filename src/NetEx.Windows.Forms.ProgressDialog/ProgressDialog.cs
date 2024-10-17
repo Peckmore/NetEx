@@ -1,12 +1,14 @@
-﻿using System.ComponentModel;
+﻿using NetEx.Windows.Forms.Internal;
+using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms.Internal;
+using System.Windows.Forms;
 
-namespace System.Windows.Forms
+namespace NetEx.Windows.Forms
 {
     /// <summary>
     /// Displays a standard dialog box that informs the user of the progress of an action. This class cannot be inherited.

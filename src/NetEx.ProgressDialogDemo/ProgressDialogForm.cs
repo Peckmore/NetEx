@@ -1,15 +1,14 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Windows.Forms;
+﻿using System.Diagnostics.CodeAnalysis;
+using NetEx.Windows.Forms;
 
-namespace NetExDemo.ProgressDialog
+namespace NetEx.ProgressDialogDemo
 {
     public partial class ProgressDialogForm : Form
     {
         #region Fields
 
-        private Thread _t;
+        private bool _cancelThread;
+        private Thread? _t;
 
         #endregion
 
@@ -36,21 +35,21 @@ namespace NetExDemo.ProgressDialog
         }
         private void ProgressDialog_Canceled(object sender, EventArgs e)
         {
-            // Terminate the worker thread.
-            _t.Abort();
+            // Stop worker thread.
+            StopThread();
         }
         private void ProgressDialog_Closed(object sender, EventArgs e)
         {
-            // Terminate the worker thread.
-            _t.Abort();
+            // Stop worker thread.
+            StopThread();
 
             // Unlock the form buttons.
             UnlockButtons();
         }
         private void ProgressDialog_Completed(object sender, EventArgs e)
         {
-            // Terminate the worker thread.
-            _t.Abort();
+            // Stop worker thread.
+            StopThread();
         }
         private void ShowButton_Click(object sender, EventArgs e)
         {
@@ -60,14 +59,13 @@ namespace NetExDemo.ProgressDialog
             // Lock the form buttons.
             LockButtons();
 
+            // Start worker thread.
+            StartThread();
+
             // Show the dialog before we start our worker thread
             // to prove that this is shown in a non-modal fashion
             // and is not a blocking call.
             progressDialog.Show(this);
-
-            // Start worker thread.
-            _t = new Thread(ThreadMethod);
-            _t.Start();
         }
         [SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions")]
         private void ShowDialogButton_Click(object sender, EventArgs e)
@@ -79,8 +77,7 @@ namespace NetExDemo.ProgressDialog
             LockButtons();
 
             // Start worker thread.
-            _t = new Thread(ThreadMethod);
-            _t.Start();
+            StartThread();
 
             // Show the dialog box after we start our worker thread
             // because calling ShowDialog is a blocking call.
@@ -88,8 +85,8 @@ namespace NetExDemo.ProgressDialog
             // (whether it completed or was canceled).
             MessageBox.Show(progressDialog.ShowDialog(this).ToString());
 
-            // Terminate the worker thread.
-            _t.Abort();
+            // Stop worker thread.
+            StopThread();
 
             // Unlock the form buttons.
             UnlockButtons();
@@ -105,11 +102,34 @@ namespace NetExDemo.ProgressDialog
             showButton.Enabled = false;
             showDialogButton.Enabled = false;
         }
+        private void StartThread()
+        {
+            // Set our cancel flag to false.
+            _cancelThread = false;
+
+            // Start worker thread.
+            _t = new Thread(ThreadMethod);
+            _t.Start();
+        }
+        private void StopThread()
+        {
+            _cancelThread = true;
+
+            if (_t != null)
+            {
+                _t.Join(500);
+
+                if (_t.IsAlive)
+                {
+                    throw new Exception("Failed to end thread.");
+                }
+            }
+        }
         [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters")]
         [SuppressMessage("ReSharper", "LocalizableElement")]
         private void ThreadMethod()
         {
-            while (progressDialog.Value < progressDialog.Maximum)
+            while (!_cancelThread && progressDialog.Value < progressDialog.Maximum)
             {
                 progressDialog.Value += 1;
                 progressDialog.SetLine(1, "Line #1: step " + progressDialog.Value);

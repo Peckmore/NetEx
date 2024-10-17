@@ -1,7 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-namespace System.Windows.Forms
+namespace NetEx.Windows.Forms
 {
     internal static class NativeMethods
     {
