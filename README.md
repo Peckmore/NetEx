@@ -9,6 +9,8 @@ Part of the *[**NetEx**](https://github.com/Peckmore/netex) Extensions for .Net*
 
 This project implements a standard Windows progress dialog using the WinForms `CommonDialog` as its base. The project aims to match standard .Net Framework and WinForms behaviour as closely as possible.
 
+![New Style](resources/images/new-style.png)
+
 This project is compatible with:
 - **.Net Framework**: 2.0 to 4.8.1
 - **.Net**: 5.0+ *(Windows only)*
