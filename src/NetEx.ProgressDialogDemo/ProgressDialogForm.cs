@@ -1,5 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using NetEx.Windows.Forms;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace NetEx.ProgressDialogDemo
 {
@@ -14,12 +16,18 @@ namespace NetEx.ProgressDialogDemo
 
         #region Constructor
 
+        [SuppressMessage("ReSharper", "LocalizableElement")]
         public ProgressDialogForm()
         {
             InitializeComponent();
 
             progressDialog.Animation = AnimationResource.CopyFile;
-            progressDialog.ProgressBarStyle = ProgressDialogProgressBarStyle.Continuous;
+
+#if NET20
+            frameworkToolStripStatusLabel.Text = ".Net Framework 2.0";
+#elif NET8_0
+            frameworkToolStripStatusLabel.Text = ".Net 8.0";
+#endif
         }
 
         #endregion
@@ -46,11 +54,6 @@ namespace NetEx.ProgressDialogDemo
             // Unlock the form buttons.
             UnlockButtons();
         }
-        private void ProgressDialog_Completed(object sender, EventArgs e)
-        {
-            // Stop worker thread.
-            StopThread();
-        }
         private void ShowButton_Click(object sender, EventArgs e)
         {
             // Reset the dialog value to 0.
@@ -67,7 +70,6 @@ namespace NetEx.ProgressDialogDemo
             // and is not a blocking call.
             progressDialog.Show(this);
         }
-        [SuppressMessage("Microsoft.Globalization", "CA1300:SpecifyMessageBoxOptions")]
         private void ShowDialogButton_Click(object sender, EventArgs e)
         {
             // Reset the dialog value to 0.
@@ -81,7 +83,7 @@ namespace NetEx.ProgressDialogDemo
 
             // Show the dialog box after we start our worker thread
             // because calling ShowDialog is a blocking call.
-            // The messagebox shows the dialog result of the ProgressDialog
+            // The message box shows the dialog result of the ProgressDialog
             // (whether it completed or was canceled).
             MessageBox.Show(progressDialog.ShowDialog(this).ToString());
 
@@ -125,7 +127,6 @@ namespace NetEx.ProgressDialogDemo
                 }
             }
         }
-        [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters")]
         [SuppressMessage("ReSharper", "LocalizableElement")]
         private void ThreadMethod()
         {

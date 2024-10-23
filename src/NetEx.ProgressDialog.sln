@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.Windows.Forms.ProgressDialog", "NetEx.Windows.Forms.ProgressDialog\NetEx.Windows.Forms.ProgressDialog.csproj", "{DAD298FB-BB35-417C-B108-65D377ACDAEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEx.ProgressDialog", "NetEx.ProgressDialog\NetEx.ProgressDialog.csproj", "{DAD298FB-BB35-417C-B108-65D377ACDAEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.ProgressDialogDemo", "NetEx.ProgressDialogDemo\NetEx.ProgressDialogDemo.csproj", "{91937276-F353-4B0A-BBA8-92FE3AD58E6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEx.ProgressDialogDemo", "NetEx.ProgressDialogDemo\NetEx.ProgressDialogDemo.csproj", "{91937276-F353-4B0A-BBA8-92FE3AD58E6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,14 +1,12 @@
-﻿using NetEx.Windows.Forms.Internal;
-using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
+using System.Windows.Forms.Internal;
 
-namespace NetEx.Windows.Forms
+namespace System.Windows.Forms
 {
     /// <summary>
     /// Displays a standard dialog box that informs the user of the progress of an action. This class cannot be inherited.
@@ -24,14 +22,14 @@ namespace NetEx.Windows.Forms
         private bool _dialogResponse;
         private bool _hasCanceled;
         private bool _hasClosed = true;
-        private IProgressDialog _iProgressDialog;
-        private readonly string[] _lines = new string[3];
+        private IProgressDialog? _iProgressDialog;
+        private readonly string[] _lines;
         private bool _invokedModal = true;
         private bool _modal;
         private IntPtr _parentHandle = IntPtr.Zero;
         private ProgressDialogProgressBarStyle _progressBarStyle;
-        private AutoResetEvent _threadCompleted = new AutoResetEvent(false);
-        private AutoResetEvent _updated = new AutoResetEvent(false);
+        private readonly AutoResetEvent _threadCompleted;
+        private readonly AutoResetEvent _updated;
         private ulong _value;
 
         #endregion
@@ -41,11 +39,11 @@ namespace NetEx.Windows.Forms
         /// <summary>
         /// Occurs when the user clicks the cancel button on the <see cref="ProgressDialog"/>. The event is not raised if the dialog box was shown using <see cref="CommonDialog.ShowDialog()"/> or one of its overloads.
         /// </summary> 
-        public event EventHandler Canceled;
+        public event EventHandler? Canceled;
         /// <summary>
         /// Occurs when the <see cref="ProgressDialog"/> is closed. The event is not raised if the dialog box was shown using <see cref="CommonDialog.ShowDialog()"/> or one of its overloads.
         /// </summary>
-        public event EventHandler Closed;
+        public event EventHandler? Closed;
 
         #endregion
 
@@ -54,8 +52,17 @@ namespace NetEx.Windows.Forms
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgressDialog" /> class.
         /// </summary>
-        [SuppressMessage("ReSharper", "InheritdocConsiderUsage")]
-        public ProgressDialog() => Reset();
+        public ProgressDialog()
+        {
+            _lines = new string[3];
+            _threadCompleted = new(false);
+            _updated = new(false);
+
+            CancelMessage = string.Empty;
+            Title = string.Empty;
+            
+            Reset();
+        }
 
         #endregion
 
@@ -68,37 +75,32 @@ namespace NetEx.Windows.Forms
         [Browsable(false)]
         [CLSCompliant(false)]
         [DefaultValue(null)]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-        public AnimationResource Animation { get; set; }
+        public AnimationResource? Animation { get; set; }
         /// <summary>
-        /// Gets or sets a value that indicates whether the dialog box should automatically close upon cancelation or completion.
+        /// Gets or sets a value that indicates whether the dialog box should automatically close upon cancellation or completion.
         /// </summary>
-        /// <value>true if the dialog box should automatically close upon cancelation or completion; otherwise false.</value>
+        /// <value><see langword="true"/> if the dialog box should automatically close upon cancellation or completion; otherwise <see langword="false"/>.</value>
         [Category("Behavior")]
         [DefaultValue(true)]
-        [Description("Controls whether the dialog box will automatically close upon cancelation or completion.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [Description("Controls whether the dialog box will automatically close upon cancellation or completion.")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool AutoClose { get; set; }
         /// <summary>
-        /// Gets or sets a value that indicates whether the dialog box calculates the time remaining based on its active time and progress. If this property is set to true, text can only be displayed on lines 1 and 2.
+        /// Gets or sets a value that indicates whether the dialog box calculates the time remaining based on its active time and progress. If this property is set to <see langword="true"/>, text can only be displayed on lines 1 and 2.
         /// </summary>
-        /// <value>true if the dialog box automatically estimate the remaining time; otherwise, false. The default is true.</value>
+        /// <value><see langword="true"/> if the dialog box automatically estimate the remaining time; otherwise, <see langword="false"/>. The default is <see langword="true"/>.</value>
         [Category("Behavior")]
         [DefaultValue(true)]
         [Description("Controls whether the dialog box will automatically calculate the time remaining.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool AutoTime { get; set; }
         /// <summary>
-        /// Gets or sets a value indicating whether the Cancel button is displayed in the client area of the dialog box. If set to false the operation cannot be canceled. Use this only when absolutely necessary. Only applies to Windows Vista and later.
+        /// Gets or sets a value indicating whether the Cancel button is displayed in the client area of the dialog box. If set to <see langword="false"/> the operation cannot be canceled. Use this only when absolutely necessary. Only applies to Windows Vista and later.
         /// </summary>
-        /// <value>true to display a Cancel button for the dialog box; otherwise, false. The default is true.</value>
+        /// <value><see langword="true"/> to display a Cancel button for the dialog box; otherwise, <see langword="false"/>. The default is <see langword="true"/>.</value>
         [Category("Appearance")]
         [DefaultValue(true)]
         [Description("Controls whether the dialog box has a cancel button. Only applies to Windows Vista and later.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool CancelButton { get; set; }
         /// <summary>
@@ -111,20 +113,19 @@ namespace NetEx.Windows.Forms
         [Description("The string to display if the user cancels the operation.")]
         [Localizable(true)]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
         public string CancelMessage { get; set; }
         /// <summary>
-        /// Gets or sets a value indicating whether to truncate path strings for text on lines 1, 2 and 3 of the dialog box. If set to true paths are compacted with PathCompactPath.
+        /// Gets or sets a value indicating whether to truncate path strings for text on lines 1, 2 and 3 of the dialog box. If set to <see langword="true"/> paths are compacted with PathCompactPath.
         /// </summary>
-        /// <value>true to have path strings compacted if they are too large to fit on a line; otherwise, false. The default is true.</value>
+        /// <value><see langword="true"/> to have path strings compacted if they are too large to fit on a line; otherwise, <see langword="false"/>. The default is <see langword="true"/>.</value>
         [Category("Behavior")]
         [DefaultValue(true)]
         [Description("Controls whether the dialog box truncates path strings if they are too large to fit on a line.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool CompactPath { get; set; }
         /// <summary>
-        /// Gets or sets the maximum value of the range of the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to false.
+        /// Gets or sets the maximum value of the range of the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to <see langword="false"/>.
         /// </summary>
         /// <value>The maximum value of the range of the progress bar within the dialog box. The default is 100.</value>
         [Category("Behavior")]
@@ -136,15 +137,14 @@ namespace NetEx.Windows.Forms
         /// <summary>
         /// Gets or sets a value indicating whether the Minimize button is displayed in the caption bar of the dialog box.
         /// </summary>
-        /// <value>true to display a Minimize button for the dialog box; otherwise, false. The default is true.</value>
+        /// <value><see langword="true"/> to display a Minimize button for the dialog box; otherwise, <see langword="false"/>. The default is <see langword="true"/>.</value>
         [Category("Appearance")]
         [DefaultValue(true)]
         [Description("Determines whether the dialog box has a minimize box in the upper-right corner of its caption bar.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool MinimizeBox { get; set; }
         /// <summary>
-        /// Gets or sets the manner in which progress should be indicated on the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to false. Only applies to Windows Vista and later.
+        /// Gets or sets the manner in which progress should be indicated on the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to <see langword="false"/>. Only applies to Windows Vista and later.
         /// </summary>
         /// <value>One of the <see cref="ProgressDialogProgressBarStyle"/> values. The default value is <see cref="ProgressDialogProgressBarStyle.Continuous"/>.</value>
         /// <exception cref="InvalidEnumArgumentException">
@@ -153,14 +153,16 @@ namespace NetEx.Windows.Forms
         [Category("Appearance")]
         [DefaultValue(typeof(ProgressDialogProgressBarStyle), "Continuous")]
         [Description("This property allows the user to set the style of the progress bar within the dialog box. Only applies to Windows Vista and later.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public ProgressDialogProgressBarStyle ProgressBarStyle
         {
             get => _progressBarStyle;
             set
             {
                 if (!Enum.IsDefined(typeof(ProgressDialogProgressBarStyle), value))
+                {
                     throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(ProgressDialogProgressBarStyle));
+                }
 
                 _progressBarStyle = value;
             }
@@ -168,22 +170,20 @@ namespace NetEx.Windows.Forms
         /// <summary>
         /// Gets or sets a value indicating whether a progress bar is displayed in the client area of the dialog box.
         /// </summary>
-        /// <value>true to display a progress bar for the dialog box; otherwise, false. The default is true.</value>
-        /// <remarks>Typically, an application can quantitatively determine how much of the operation remains and periodically pass that value to the progress dialog box. The progress dialog box then uses this information to update its progress bar. You would typically set this property to false if the calling application must wait for an operation to finish but does not have any quantitative information it can use to update the dialog box.</remarks>
+        /// <value><see langword="true"/> to display a progress bar for the dialog box; otherwise, <see langword="false"/>. The default is <see langword="true"/>.</value>
+        /// <remarks>Typically, an application can quantitatively determine how much of the operation remains and periodically pass that value to the progress dialog box. The progress dialog box then uses this information to update its progress bar. You would typically set this property to <see langword="false"/> if the calling application must wait for an operation to finish but does not have any quantitative information it can use to update the dialog box.</remarks>
         [Category("Appearance")]
         [DefaultValue(true)]
         [Description("Controls whether the dialog box has a progress bar.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool ShowProgressBar { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether time remaining is displayed in the client area of the dialog box.
         /// </summary>
-        /// <value>true to display the time remaining for the dialog box; otherwise, false. The default is true.</value>
+        /// <value><see langword="true"/> to display the time remaining for the dialog box; otherwise, <see langword="false"/>. The default is <see langword="true"/>.</value>
         [Category("Appearance")]
         [DefaultValue(true)]
         [Description("Controls whether the dialog box shows \"time remaining\" information.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public bool ShowRemainingTime { get; set; }
         /// <summary>
@@ -193,11 +193,10 @@ namespace NetEx.Windows.Forms
         [Category("Appearance")]
         [DefaultValue("")]
         [Description("The string to display in the title bar of the dialog box.")]
-        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [Localizable(true)]
         public string Title { get; set; }
         /// <summary>
-        /// Gets or sets the current position of the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to false.
+        /// Gets or sets the current position of the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to <see langword="false"/>.
         /// </summary>
         /// <value>The position within the range of the progress bar. The default is 0.</value>
         [Bindable(true)]
@@ -211,7 +210,9 @@ namespace NetEx.Windows.Forms
             set
             {
                 if (value > Maximum)
+                {
                     value = Maximum;
+                }
 
                 // Update the value.
                 _value = value;
@@ -246,7 +247,9 @@ namespace NetEx.Windows.Forms
 
             // Wait for the dialog thread to stop if requested
             if (waitForThread)
+            {
                 _threadCompleted.WaitOne();
+            }
 
             // Set the owner of the dialog (the parent window) as the
             // foreground window. This should make for a nicer user
@@ -256,18 +259,21 @@ namespace NetEx.Windows.Forms
 
             // If we are modeless then invoke the Closed event.
             if (!_modal)
+            {
                 Closed?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         #endregion
 
         #region Protected
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                // Call our "Close" method to do the intial cleanup
+                // Call our "Close" method to do the initial cleanup
                 Close();
 
                 // Now dispose of any managed resources
@@ -277,20 +283,19 @@ namespace NetEx.Windows.Forms
 
                 // Close our reset event objects
                 _threadCompleted.Close();
-                _threadCompleted = null;
                 _updated.Close();
-                _updated = null;
             }
 
             base.Dispose(disposing);
         }
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
+        /// <inheritdoc/>
         [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
         protected override bool RunDialog(IntPtr hwndOwner)
         {
             if (_iProgressDialog != null)
+            {
                 return false;
+            }
 
             // Copy the modal state, then reset the variable so a possible
             // ShowDialog call in the future will work correctly.
@@ -329,26 +334,46 @@ namespace NetEx.Windows.Forms
                     // Build the progress dialog flags based on the properties the user has set
                     var flags = (uint)PROGDLG.PROGDLG_NORMAL;
                     if (_modal)
+                    {
                         flags += (uint)PROGDLG.PROGDLG_MODAL;
+                    }
+
                     if (!ShowRemainingTime)
+                    {
                         flags += (uint)PROGDLG.PROGDLG_NOTIME;
+                    }
+
                     if (AutoTime)
+                    {
                         flags += (uint)PROGDLG.PROGDLG_AUTOTIME;
+                    }
+
                     if (!MinimizeBox)
+                    {
                         flags += (uint)PROGDLG.PROGDLG_NOMINIMIZE;
+                    }
+
                     if (!ShowProgressBar)
+                    {
                         flags += (uint)PROGDLG.PROGDLG_NOPROGRESSBAR;
+                    }
+
                     if (ProgressBarStyle == ProgressDialogProgressBarStyle.Marquee)
+                    {
                         flags += (uint)PROGDLG.PROGDLG_MARQUEEPROGRESS;
+                    }
+
                     if (!CancelButton)
+                    {
                         flags += (uint)PROGDLG.PROGDLG_NOCANCEL;
+                    }
 
                     // We do a check on CancelMessage before we apply it and replace it
                     // with a blank space if the user has set it to null or empty. This
                     // prevents a UI issue with the dialog which causes its contents to
                     // shrink and leave an "unpainted" strip along the bottom of the
                     // dialog if CancelMessage is null or empty when user presses Cancel.
-                    _iProgressDialog.SetCancelMsg(string.IsNullOrEmpty(CancelMessage) ? " " : CancelMessage, null);
+                    _iProgressDialog.SetCancelMsg(CancelMessage, null);
 
                     // Apply the remaining properties
                     _iProgressDialog.SetProgress64(Value, Maximum);
@@ -360,17 +385,24 @@ namespace NetEx.Windows.Forms
                     // as it wouldn't do anything anyway.
                     if (Environment.OSVersion.Version.Major < 6 && Animation != null)
                     {
+                        // ReSharper disable once CommentTypo
                         animationModuleHandle = NativeMethods.LoadLibraryEx(string.Format(CultureInfo.InvariantCulture, "{0}\0", Animation.FileName), IntPtr.Zero, 0x03); // Win32: DONT_RESOLVE_DLL_REFERENCES | LOAD_LIBRARY_AS_DATAFILE
                         if (animationModuleHandle != IntPtr.Zero)
+                        {
                             _iProgressDialog.SetAnimation(animationModuleHandle, Animation.ResourceIndex);
+                        }
                     }
 
                     // Show the progress dialog
                     var hResult = _iProgressDialog.StartProgressDialog(_parentHandle, null, flags, IntPtr.Zero);
                     if (hResult != 0)
+                    {
+                        // ReSharper disable once StringLiteralTypo
                         throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Unable to start the progress dialog. HRESULT: {0}", hResult));
+                    }
 
                     // Reset the timer dialog to begin time remaining calculations
+                    // ReSharper disable once CommentTypo
                     _iProgressDialog.Timer(0x01, null); // Win32: PDTIMER_RESET
 
                     // Monitor for property updates and/or the user pressing cancel
@@ -391,11 +423,15 @@ namespace NetEx.Windows.Forms
 
                             // If we are modeless raise the Canceled event.
                             if (!_modal)
+                            {
                                 Canceled?.BeginInvoke(this, EventArgs.Empty, null, null);
+                            }
 
                             // If AutoClose is set to true then exit the loop.
                             if (AutoClose)
+                            {
                                 break;
+                            }
                         }
                         else if (Value >= Maximum && AutoClose)
                         {
@@ -428,7 +464,7 @@ namespace NetEx.Windows.Forms
 
                         // We use a reset event here as we need to continuously poll the
                         // HasUserCancelled to check whether the user has pressed Cancel.
-                        // We set this polling rate fairly low to minimise the impact on
+                        // We set this polling rate fairly low to minimize the impact on
                         // system performance, but high enough to keep it responsive. But
                         // the user may wish to send updates to the value of the progress
                         // bar or the lines of text at a greater rate. By using the reset
@@ -444,7 +480,9 @@ namespace NetEx.Windows.Forms
 
                     // Release any resources used loading an AnimationResource.
                     if (animationModuleHandle != IntPtr.Zero)
+                    {
                         NativeMethods.FreeLibrary(animationModuleHandle);
+                    }
 
                     // Indicate that the thread has completed.
                     _threadCompleted.Set();
@@ -459,10 +497,12 @@ namespace NetEx.Windows.Forms
             // and monitor for completion/cancellation.
             runDialogThread.Start();
 
-            // If we are running modally then we need to block the calling
+            // If we are running modal then we need to block the calling
             // thread and wait for the dialog to close.
             if (_modal)
+            {
                 runDialogThread.Join();
+            }
 
             // Return the dialog response (only applicable for ShowDialog() calls).
             return _dialogResponse;
@@ -475,12 +515,13 @@ namespace NetEx.Windows.Forms
         /// <summary>
         /// Closes the dialog box.
         /// </summary>
-        [SuppressMessage("ReSharper", "InvertIf")]
         public void Close()
         {
             // If the dialog has already been closed then return immediately.
             if (_hasClosed)
+            {
                 return;
+            }
 
             // Call our method to close the dialog and fire off the Closed event.
             OnClosed(true);
@@ -488,7 +529,6 @@ namespace NetEx.Windows.Forms
         /// <summary>
         /// Resets properties to their default values.
         /// </summary>
-        [SuppressMessage("ReSharper", "InheritdocConsiderUsage")]
         public override void Reset()
         {
             // All configurable properties have a DefaultValueAttribute associated
@@ -498,22 +538,27 @@ namespace NetEx.Windows.Forms
             {
                 var dvList = property.GetCustomAttributes(typeof(DefaultValueAttribute), true);
                 if (dvList.Length > 0 && dvList[0] is DefaultValueAttribute attribute)
+                {
                     property.SetValue(this, attribute.Value, null);
+                }
             }
         }
         /// <summary>
         /// Displays a message in the dialog.
         /// </summary>
-        /// <param name="line">The line number on which the text is to be displayed. Currently there are three lines — 1, 2, and 3. If <see cref="AutoTime"/> is set to true only lines 1 and 2 can be used. The estimated time will be displayed on line 3.</param>
+        /// <param name="line">The line number on which the text is to be displayed. Currently there are three lines — 1, 2, and 3. If <see cref="AutoTime"/> is set to <see langword="true"/> only lines 1 and 2 can be used. The estimated time will be displayed on line 3.</param>
         /// <param name="message">The message to be displayed on the line specified.</param>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="line"/> is less than 1 or greater than 3.
         /// </exception>
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public void SetLine(int line, string message)
         {
             // Check that the line parameter does not fall outside the possible range.
-            if (line < 1 || line > 3)
+            if (line is < 1 or > 3)
+            {
                 throw new ArgumentOutOfRangeException(nameof(line), string.Format(CultureInfo.InvariantCulture, "{0} must be a value of 1, 2 or 3.", nameof(line)));
+            }
 
             // Set the specified line to the message supplied.
             _lines[line - 1] = message;
@@ -524,8 +569,8 @@ namespace NetEx.Windows.Forms
         /// <summary>
         /// Runs a common dialog box with a default owner in a non-modal fashion.
         /// </summary>
-        [SuppressMessage("ReSharper", "IntroduceOptionalParameters.Global")]
         [SuppressMessage("ReSharper", "UnusedMember.Global")]
+        [SuppressMessage("ReSharper", "IntroduceOptionalParameters.Global")]
         public void Show()
         {
             Show(null);
@@ -534,11 +579,13 @@ namespace NetEx.Windows.Forms
         /// Runs a common dialog box with the specified owner in a non-modal fashion.
         /// </summary>
         /// <param name="owner">Any object that implements <see cref="IWin32Window"/> that represents the top-level window that will own the modal dialog box.</param>
-        public void Show(IWin32Window owner)
+        public void Show(IWin32Window? owner)
         {
             // There is already a dialog shown so return immediately.
             if (_iProgressDialog != null)
+            {
                 return;
+            }
 
             // The ShowDialog command does a lot of checks to make sure
             // it is possible to show a dialog, and to get a window handle
