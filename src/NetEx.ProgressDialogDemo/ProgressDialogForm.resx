@@ -117,10 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="progressDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>150, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAMMOAADDDgAAAAAAAAAA
+        AAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A////////////////////////////////////////////////////////////////////////
+        //////////////////9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/RERE/0RE
+        RP9ERET/RERE////////////RERE//j4+P/4+Pj/+Pj4//j4+P/4+Pj/+Pj4//j4+P/4+Pj/+Pj4//j4
+        +P/4+Pj/+Pj4/0RERP///////////0RERP/4+Pj/AP9M/wD/TP8A/0z/AP9M/wD/TP8A/0z/AP9M/wB/
+        Jv8Afyb/AH8m//j4+P9ERET///////////9ERET/+Pj4/wD/TP8A/0z/AP9M/wD/TP8A/0z/AP9M/wD/
+        TP8Afyb/AH8m/wB/Jv/4+Pj/RERE////////////RERE//j4+P/////////////////9/f3/+Pj4//j4
+        +P/4+Pj/+Pj4//j4+P//9/f///f3/0RERP///////////0RERP/4+Pj/RERE/0RERP9ERET/RERE/0RE
+        RP9ERET/+Pj4//j4+P/4+Pj/+Pj4//j4+P9ERET///////////9ERET/+Pj4/////////////v7+//39
+        /f/9/f3/+Pj4//j4+P/4+Pj/+Pj4//j4+P/4+Pj/RERE////////////RERE//j4+P9ERET/RERE/0RE
+        RP9ERET/RERE/0RERP/4+Pj/+Pj4//j4+P/4+Pj/+Pj4/0RERP///////////0RERP/4+Pj/+Pj4//j4
+        +P/4+Pj/+Pj4//j4+P/4+Pj/+Pj4//j4+P/4+Pj/+Pj4//j4+P9ERET///////////9ERET/RERE/0RE
+        RP9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/RERE////////////RERE/0RE
+        RP9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/RERE/0RERP///////////0RE
+        RP9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/RERE/0RERP9ERET/////////
+        ////////////////////////////////////////////////////////////////////////////////
+        //////8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP//
+        /wD///8A//8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAA//8AAA==
+</value>
+  </data>
 </root>
