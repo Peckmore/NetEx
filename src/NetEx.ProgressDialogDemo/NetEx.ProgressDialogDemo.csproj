@@ -1,17 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net8.0-windows</TargetFramework>
-		<Nullable>enable</Nullable>
-		<UseWindowsForms>true</UseWindowsForms>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<RootNamespace>NetEx.ProgressDialogDemo</RootNamespace>
-		<AssemblyName>ProgressDialogDemo</AssemblyName>
-	</PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net20;net8.0-windows</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <RootNamespace>NetEx.ProgressDialogDemo</RootNamespace>
+    <AssemblyName>ProgressDialogDemo</AssemblyName>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\NetEx.Windows.Forms.ProgressDialog\NetEx.Windows.Forms.ProgressDialog.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetEx.ProgressDialog\NetEx.ProgressDialog.csproj" />
+  </ItemGroup>
+    
+  <ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
 
 </Project>

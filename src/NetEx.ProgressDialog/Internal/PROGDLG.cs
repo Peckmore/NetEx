@@ -1,14 +1,15 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace NetEx.Windows.Forms.Internal
+namespace System.Windows.Forms.Internal
 {
     /// <summary>
     /// Flags that control the operation of the progress dialog box.
     /// </summary>
     /// <seealso href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb775262(v=vs.85).aspx"/>
     [Flags]
+    [SuppressMessage("ReSharper", "IdentifierTypo")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     internal enum PROGDLG : uint
     {
         /// <summary>
@@ -18,6 +19,7 @@ namespace NetEx.Windows.Forms.Internal
         /// <summary>
         /// The progress dialog box will be modal to the window specified by hwndParent. By default, a progress dialog box is modeless.
         /// </summary>
+        [SuppressMessage("ReSharper", "CommentTypo")]
         PROGDLG_MODAL = 0x00000001,
         /// <summary>
         /// Automatically estimate the remaining time and display the estimate on line 3. If this flag is set, IProgressDialog::SetLine can be used only to display text on lines 1 and 2.

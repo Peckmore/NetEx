@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace NetEx.Windows.Forms
+namespace System.Windows.Forms
 {
     /// <summary>
     /// Specifies the style of progress bar that a <see cref="ProgressDialog"/> uses to indicate the progress of an operation.
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public enum ProgressDialogProgressBarStyle
     {
