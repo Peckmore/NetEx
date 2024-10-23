@@ -73,7 +73,6 @@ namespace System.Windows.Forms
         /// </summary>
         /// <value>An <see cref="AnimationResource"/> which points to a file and the index of the animation resource within that file. The default value is null.</value>
         [Browsable(false)]
-        [CLSCompliant(false)]
         [DefaultValue(null)]
         public AnimationResource? Animation { get; set; }
         /// <summary>
@@ -129,7 +128,6 @@ namespace System.Windows.Forms
         /// </summary>
         /// <value>The maximum value of the range of the progress bar within the dialog box. The default is 100.</value>
         [Category("Behavior")]
-        [CLSCompliant(false)]
         [DefaultValue(typeof(ulong), "100")]
         [Description("The upper bound of the range the dialog box is working with.")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
@@ -201,7 +199,6 @@ namespace System.Windows.Forms
         /// <value>The position within the range of the progress bar. The default is 0.</value>
         [Bindable(true)]
         [Category("Behavior")]
-        [CLSCompliant(false)]
         [DefaultValue(typeof(ulong), "0")]
         [Description("The current value for the dialog box, in the range specified between 0 and the maximum property.")]
         public ulong Value

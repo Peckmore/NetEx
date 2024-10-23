@@ -6,7 +6,6 @@ namespace System.Windows.Forms
     /// <summary>
     /// Represents a resource that contains an Audio-Video Interleaved (AVI) clip to run in a dialog box.
     /// </summary>
-    [CLSCompliant(false)]
     public class AnimationResource
     {
         #region Construction
