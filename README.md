@@ -1,5 +1,5 @@
 # NetEx
-Extensions for the .Net Framework
+Extensions for .Net.
 
 The **NetEx** project contains (hopefully!) useful extensions to the .Net Framework. This repository is the starting point for the project, with links to the various repositories that constitute the **NetEx** project, and aims to serve as a quick overview of the functionality contained within the project.
 
