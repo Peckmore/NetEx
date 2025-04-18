@@ -1,19 +1,20 @@
-name: build
+name: Build Library
 
 on:
   pull_request:
-    branches: [ "main" ]
-#  release:
-#    types: [published]
+    branches:
+      - main
+  release:
+    types: [published]
   workflow_dispatch:
 
 env:
   DOTNET_VERSION: '9.0.x'
-  WORKING_DIRECTORY: 'src/NetEx.ProgressDialog'
+  WORKING_DIRECTORY: 'src/NetEx.WinForms.ProgressDialog'
 
 jobs:
 
-  build:
+  Build:
     runs-on: windows-latest
 
     steps:
@@ -38,7 +39,7 @@ jobs:
       run: dotnet build --no-restore
       working-directory: ${{ env.WORKING_DIRECTORY }}
 
-    # Run test projects
+    # Run test projects - No tests at present
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
 
@@ -46,8 +47,9 @@ jobs:
     #- name: Publish
     #  run: dotnet publish --configuration Release --output ./output
 
-    # Attach the artifact to the release
+    # Conditionally upload the build output to the release
     - name: Upload to Release
+      if: github.event_name == 'release'
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ github.event.release.upload_url }}
