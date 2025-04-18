@@ -1,4 +1,4 @@
-﻿namespace NetEx.ProgressDialogDemo
+﻿namespace NetEx.WinForms.ProgressDialogDemo
 {
     partial class ProgressDialogForm
     {
