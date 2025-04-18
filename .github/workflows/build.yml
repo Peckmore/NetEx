@@ -1,10 +1,11 @@
-name: build
+name: Build
 
 on:
   pull_request:
-    branches: [ "main" ]
-#  release:
-#    types: [published]
+    branches:
+      - main
+  release:
+    types: [published]
   workflow_dispatch:
 
 env:
@@ -46,8 +47,9 @@ jobs:
     #- name: Publish
     #  run: dotnet publish --configuration Release --output ./output
 
-    # Attach the artifact to the release
+    # Conditionally upload the build output to the release
     - name: Upload to Release
+      if: github.event_name == 'release'
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ github.event.release.upload_url }}
