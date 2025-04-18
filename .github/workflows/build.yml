@@ -9,7 +9,7 @@ on:
 
 env:
   DOTNET_VERSION: '9.0.x'
-  WORKING_DIRECTORY: 'src/NetEx.ProgressDialog'
+  WORKING_DIRECTORY: 'src/NetEx.WinForms.ProgressDialog'
 
 jobs:
 
