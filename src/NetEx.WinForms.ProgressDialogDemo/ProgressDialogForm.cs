@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace NetEx.ProgressDialogDemo
+namespace NetEx.WinForms.ProgressDialogDemo
 {
     public partial class ProgressDialogForm : Form
     {
@@ -25,8 +25,8 @@ namespace NetEx.ProgressDialogDemo
 
 #if NET20
             frameworkToolStripStatusLabel.Text = ".Net Framework 2.0";
-#elif NET8_0
-            frameworkToolStripStatusLabel.Text = ".Net 8.0";
+#elif NET9_0
+            frameworkToolStripStatusLabel.Text = ".Net 9.0";
 #endif
         }
 

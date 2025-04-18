@@ -2,17 +2,17 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net20;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net20;net9.0-windows</TargetFrameworks>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <RootNamespace>NetEx.ProgressDialogDemo</RootNamespace>
+    <RootNamespace>NetEx.WinForms.ProgressDialogDemo</RootNamespace>
     <AssemblyName>ProgressDialogDemo</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetEx.ProgressDialog\NetEx.ProgressDialog.csproj" />
+    <ProjectReference Include="..\NetEx.WinForms.ProgressDialog\NetEx.WinForms.ProgressDialog.csproj" />
   </ItemGroup>
     
   <ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
