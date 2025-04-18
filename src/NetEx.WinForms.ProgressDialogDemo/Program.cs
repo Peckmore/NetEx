@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace NetEx.ProgressDialogDemo
+namespace NetEx.WinForms.ProgressDialogDemo
 {
     internal static class Program
     {
