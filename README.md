@@ -25,7 +25,7 @@ This project implements a standard Windows progress dialog using the WinForms `C
 
 ![New Style](resources/images/new-style.png)
 
-`ProgressDialog` supports the standard `ShowDialog()` method of invokation, as is standard across all dialogs using `CommonDialog`. However, because the dialog is typically expected to be shown in a non-modal fashion, it is recommended to use the `Show()` method instead.
+`ProgressDialog` supports the standard `ShowDialog()` method of invocation, as is standard across all dialogs using `CommonDialog`. However, because the dialog is typically expected to be shown in a non-modal fashion, it is recommended to use the `Show()` method instead.
 
 `ProgressDialog` is supported on all versions of Windows starting with *Windows XP*.
 
