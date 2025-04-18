@@ -37,7 +37,7 @@
     <PackageTags>netex;progress dialog;progressdialog;commondialog;winforms;windows forms</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <EnablePackageValidation>true</EnablePackageValidation>
-    <!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
+    <PackageValidationBaselineVersion>2.0.2</PackageValidationBaselineVersion>
 
     <!-- Repository -->
     <RepositoryUrl>https://github.com/Peckmore/netex.winforms.progressdialog</RepositoryUrl>
