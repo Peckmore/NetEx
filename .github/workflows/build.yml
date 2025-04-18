@@ -14,7 +14,7 @@ env:
 
 jobs:
 
-  build:
+  Build:
     runs-on: windows-latest
 
     steps:
@@ -39,7 +39,7 @@ jobs:
       run: dotnet build --no-restore
       working-directory: ${{ env.WORKING_DIRECTORY }}
 
-    # Run test projects
+    # Run test projects - No tests at present
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
 
