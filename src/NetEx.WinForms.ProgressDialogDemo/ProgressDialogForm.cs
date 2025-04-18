@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace NetEx.ProgressDialogDemo
+namespace NetEx.WinForms.ProgressDialogDemo
 {
     public partial class ProgressDialogForm : Form
     {
