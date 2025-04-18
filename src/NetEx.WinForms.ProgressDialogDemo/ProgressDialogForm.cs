@@ -25,8 +25,8 @@ namespace NetEx.WinForms.ProgressDialogDemo
 
 #if NET20
             frameworkToolStripStatusLabel.Text = ".Net Framework 2.0";
-#elif NET8_0
-            frameworkToolStripStatusLabel.Text = ".Net 8.0";
+#elif NET9_0
+            frameworkToolStripStatusLabel.Text = ".Net 9.0";
 #endif
         }
 
