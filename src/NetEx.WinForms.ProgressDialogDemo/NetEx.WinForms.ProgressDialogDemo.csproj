@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net20;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net20;net9.0-windows</TargetFrameworks>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <UseWindowsForms>true</UseWindowsForms>
