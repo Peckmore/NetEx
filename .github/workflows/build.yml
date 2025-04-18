@@ -3,14 +3,16 @@ name: build
 on:
   pull_request:
     branches: [ "main" ]
+#  release:
+#    types: [published]
 
 env:
   DOTNET_VERSION: '9.0.x'
   WORKING_FOLDER: 'src/NetEx.ProgressDialog'
 
 jobs:
-  build:
 
+  build:
     runs-on: windows-latest
 
     steps:
