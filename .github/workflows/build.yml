@@ -19,7 +19,7 @@ env:
   BUILD_CONFIGURATION: 'Release'
   DOTNET_VERSION: '9.0.x'
   PROJECT_NAME: 'NetEx.WinForms.ProgressDialog'
-  WORKING_DIRECTORY: 'src/${{ env.PROJECT_NAME }}'
+  WORKING_DIRECTORY: 'src/${{ PROJECT_NAME }}'
 
 jobs:
 
