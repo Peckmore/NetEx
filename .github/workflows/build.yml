@@ -16,6 +16,7 @@ on:
   workflow_dispatch:
 
 env:
+  BUILD_CONFIGURATION: 'Release'
   DOTNET_VERSION: '9.0.x'
   WORKING_DIRECTORY: 'src/NetEx.WinForms.ProgressDialog'
 
@@ -43,7 +44,7 @@ jobs:
 
     # Build the project
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore -c ${{ env.BUILD_CONFIGURATION }} --verbosity detailed
       working-directory: ${{ env.WORKING_DIRECTORY }}
 
     # Run test projects - No tests at present
@@ -52,6 +53,7 @@ jobs:
 
     # Publish the build output
     #- name: Publish
+    #  if: github.event_name == 'release'
     #  run: dotnet publish --configuration Release --output ./output
 
     # Conditionally upload the build output to the release
@@ -61,5 +63,5 @@ jobs:
       with:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: ./output
-        asset_name: build-output.zip
+        asset_name: '**/*.nupkg'
         asset_content_type: application/zip
