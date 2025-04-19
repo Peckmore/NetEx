@@ -44,7 +44,7 @@ jobs:
 
     # Build the project
     - name: Build
-      run: dotnet build --no-restore -c ${{ env.BUILD_CONFIGURATION }} --verbosity detailed
+      run: dotnet build --no-restore -c ${{ env.BUILD_CONFIGURATION }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
 
     # Run test projects - No tests at present
