@@ -1,29 +1,67 @@
-# NetEx
-Extensions for .Net.
+<div align="center">
 
-The **NetEx** project contains (hopefully!) useful extensions to the .Net Framework. This repository is the starting point for the project, with links to the various repositories that constitute the **NetEx** project, and aims to serve as a quick overview of the functionality contained within the project.
+<img src="src/NetEx.WinForms.ProgressDialog/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
 
-## Overview
-The aim is for each project to target a single set of functionality (e.g., a progress dialog). As a result, each project has it's own repository and compiles into it's own library and NuGet package.
-
-All projects target the lowest framework version or standard possible in order to try and maximise compatibility. Please note however that projects will not all target *the same* framework version or standard, as some rely on functionality introduced in later versions.
-
-## Projects
-**NetEx** currently consists of the following projects:
-
-* **[netex.credentialdialog](https://github.com/Peckmore/netex.credentialdialog)**  
-A managed implementation of the standard Windows credential dialog.
-
-* **[netex.progresssdialog](https://github.com/Peckmore/netex.progressdialog)**  
+# NetEx.Winforms.ProgressDialog
 A managed implementation of the standard Windows progress dialog.
 
-## Nuget
+Part of the *[**NetEx**](https://github.com/Peckmore/netex) Extensions for .Net* project.
 
-All projects are available on NuGet. The packages currently available are:
+[![NuGet Version](http://img.shields.io/nuget/v/NetEx.WinForms.ProgressDialog.svg?style=flat)](https://www.nuget.org/packages/NetEx.WinForms.ProgressDialog) [![NuGet Downloads](https://img.shields.io/nuget/dt/NetEx.WinForms.ProgressDialog.svg)](https://www.nuget.org/packages/NetEx.WinForms.ProgressDialog) [![.NET](https://img.shields.io/badge/.NET%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download) [![.NET Framework](https://img.shields.io/badge/.NET%20Framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/download)
 
-* [NetEx.CredentialDialog](https://www.nuget.org/packages/NetEx-CredentialDialog/)
-* [NetEx.ProgressDialog](https://www.nuget.org/packages/NetEx-ProgressDialog/)
+</div>
+
+## Usage
+
+Install the package from NuGet:
+
+```powershell
+Install-Package NetEx.WinForms.ProgressDialog
+```
+
+## Overview
+
+This project implements a standard Windows progress dialog using the WinForms `CommonDialog` as its base. The project aims to match standard .Net Framework and WinForms behaviour as closely as possible.
+
+![New Style](resources/images/new-style.png)
+
+`ProgressDialog` supports the standard `ShowDialog()` method of invocation, as is standard across all dialogs using `CommonDialog`. However, because the dialog is typically expected to be shown in a non-modal fashion, it is recommended to use the `Show()` method instead.
+
+`ProgressDialog` is supported on all versions of Windows starting with *Windows XP*.
+
+*Windows Vista* introduced new visual styling for many controls and UI elements, including the Windows progress dialog. As a result, the appearance of the dialog is different between *Windows XP* and later Windows versions.
+
+*Windows 7* introduced the ability to display progress indicators on a taskbar icon. The Windows progress dialog, and subsequently this `ProgressDialog` implementation, will therefore automatically display progress notification in the host application's taskbar icon on *Windows 7* or later.
+
+## Compatibility
+
+This project is compatible with:
+
+| Framework                 | Versions     |
+|---------------------------|--------------|
+| **.Net Framework**        | 2.0 to 4.8.1 |
+| **.Net** *(Windows only)* | 5.0+         |
+
+## Projects
+
+The source for this repository contains two projects:
+
+| Project                               | Description |
+|---------------------------------------|-------------|
+| **NetEx.WinForms.ProgressDialog**     | The source for the managed implementation of the standard Windows progress dialog. |
+| **NetEx.WinForms.ProgressDialogDemo** | A test project which demonstrates the use of the progress dialog.         |
+
+## Releases
+
+A full list of all releases is available on the [Releases](https://github.com/Peckmore/netex.winforms.progressdialog/releases) tab on GitHub.
+
+Releases of are also available on NuGet:
+
+| Name                                                  | NuGet |
+|-------------------------------------------------------|-------|
+| **NetEx.WinForms.ProgressDialog**                     | [![NuGet version (NetEx-ProgressDialog)](https://img.shields.io/nuget/v/NetEx.WinForms.ProgressDialog.svg?style=flat-square)](https://www.nuget.org/packages/NetEx.WinForms.ProgressDialog/)|
+| _Previously published as_<br>**NetEx-ProgressDialog** | [![NuGet version (NetEx-ProgressDialog)](https://img.shields.io/nuget/v/NetEx-ProgressDialog.svg?style=flat-square)](https://www.nuget.org/packages/NetEx-ProgressDialog/)|
 
 ##  License
 
-All code is licensed under the [MIT license](https://github.com/Peckmore/NetEx/blob/master/LICENSE).
+The code is licensed under the [MIT license](https://github.com/Peckmore/netex.winforms.progressdialog?tab=MIT-1-ov-file#readme).
