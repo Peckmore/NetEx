@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net20;net9.0-windows</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <RootNamespace>NetExDemo</RootNamespace>
+    <AssemblyName>NetExDemo</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\System.Windows.Forms.CredentialDialog\System.Windows.Forms.CredentialDialog.csproj" />
+    <ProjectReference Include="..\..\System.Windows.Forms.ProgressDialog\System.Windows.Forms.ProgressDialog.csproj" />
+  </ItemGroup>
+    
+  <ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>
