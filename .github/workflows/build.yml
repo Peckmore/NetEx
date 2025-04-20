@@ -18,7 +18,6 @@ on:
 env:
   BUILD_CONFIGURATION: 'Release'
   DOTNET_VERSION: '9.0.x'
-  PROJECT_NAME: 'NetEx.WinForms.ProgressDialog'
   WORKING_DIRECTORY: 'src/NetEx.WinForms.ProgressDialog'
 
 jobs:
@@ -48,9 +47,13 @@ jobs:
       run: dotnet build --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
       working-directory: ${{ env.WORKING_DIRECTORY }}
 
-    # Run test projects - No tests at present
-    #- name: Test
-    #  run: dotnet test --no-build --verbosity normal
+    # Update DocFX tool
+    - name: Update DocFX
+      run: dotnet tool update -g docfx
+    
+    # Generate documentation
+    - name: Generate Documentation
+      run: docfx ${{ env.WORKING_DIRECTORY }}/docfx.json
 
     # Publish the build output
     #- name: Publish
