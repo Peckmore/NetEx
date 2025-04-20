@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace NetEx.CredentialDialogDemo
+namespace NetExDemo.CredentialDialog
 {
     partial class CredentialDialogForm
     {
