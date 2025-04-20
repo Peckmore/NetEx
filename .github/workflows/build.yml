@@ -63,6 +63,6 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ env.WORKING_DIRECTORY }}/artifacts/*.nupkg
+        asset_path: ${{ env.WORKING_DIRECTORY }}/bin/${{ env.BUILD_CONFIGURATION }}
         asset_name: ${{ env.PROJECT_NAME }}.nupkg
         asset_content_type: application/zip
