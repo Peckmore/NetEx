@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\System.Windows.Forms.CredentialDialog\NetEx.WinForms.CredentialDialog.csproj" />
-    <ProjectReference Include="..\..\System.Windows.Forms.ProgressDialog\NetEx.WinForms.ProgressDialog.csproj" />
+    <ProjectReference Include="..\..\NetEx.WinForms.CredentialDialog\NetEx.WinForms.CredentialDialog.csproj" />
+    <ProjectReference Include="..\..\NetEx.WinForms.ProgressDialog\NetEx.WinForms.ProgressDialog.csproj" />
   </ItemGroup>
     
   <ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
