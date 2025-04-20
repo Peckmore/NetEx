@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetExDemo.ProgressDialog;
+using System;
 using System.Windows.Forms;
 
 namespace NetEx.WinForms.ProgressDialogDemo
