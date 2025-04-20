@@ -1,4 +1,4 @@
-﻿namespace NetEx.WinForms.ProgressDialogDemo
+﻿namespace NetExDemo.ProgressDialog
 {
     partial class ProgressDialogForm
     {
@@ -72,8 +72,8 @@
             // 
             // propertyGrid
             // 
-            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGrid.Location = new System.Drawing.Point(12, 41);
             this.propertyGrid.Name = "propertyGrid";

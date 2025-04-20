@@ -7,12 +7,12 @@
     <LangVersion>latest</LangVersion>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <RootNamespace>NetEx.WinForms.ProgressDialogDemo</RootNamespace>
-    <AssemblyName>ProgressDialogDemo</AssemblyName>
+    <RootNamespace>NetExDemo</RootNamespace>
+    <AssemblyName>NetExDemo</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetEx.WinForms.ProgressDialog\NetEx.WinForms.ProgressDialog.csproj" />
+    <ProjectReference Include="..\..\System.Windows.Forms.ProgressDialog\System.Windows.Forms.ProgressDialog.csproj" />
   </ItemGroup>
     
   <ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
