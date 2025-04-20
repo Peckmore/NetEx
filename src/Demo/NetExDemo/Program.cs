@@ -1,8 +1,7 @@
-﻿using NetExDemo.ProgressDialog;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
-namespace NetEx.WinForms.ProgressDialogDemo
+namespace NetExDemo
 {
     internal static class Program
     {
@@ -18,7 +17,7 @@ namespace NetEx.WinForms.ProgressDialogDemo
 #else
             ApplicationConfiguration.Initialize();
 #endif
-            Application.Run(new ProgressDialogForm());
+            Application.Run(new MainForm());
         }
     }
 }
