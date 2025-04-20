@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="src/NetEx.WinForms.ProgressDialog/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
+<img src="resources/images/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
 
 # NetEx.Winforms.ProgressDialog
 A managed implementation of the standard Windows progress dialog.
