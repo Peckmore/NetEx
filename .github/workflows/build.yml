@@ -60,9 +60,6 @@ jobs:
     # Conditionally upload the build output to the release
     - name: Upload to Release
       if: github.event_name == 'release'
-      uses: actions/upload-release-asset@v1
+      uses: softprops/action-gh-release@v1
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ env.WORKING_DIRECTORY }}/bin/${{ env.BUILD_CONFIGURATION }}
-        asset_name: ${{ env.PROJECT_NAME }}.nupkg
-        asset_content_type: application/zip
+        files: '**/*.nupkg'
