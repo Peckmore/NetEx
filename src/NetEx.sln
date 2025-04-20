@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetExDemo", "Demo\NetEx.Win
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Windows.Forms..CredentialDialog", "System.Windows.Forms.CredentialDialog\System.Windows.Forms..CredentialDialog.csproj", "{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{91937276-F353-4B0A-BBA8-92FE3AD58E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91937276-F353-4B0A-BBA8-92FE3AD58E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91937276-F353-4B0A-BBA8-92FE3AD58E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
