@@ -98,7 +98,7 @@ jobs:
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
-        files: artifacts/**/*.nupkg
+        files: ./**/*.nupkg
 
     # Upload documentation to GitHub Pages
     - name: Deploy to GitHub Pages
