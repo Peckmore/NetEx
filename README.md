@@ -8,12 +8,12 @@
 [![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 [![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml?label=Build%20Staus)](https://dotnet.microsoft.com/download)
 
-The **NetEx** project contains (hopefully!) useful extensions to the .Net Framework.
+A collection of (hopefully!) useful extensions to .Net.
 
 </div>
 
 ## Overview
-This project aims to collect together hopefully useful extensions to .Net into a single repo, and currently consists of the following projects.
+This project aims to collect together extensions to .Net in a single repo, and currently consists of the following projects.
 
 ### NetEx.WinForms.CredentialDialog
 A managed implementation of the standard Windows credential dialog, for WinForms.
@@ -40,9 +40,9 @@ Install-Package NetEx.WinForms.CredentialDialog
 ```
 
 ## Documentation
-Full documentation is available in the `docs` folder. The documentation is also available online at [https://peckmore.github.io/netex/](https://peckmore.github.io/netex/).
+Documentation is available [here](https://peckmore.github.io/netex).
 
-A test project is also included to demonstrates the use of each project.
+A test project is also included with the source that demonstrates the use of each project.
 
 ## Compatibility
 Each project targets the lowest framework version or standard possible in order to try and maximise compatibility.
