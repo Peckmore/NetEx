@@ -3,10 +3,11 @@
 <img src="resources/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
 
 # NetEx
-[![Latest Version](https://img.shields.io/github/v/release/Peckmore/NetEx?label=Latest%20Version)](https://github.com/Peckmore/NetEx/releases)
-[![.NET](https://img.shields.io/badge/.NET%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
+[![Latest Version](https://img.shields.io/github/v/release/Peckmore/NetEx?label=latest%20version)](https://github.com/Peckmore/NetEx/releases/latest)
+[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
+[![License](https://img.shields.io/:license-MIT-orange)](https://github.com/Peckmore/NetEx?tab=readme-ov-file#MIT-1-ov-file)
+[![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
 [![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
-[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml?label=Build%20Staus)](https://dotnet.microsoft.com/download)
 
 A collection of (hopefully!) useful extensions to .Net.
 

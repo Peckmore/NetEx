@@ -33,6 +33,7 @@
     <PackageId>NetEx.WinForms.ProgressDialog</PackageId>
 	<PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
     <PackageTags>netex;progress dialog;progressdialog;progress;commondialog;winforms;windowsforms;windows forms</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -58,7 +59,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Include="../../resources/icon.png" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="../../resources/icon.png" Pack="true" Visible="false" PackagePath="\"/>
+	<None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
