@@ -53,7 +53,7 @@ jobs:
     
     # Generate documentation
     - name: Generate Documentation
-      run: docfx ${{ env.WORKING_DIRECTORY }}/docfx.json
+      run: docfx ${{ env.WORKING_DIRECTORY }}/docs/docfx.json
 
     # Publish the build output
     #- name: Publish
