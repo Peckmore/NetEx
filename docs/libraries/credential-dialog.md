@@ -10,6 +10,10 @@ Install the package from NuGet:
 Install-Package NetEx.WinForms.CredentialDialog
 ```
 
+## API
+
+API documentation is available [here](xref:System.Windows.Forms.CredentialDialog).
+
 ## Overview
 
 This project implements a standard Windows credential dialog using the WinForms `CommonDialog` as its base. The project aims to match standard .Net Framework and WinForms behaviour as closely as possible.
@@ -20,11 +24,11 @@ This project implements a standard Windows credential dialog using the WinForms 
 
 `CredentialDialog` supports the standard `ShowDialog()` method of invocation, as is standard across all dialogs using `CommonDialog`.
 
-`ProgressDialog` is supported on all versions of Windows starting with *Windows XP*.
+`CredentialDialog` is supported on all versions of Windows starting with *Windows XP*.
 
-*Windows Vista* introduced new visual styling for many controls and UI elements, including the Windows progress dialog. As a result, the appearance of the dialog is different between *Windows XP* and later Windows versions.
+*Windows Vista* introduced new visual styling for many controls and UI elements, but for the credential dialog this was done as a seperate implementation. As a result, on *Windows Vista* and later, the appearance of the dialog can be selected using [AutoUpgradeEnabled](xref:System.Windows.Forms.CredentialDialog.AutoUpgradeEnabled).
 
-## Applies to
+## Compatibility
 
 | Product                   | Versions              |
 |---------------------------|-----------------------|

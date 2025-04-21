@@ -5,7 +5,7 @@
 # NetEx
 [![Latest Version](https://img.shields.io/github/v/release/Peckmore/NetEx?label=Latest%20Version)](https://github.com/Peckmore/NetEx/releases)
 [![.NET](https://img.shields.io/badge/.NET%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
-[![.NET Framework](https://img.shields.io/badge/.NET%20Framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/download)
+[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 [![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml?label=Build%20Staus)](https://dotnet.microsoft.com/download)
 
 The **NetEx** project contains (hopefully!) useful extensions to the .Net Framework.
@@ -60,8 +60,8 @@ Releases are also available on NuGet:
 
 | Name                                | NuGet |
 |-------------------------------------|-------|
-| **NetEx.WinForms.CredentialDialog** | [![NuGet version (NetEx-CredentialDialog)](https://img.shields.io/nuget/v/NetEx.WinForms.CredentialDialog.svg?style=flat-square)](https://www.nuget.org/packages/NetEx.WinForms.CredentialDialog/) |
-| **NetEx.WinForms.ProgressDialog**   | [![NuGet version (NetEx-ProgressDialog)](https://img.shields.io/nuget/v/NetEx.WinForms.ProgressDialog.svg?style=flat-square)](https://www.nuget.org/packages/NetEx.WinForms.ProgressDialog/) |
+| **NetEx.WinForms.CredentialDialog** | [![NuGet version (NetEx-CredentialDialog)](https://img.shields.io/nuget/v/NetEx.WinForms.CredentialDialog.svg)](https://www.nuget.org/packages/NetEx.WinForms.CredentialDialog/) |
+| **NetEx.WinForms.ProgressDialog**   | [![NuGet version (NetEx-ProgressDialog)](https://img.shields.io/nuget/v/NetEx.WinForms.ProgressDialog.svg)](https://www.nuget.org/packages/NetEx.WinForms.ProgressDialog/) |
 
 ##  License
 
