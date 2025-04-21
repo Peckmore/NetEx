@@ -75,6 +75,7 @@ jobs:
     runs-on: windows-latest
     needs: Build
     permissions:
+      contents: write
       id-token: write
       pages: write
     if: github.event_name == 'release'
