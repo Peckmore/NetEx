@@ -18,7 +18,6 @@ on:
 env:
   BUILD_CONFIGURATION: 'Release'
   DOTNET_VERSION: '9.0.x'
-  WORKING_DIRECTORY: 'src'
 
 jobs:
 
@@ -40,14 +39,14 @@ jobs:
     # Restore dependencies
     - name: Restore Dependencies
       run: dotnet restore
-      working-directory: ${{ env.WORKING_DIRECTORY }}
+      working-directory: src
 
     # Build the project
     - name: Build
       run: |
-        dotnet build **/NetEx.WinForms.CredentialDialog.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
-        dotnet build **/NetEx.WinForms.ProgressDialog.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
-      working-directory: ${{ env.WORKING_DIRECTORY }}
+        dotnet build src/NetEx.WinForms.CredentialDialog/NetEx.WinForms.CredentialDialog.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build src/NetEx.WinForms.ProgressDialog/NetEx.WinForms.ProgressDialog.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+      working-directory: src
 
     # Update DocFX tool
     - name: Update DocFX
