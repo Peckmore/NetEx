@@ -46,6 +46,7 @@
       "_appFaviconPath": "images/logo.png",
       "_appLogoPath": "images/logo.png",
       "_disableContribution": true,
+      "_disableNextArticle": true,
       "_enableSearch": true,
       "pdf": false
     }
