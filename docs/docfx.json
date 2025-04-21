@@ -23,8 +23,7 @@
     "content": [
       {
         "files": [
-          "**/*.{md,yml}",
-          "../../README.md"
+          "**/*.{md,yml}"
         ],
         "exclude": [
           "_site/**"
