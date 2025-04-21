@@ -47,10 +47,10 @@ A test project is also included to demonstrates the use of each project.
 ## Compatibility
 Each project targets the lowest framework version or standard possible in order to try and maximise compatibility.
 
-| Project                             | .Net                  | .Net Framework | .Net Standard |
-|-------------------------------------|-----------------------|----------------|---------------|
-| **NetEx.WinForms.CredentialDialog** | 5.0+ *(Windows only)* | 2.0 to 4.8.1   | -             |
-| **NetEx.WinForms.ProgressDialog**   | 5.0+ *(Windows only)* | 2.0 to 4.8.1   | -             |
+| Project                             | .Net                     | .Net Framework | .Net Standard |
+|-------------------------------------|--------------------------|----------------|---------------|
+| **NetEx.WinForms.CredentialDialog** | 5.0+<br>*(Windows only)* | 2.0 to 4.8.1   | -             |
+| **NetEx.WinForms.ProgressDialog**   | 5.0+<br>*(Windows only)* | 2.0 to 4.8.1   | -             |
 
 ## Releases
 
