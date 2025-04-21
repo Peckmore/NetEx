@@ -1,4 +1,8 @@
-- name: Libraries
+- name: Home
+  href: /
+- name: Getting Started
   href: libraries/
 - name: API
   href: api/
+- name: GitHub
+  href: https://github.com/Peckmore/NetEx
