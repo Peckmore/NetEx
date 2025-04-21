@@ -57,15 +57,34 @@ jobs:
     - name: Generate Documentation
       run: docfx ../docs/docfx.json
       working-directory: ${{ env.WORKING_DIRECTORY }}
+      
+    # Upload documentation as build artifact
+    - name: Upload Documentation Artifact
+      id: deployment
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: docs/_site/
+      
+  Deploy:
+    runs-on: windows-latest
+    #runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-    # Publish the build output
+    steps:
+    
+    # Publish the build packages to NuGet
     #- name: Publish
-    #  if: github.event_name == 'release'
     #  run: dotnet publish --configuration Release --output ./output
 
-    # Conditionally upload the build output to the release
-    - name: Upload to Release
-      if: github.event_name == 'release'
-      uses: softprops/action-gh-release@v1
-      with:
-        files: '**/*.nupkg'
+    # Upload the build output to the release
+    #- name: Upload to Release
+    #  uses: softprops/action-gh-release@v1
+    #  with:
+    #    files: '**/*.nupkg'
+              
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
