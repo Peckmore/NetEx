@@ -96,13 +96,13 @@ namespace System.Windows.Forms
         /// <summary>
         /// Gets or sets a value indicating the types of credentials that will be shown in the dialog box when running on Windows XP and Windows Server 2003, or when <see cref="AutoUpgradeEnabled"/> is set to <see langword="false"/>.
         /// </summary>
-        /// <value>One of the <see cref="CredentialDialogCredentialFilter"/> values. The default value is <see cref="CredentialDialogCredentialFilter.AllCredentials"/>.</value>
+        /// <value>One of the <see cref="Forms.CredentialFilter"/> values. The default value is <see cref="CredentialFilter.AllCredentials"/>.</value>
         /// <remarks>This property is only applicable on Windows XP and Windows Server 2003, or on later versions of Windows when using the dialog box with <see cref="AutoUpgradeEnabled"/> set to <see langword="false"/>.</remarks>
         [Category("Behaviour")]
-        [DefaultValue(CredentialDialogCredentialFilter.AllCredentials)]
+        [DefaultValue(CredentialFilter.AllCredentials)]
         [Description("The types of credentials to display in the dialog.")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-        public CredentialDialogCredentialFilter CredentialFilter { get; set; }
+        public CredentialFilter CredentialFilter { get; set; }
         /// <summary>
         /// Gets or sets the domain entered in the dialog box.
         /// </summary>
@@ -427,13 +427,13 @@ namespace System.Windows.Forms
             // usernames requested by the user
             switch (CredentialFilter)
             {
-                case CredentialDialogCredentialFilter.ExcludeCertificates:
+                case CredentialFilter.ExcludeCertificates:
                     flags |= CREDUI_FLAGS.CREDUI_FLAGS_EXCLUDE_CERTIFICATES;
                     break;
-                case CredentialDialogCredentialFilter.AdministratorsOnly:
+                case CredentialFilter.AdministratorsOnly:
                     flags |= CREDUI_FLAGS.CREDUI_FLAGS_REQUEST_ADMINISTRATOR;
                     break;
-                case CredentialDialogCredentialFilter.RequireCertificates:
+                case CredentialFilter.RequireCertificates:
                     flags |= CREDUI_FLAGS.CREDUI_FLAGS_REQUIRE_SMARTCARD;
                     break;
             }
@@ -487,7 +487,7 @@ namespace System.Windows.Forms
 
             // Check the value of our CredentialFilter enum and set the flag to display only the
             // usernames requested by the user.
-            if (CredentialFilter == CredentialDialogCredentialFilter.AdministratorsOnly)
+            if (CredentialFilter == CredentialFilter.AdministratorsOnly)
             {
                 flags |= CREDUIWIN.CREDUIWIN_ENUMERATE_ADMINS;
             }
