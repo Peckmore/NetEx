@@ -44,8 +44,8 @@ jobs:
     # Build the project
     - name: Build
       run: |
-        dotnet build src/NetEx.WinForms.CredentialDialog/NetEx.WinForms.CredentialDialog.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
-        dotnet build src/NetEx.WinForms.ProgressDialog/NetEx.WinForms.ProgressDialog.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.WinForms.CredentialDialog/NetEx.WinForms.CredentialDialog.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.WinForms.ProgressDialog/NetEx.WinForms.ProgressDialog.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
       working-directory: src
 
     # Update DocFX tool
