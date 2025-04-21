@@ -43,8 +43,9 @@
       "modern"
     ],
     "globalMetadata": {
-      "_appName": "NetEx",
-      "_appTitle": "NetEx",
+      "_appFaviconPath": "images/logo.png",
+      "_appLogoPath": "images/logo.png",
+      "_disableContribution": true,
       "_enableSearch": true,
       "pdf": false
     }

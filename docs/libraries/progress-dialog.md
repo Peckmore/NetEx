@@ -10,6 +10,10 @@ Install the package from NuGet:
 Install-Package NetEx.WinForms.ProgressDialog
 ```
 
+## API
+
+API documentation is available [here](xref:System.Windows.Forms.ProgressDialog).
+
 ## Overview
 
 This project implements a standard Windows progress dialog using the WinForms `CommonDialog` as its base. The project aims to match standard .Net Framework and WinForms behaviour as closely as possible.
@@ -20,11 +24,11 @@ This project implements a standard Windows progress dialog using the WinForms `C
 
 `ProgressDialog` is supported on all versions of Windows starting with *Windows XP*.
 
-*Windows Vista* introduced new visual styling for many controls and UI elements, including the Windows progress dialog. As a result, the appearance of the dialog is different between *Windows XP* and later Windows versions.
+*Windows Vista* introduced new visual styling for many controls and UI elements, including the progress dialog. As a result, the appearance of the dialog is different between *Windows XP* and later Windows versions.
 
-*Windows 7* introduced the ability to display progress indicators on a taskbar icon. The Windows progress dialog, and subsequently this `ProgressDialog` implementation, will therefore automatically display progress notification in the host application's taskbar icon on *Windows 7* or later.
+*Windows 7* introduced the ability to display progress indicators on a taskbar icon. As a result the progress dialog, and subsequently this `ProgressDialog` implementation, will automatically display progress notification in the host application's taskbar icon on *Windows 7* or later.
 
-## Applies to
+## Compatibility
 
 | Product                   | Versions              |
 |---------------------------|-----------------------|
