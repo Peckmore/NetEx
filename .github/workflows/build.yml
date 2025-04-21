@@ -67,6 +67,8 @@ jobs:
   Deploy:
     runs-on: windows-latest
     needs: Build
+    permissions:
+      id-token: 'write'
     #runs-on: ubuntu-latest
     #if: github.event_name == 'release'
     environment:
