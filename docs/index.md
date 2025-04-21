@@ -2,7 +2,7 @@
 [![Latest Version](https://img.shields.io/github/v/release/Peckmore/NetEx?label=latest%20version)](https://github.com/Peckmore/NetEx/releases/latest)
 [![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
 
-This project aims to collect together (hopefully!) useful extensions to .Net into a single repo, and currently consists of the following libraries.
+This project aims to collect together extensions to .Net in a single repo, and currently consists of the following projects.
 
 ### Credential Dialog
 
