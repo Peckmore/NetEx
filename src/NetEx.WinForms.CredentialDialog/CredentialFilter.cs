@@ -3,7 +3,7 @@
     /// <summary>
     /// Specifies the credentials to display in a <see cref="CredentialDialog"/>.
     /// </summary>
-    public enum CredentialDialogCredentialFilter
+    public enum CredentialFilter
     {
         /// <summary>
         /// Populate the <see cref="CredentialDialog"/> with all available credentials.
