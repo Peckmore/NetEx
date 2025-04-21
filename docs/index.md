@@ -1,6 +1,7 @@
 # NetEx
 [![Latest Version](https://img.shields.io/github/v/release/Peckmore/NetEx?label=latest%20version)](https://github.com/Peckmore/NetEx/releases/latest)
 [![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
+[![License](https://img.shields.io/:license-MIT-orange)](https://dotnet.microsoft.com/download)
 
 This project aims to collect together extensions to .Net in a single repo, and currently consists of the following projects.
 
