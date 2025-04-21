@@ -68,7 +68,8 @@ jobs:
     runs-on: windows-latest
     needs: Build
     permissions:
-      id-token: 'write'
+      id-token: write
+      pages: write
     #runs-on: ubuntu-latest
     #if: github.event_name == 'release'
     environment:
