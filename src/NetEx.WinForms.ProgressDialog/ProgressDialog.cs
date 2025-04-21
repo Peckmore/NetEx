@@ -27,7 +27,7 @@ namespace System.Windows.Forms
         private bool _invokedModal = true;
         private bool _modal;
         private IntPtr _parentHandle = IntPtr.Zero;
-        private ProgressDialogProgressBarStyle _progressBarStyle;
+        private ProgressBarStyle _progressBarStyle;
         private readonly AutoResetEvent _threadCompleted;
         private readonly AutoResetEvent _updated;
         private ulong _value;
@@ -144,22 +144,23 @@ namespace System.Windows.Forms
         /// <summary>
         /// Gets or sets the manner in which progress should be indicated on the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to <see langword="false"/>. Only applies to Windows Vista and later.
         /// </summary>
-        /// <value>One of the <see cref="ProgressDialogProgressBarStyle"/> values. The default value is <see cref="ProgressDialogProgressBarStyle.Continuous"/>.</value>
+        /// <value>One of the <see cref="ProgressBarStyle"/> values. The default value is <see cref="ProgressBarStyle.Continuous"/>.</value>
+        /// <remarks>Setting this value to <see cref="ProgressBarStyle.Blocks"/> will have no effect, and the appearance of the progress bar will be the same as if set to <see cref="ProgressBarStyle.Continuous"/>.</remarks>
         /// <exception cref="InvalidEnumArgumentException">
-        /// <paramref name="value"/> is not a member of the <see cref="ProgressDialogProgressBarStyle"/> enumeration.
+        /// <paramref name="value"/> is not a member of the <see cref="ProgressBarStyle"/> enumeration.
         /// </exception>
         [Category("Appearance")]
-        [DefaultValue(typeof(ProgressDialogProgressBarStyle), "Continuous")]
+        [DefaultValue(typeof(ProgressBarStyle), "Continuous")]
         [Description("This property allows the user to set the style of the progress bar within the dialog box. Only applies to Windows Vista and later.")]
         [SuppressMessage("ReSharper", "UnusedMember.Global")]
-        public ProgressDialogProgressBarStyle ProgressBarStyle
+        public ProgressBarStyle ProgressBarStyle
         {
             get => _progressBarStyle;
             set
             {
-                if (!Enum.IsDefined(typeof(ProgressDialogProgressBarStyle), value))
+                if (!Enum.IsDefined(typeof(ProgressBarStyle), value))
                 {
-                    throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(ProgressDialogProgressBarStyle));
+                    throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(ProgressBarStyle));
                 }
 
                 _progressBarStyle = value;
@@ -355,7 +356,7 @@ namespace System.Windows.Forms
                         flags += (uint)PROGDLG.PROGDLG_NOPROGRESSBAR;
                     }
 
-                    if (ProgressBarStyle == ProgressDialogProgressBarStyle.Marquee)
+                    if (ProgressBarStyle == ProgressBarStyle.Marquee)
                     {
                         flags += (uint)PROGDLG.PROGDLG_MARQUEEPROGRESS;
                     }
