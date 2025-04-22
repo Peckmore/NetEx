@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.WinForms.CredentialDi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEx.WinForms.ProgressDialog", "NetEx.WinForms.ProgressDialog\NetEx.WinForms.ProgressDialog.csproj", "{DAD298FB-BB35-417C-B108-65D377ACDAEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.OnDisposeStream", "NetEx.OnDisposeStream\NetEx.OnDisposeStream.csproj", "{E80699DE-7ADA-EEBC-74E0-6108F047666D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.MultiStream", "NetEx.MultiStream\NetEx.MultiStream.csproj", "{DCEDCDF4-3674-C1E2-BAA8-CDF577AAD057}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C39408DF-F833-44B0-B812-FBACCCC0ABE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +35,14 @@ Global
 		{DAD298FB-BB35-417C-B108-65D377ACDAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAD298FB-BB35-417C-B108-65D377ACDAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAD298FB-BB35-417C-B108-65D377ACDAEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E80699DE-7ADA-EEBC-74E0-6108F047666D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E80699DE-7ADA-EEBC-74E0-6108F047666D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E80699DE-7ADA-EEBC-74E0-6108F047666D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E80699DE-7ADA-EEBC-74E0-6108F047666D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCEDCDF4-3674-C1E2-BAA8-CDF577AAD057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCEDCDF4-3674-C1E2-BAA8-CDF577AAD057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCEDCDF4-3674-C1E2-BAA8-CDF577AAD057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCEDCDF4-3674-C1E2-BAA8-CDF577AAD057}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

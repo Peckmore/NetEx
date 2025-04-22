@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+
+    <!-- Project Settings -->
+    <TargetFrameworks>
+        net20;net35;net40;net48;net481;
+        net5.0-windows;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows
+    </TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>
+    <DebugType>embedded</DebugType>
+    <Nullable>enable</Nullable>
+    <RootNamespace>System.IO</RootNamespace>
+
+    <!-- Build Settings -->
+    <OutputPath>$(BaseOutputPath)</OutputPath>
+    <AssemblyName>NetEx.MultiStream</AssemblyName>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <!-- Metadata -->
+    <Version>3.0.0</Version>
+    <Description>A managed implementation of the standard Windows progress dialog. Part of the NetEx project.</Description>
+    <Author>Simon Peckmore</Author>
+    <Copyright>Copyright © Simon Peckmore 2025</Copyright>
+
+    <!-- Package Settings -->
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>NetEx.MultiStream</PackageId>
+	<!--<PackageIcon>icon.png</PackageIcon>-->
+    <PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
+    <PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
+    <PackageTags>netex;progress dialog;progressdialog;commondialog;winforms;windows forms</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
+
+    <!-- Repository -->
+    <RepositoryUrl>https://github.com/Peckmore/NetEx</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <!-- Analyzers -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+  </PropertyGroup>
+  
+  <!--<ItemGroup>
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
+    <PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.25" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>
