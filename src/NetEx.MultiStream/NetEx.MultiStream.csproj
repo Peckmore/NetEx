@@ -28,7 +28,7 @@
     <!-- Package Settings -->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>NetEx.MultiStream</PackageId>
-	<!--<PackageIcon>icon.png</PackageIcon>-->
+	<PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
     <PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
     <PackageTags>netex;progress dialog;progressdialog;commondialog;winforms;windows forms</PackageTags>
@@ -46,9 +46,10 @@
 
   </PropertyGroup>
   
-  <!--<ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-  </ItemGroup>-->
+  <ItemGroup>
+    <None Include="../../resources/icon.png" Pack="true" Visible="false" PackagePath="\"/>
+	<None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" />

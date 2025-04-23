@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace System.Io
+namespace System.IO
 {
     /// <summary>
     /// Provides a wrapper for a <see cref="IO.Stream"/> that contains additional information about where the stream starts and ends as part

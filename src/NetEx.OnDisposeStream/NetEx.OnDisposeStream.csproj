@@ -15,11 +15,11 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RootNamespace>System.Windows.Forms</RootNamespace>
+    <RootNamespace>System.IO</RootNamespace>
 
     <!-- Build Settings -->
     <OutputPath>$(BaseOutputPath)</OutputPath>
-    <AssemblyName>NetEx.WinForms.ProgressDialog</AssemblyName>
+    <AssemblyName>NetEx.OnDisposeStream</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
     <!-- Metadata -->
@@ -40,7 +40,7 @@
     <!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
 
     <!-- Repository -->
-    <RepositoryUrl>https://github.com/Peckmore/netex.winforms.progressdialog</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Peckmore/netex</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <!-- Analyzers -->
@@ -52,9 +52,10 @@
   <ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
-  
+    
   <ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+    <None Include="../../resources/icon.png" Pack="true" Visible="false" PackagePath="\"/>
+	<None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
