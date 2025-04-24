@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{02EA681E-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetExDemo", "Demo\NetExDemo\NetExDemo.csproj", "{91937276-F353-4B0A-BBA8-92FE3AD58E6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.WinForms.CredentialDialog", "NetEx.WinForms.CredentialDialog\NetEx.WinForms.CredentialDialog.csproj", "{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.Windows.Forms.CredentialDialog", "NetEx.WinForms.CredentialDialog\NetEx.Windows.Forms.CredentialDialog.csproj", "{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEx.WinForms.ProgressDialog", "NetEx.WinForms.ProgressDialog\NetEx.WinForms.ProgressDialog.csproj", "{DAD298FB-BB35-417C-B108-65D377ACDAEB}"
 EndProject

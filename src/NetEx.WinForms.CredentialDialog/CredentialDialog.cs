@@ -1,17 +1,19 @@
-﻿using System.ComponentModel;
+﻿using NetEx.Windows.Forms.Internal;
+using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms.Internal;
+using System.Windows.Forms;
 
 #if NETFRAMEWORK
 using System.Security.Permissions;
 #endif
 
-namespace System.Windows.Forms
+namespace NetEx.Windows.Forms
 {
     /// <summary>
     /// Displays a standard dialog box that prompts the user to enter credentials. This class cannot be inherited.

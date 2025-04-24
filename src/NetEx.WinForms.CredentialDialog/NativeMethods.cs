@@ -1,9 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using NetEx.Windows.Forms.Internal;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms.Internal;
 
-namespace System.Windows.Forms
+namespace NetEx.Windows.Forms
 {
     [SuppressMessage("ReSharper", "IdentifierTypo")]
     internal static class NativeMethods
