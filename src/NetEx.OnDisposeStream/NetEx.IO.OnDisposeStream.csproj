@@ -4,43 +4,41 @@
 
     <!-- Project Settings -->
     <TargetFrameworks>
-        net20;net35;net40;net48;net481;
-        net5.0-windows;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows
-    </TargetFrameworks>
+		netstandard2.0;netstandard2.1;
+		net20;net35;net40;net462;net48;net481;
+		net5.0;net6.0;net7.0;net8.0;net9.0
+	</TargetFrameworks>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
     <DebugType>embedded</DebugType>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <Nullable>enable</Nullable>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RootNamespace>System.IO</RootNamespace>
+    <RootNamespace>NetEx.IO</RootNamespace>
 
     <!-- Build Settings -->
     <OutputPath>$(BaseOutputPath)</OutputPath>
-    <AssemblyName>NetEx.OnDisposeStream</AssemblyName>
+    <AssemblyName>NetEx.IO.OnDisposeStream</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
     <!-- Metadata -->
     <Version>3.0.0</Version>
-    <Description>A managed implementation of the standard Windows progress dialog. Part of the NetEx project.</Description>
+    <Description>A stream wrapper that can be used to perform additional cleanup when the underlying stream is disposed.</Description>
     <Author>Simon Peckmore</Author>
     <Copyright>Copyright © Simon Peckmore 2025</Copyright>
 
     <!-- Package Settings -->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>NetEx.WinForms.ProgressDialog</PackageId>
+    <PackageId>NetEx.IO.OnDisposeStream</PackageId>
 	<PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
     <PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
-    <PackageTags>netex;progress dialog;progressdialog;commondialog;winforms;windows forms</PackageTags>
+    <PackageTags>netex;io;stream;dispose;ondispose</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <EnablePackageValidation>true</EnablePackageValidation>
     <!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
 
     <!-- Repository -->
-    <RepositoryUrl>https://github.com/Peckmore/netex</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Peckmore/NetEx</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <!-- Analyzers -->
@@ -48,10 +46,6 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
   </PropertyGroup>
-
-  <ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
     
   <ItemGroup>
     <None Include="../../resources/icon.png" Pack="true" Visible="false" PackagePath="\"/>
