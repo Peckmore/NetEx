@@ -126,7 +126,7 @@ namespace NetEx.IO
         /// <exception cref="ObjectDisposedException">Methods were called after the wrapped stream was closed.</exception>
         /// <remarks>
         /// <para>In a wrapped stream that doesn't support writing, <see cref="Flush"/> is typically implemented as an empty method to ensure full compatibility with other <see cref="Stream"/> types since it's valid to flush a read-only stream.</para>
-        /// <para>When using the <see cref="StreamWriter"/> or <see cref="BinaryWriter"/> class, do not flush the base <see cref="Stream"/> object. Instead, use the class's <see cref="Flush"/> or <see cref="Close"/> method, which makes sure that the data is flushed to the underlying stream first and then written to the file.</para>
+        /// <para>When using the <see cref="StreamWriter"/> or <see cref="BinaryWriter"/> class, do not flush the base <see cref="Stream"/> object. Instead, use the class's <see cref="Flush"/> or <see cref="Stream.Close"/> method, which makes sure that the data is flushed to the underlying stream first and then written to the file.</para>
         /// <para>Please note that the behaviour described is not guaranteed as it is dependent upon the implementation of the wrapped stream. Refer to the documentation for the wrapped stream implementation for expected behaviour.</para>
         /// </remarks>
         public override void Flush()
