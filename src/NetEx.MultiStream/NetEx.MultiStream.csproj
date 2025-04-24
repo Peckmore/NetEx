@@ -4,7 +4,7 @@
 
     <!-- Project Settings -->
     <TargetFrameworks>
-        net20;net35;net40;net48;net481;
+		net20;net35;net40;net462;net48;net481;
         net5.0-windows;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows
     </TargetFrameworks>
     <OutputType>Library</OutputType>
