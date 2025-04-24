@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NetEx.WinForms.CredentialDialog\NetEx.WinForms.CredentialDialog.csproj" />
+    <ProjectReference Include="..\..\NetEx.WinForms.CredentialDialog\NetEx.Windows.Forms.CredentialDialog.csproj" />
     <ProjectReference Include="..\..\NetEx.WinForms.ProgressDialog\NetEx.WinForms.ProgressDialog.csproj" />
   </ItemGroup>
     
