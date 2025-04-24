@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
-namespace NetEx
+namespace NetEx.IO
 {
     /// <summary>
     /// Creates a wrapper around a <see cref="Stream"/> that can be used to perform additional cleanup when the underlying stream is disposed.
