@@ -1,4 +1,4 @@
-﻿namespace System.IO
+﻿namespace NetEx.IO
 {
     internal static class Exceptions
     {

@@ -100,7 +100,7 @@ namespace NetEx.IO
         #region Protected
 
         /// <inheritdoc/>
-        protected sealed override void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

@@ -13,6 +13,7 @@
     <LangVersion>latest</LangVersion>
     <DebugType>embedded</DebugType>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <RootNamespace>NetEx.IO</RootNamespace>
 
     <!-- Build Settings -->
@@ -31,6 +32,7 @@
     <PackageId>NetEx.IO.OnDisposeStream</PackageId>
 	<PackageIcon>icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
     <PackageTags>netex;io;stream;dispose;ondispose</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

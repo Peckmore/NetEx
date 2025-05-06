@@ -1,12 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
 using System.Windows.Forms.Internal;
 
-namespace System.Windows.Forms
+namespace NetEx.Windows.Forms
 {
     /// <summary>
     /// Displays a standard dialog box that informs the user of the progress of an action. This class cannot be inherited.
@@ -144,10 +146,10 @@ namespace System.Windows.Forms
         /// <summary>
         /// Gets or sets the manner in which progress should be indicated on the progress bar within the dialog box. This property has no effect if <see cref="ShowProgressBar"/> is set to <see langword="false"/>. Only applies to Windows Vista and later.
         /// </summary>
-        /// <value>One of the <see cref="Forms.ProgressBarStyle"/> values. The default value is <see cref="ProgressBarStyle.Continuous"/>.</value>
+        /// <value>One of the <see cref="System.Windows.Forms.ProgressBarStyle"/> values. The default value is <see cref="ProgressBarStyle.Continuous"/>.</value>
         /// <remarks>Setting this value to <see cref="ProgressBarStyle.Blocks"/> will have no effect, and the appearance of the progress bar will be the same as if set to <see cref="ProgressBarStyle.Continuous"/>.</remarks>
         /// <exception cref="InvalidEnumArgumentException">
-        /// <paramref name="value"/> is not a member of the <see cref="Forms.ProgressBarStyle"/> enumeration.
+        /// <paramref name="value"/> is not a member of the <see cref="System.Windows.Forms.ProgressBarStyle"/> enumeration.
         /// </exception>
         [Category("Appearance")]
         [DefaultValue(typeof(ProgressBarStyle), "Continuous")]

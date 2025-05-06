@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetExDemo", "Demo\NetExDemo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.Windows.Forms.CredentialDialog", "NetEx.Windows.Forms.CredentialDialog\NetEx.Windows.Forms.CredentialDialog.csproj", "{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEx.WinForms.ProgressDialog", "NetEx.WinForms.ProgressDialog\NetEx.WinForms.ProgressDialog.csproj", "{DAD298FB-BB35-417C-B108-65D377ACDAEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEx.Windows.Forms.ProgressDialog", "NetEx.Windows.Forms.ProgressDialog\NetEx.Windows.Forms.ProgressDialog.csproj", "{DAD298FB-BB35-417C-B108-65D377ACDAEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.IO.OnDisposeStream", "NetEx.IO.OnDisposeStream\NetEx.IO.OnDisposeStream.csproj", "{E80699DE-7ADA-EEBC-74E0-6108F047666D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.MultiStream", "NetEx.MultiStream\NetEx.MultiStream.csproj", "{DCEDCDF4-3674-C1E2-BAA8-CDF577AAD057}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.IO.MultiStream", "NetEx.IO.MultiStream\NetEx.IO.MultiStream.csproj", "{DCEDCDF4-3674-C1E2-BAA8-CDF577AAD057}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C39408DF-F833-44B0-B812-FBACCCC0ABE2}"
 EndProject
