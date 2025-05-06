@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace System.IO
+namespace NetEx.IO
 {
     public class MultiStream : Stream
     {

@@ -1,7 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-namespace System.Windows.Forms.Internal
+namespace NetEx.Windows.Forms.Internal
 {
     [ComImport]
     [Guid("EBBC7C04-315E-11d2-B62F-006097DF5BD4")]
