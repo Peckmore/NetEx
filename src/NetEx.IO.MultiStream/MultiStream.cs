@@ -1,18 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace NetEx.IO
 {
+    /// <summary>
+    /// Creates a wrapper around a multiple <see cref="Stream"/> instances, and presents them as a single, read-only stream.
+    /// </summary>
     public class MultiStream : Stream
     {
         #region Fields
 
-        private string _activeFilename;
-        private StreamInfo _activeStream;
+        private StreamInfo? _activeStream;
         private readonly List<StreamInfo> _fileStreams;
         private bool _isDisposed;
-        private long _length;
-        private long position;
+        private readonly long _length;
+        private long _position;
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when the file currently being streamed from within the specified ISO changes.
+        /// </summary>
+        public event EventHandler? ActiveStreamNameChanged;
 
         #endregion
 
@@ -21,37 +33,50 @@ namespace NetEx.IO
         /// <summary>
         /// Creates a new <see cref="MultiStream"/> instance.
         /// </summary>
-        protected MultiStream()
+        public MultiStream(IEnumerable<Stream> streams)
         {
             // We need to create our list where we'll store a stream for each file.
             _fileStreams = new List<StreamInfo>();
+
+            foreach (var stream in streams)
+            {
+                _fileStreams.Add(new StreamInfo(stream, _length));
+
+                _length += stream.Length;
+            }
         }
 
         #endregion
 
         #region Properties
 
-        #region Private Protected
-
         /// <summary>
-        /// A list of all of the individual streams that make up this single stream.
+        /// The name of the file currently being accessed within the specified ISO, based on <see cref="Position"/>.
         /// </summary>
-        private protected List<StreamInfo> FileStreams => _fileStreams;
+        public string? ActiveStreamName
+        {
+            get
+            {
+                // Check we haven't been diposed.
+                if (_isDisposed)
+                {
+                    // We have, so throw an exception.
+                    throw Exceptions.StreamDisposed();
+                }
 
-        #endregion
-
-        #region Public
-
+                return _activeStream?.Name;
+            }
+        }
         /// <inheritdoc/>
-        public override sealed bool CanRead => !_isDisposed;
+        public sealed override bool CanRead => !_isDisposed;
         /// <inheritdoc/>
-        public override sealed bool CanSeek => !_isDisposed;
+        public sealed override bool CanSeek => !_isDisposed;
         /// <inheritdoc/>
-        public override sealed bool CanTimeout => false;
+        public sealed override bool CanTimeout => false;
         /// <inheritdoc/>
-        public override sealed bool CanWrite => false;
+        public sealed override bool CanWrite => false;
         /// <inheritdoc/>
-        public override sealed long Length
+        public sealed override long Length
         {
             get
             {
@@ -65,9 +90,8 @@ namespace NetEx.IO
                 return _length;
             }
         }
-
         /// <inheritdoc/>
-        public override sealed long Position
+        public sealed override long Position
         {
             get
             {
@@ -78,37 +102,32 @@ namespace NetEx.IO
                     throw Exceptions.StreamDisposed();
                 }
 
-                return position;
+                return _position;
             }
-            set => position = value;
+            set => _position = value;
         }
         /// <inheritdoc/>
-        public override sealed int ReadTimeout
+        public sealed override int ReadTimeout
         {
             get
             {
                 // https://learn.microsoft.com/en-us/dotnet/api/system.io.stream.readtimeout?view=net-8.0#notes-to-inheritors
                 // "The ReadTimeout property should be overridden to provide the appropriate behavior for the stream. If the stream
                 // does not support timing out, this property should raise an InvalidOperationException."
-
                 throw Exceptions.StreamDoesNotSupportTimeouts();
             }
         }
-
         /// <inheritdoc/>
-        public override sealed int WriteTimeout
+        public sealed override int WriteTimeout
         {
             get
             {
                 // https://learn.microsoft.com/en-us/dotnet/api/system.io.stream.writetimeout?view=net-8.0#notes-to-inheritors
                 // "The WriteTimeout property should be overridden to provide the appropriate behavior for the stream. If the stream
                 // does not support timing out, this property should raise an InvalidOperationException."
-
                 throw Exceptions.StreamDoesNotSupportTimeouts();
             }
         }
-
-        #endregion
 
         #endregion
 
@@ -116,7 +135,7 @@ namespace NetEx.IO
 
         #region Private
 
-        private StreamInfo GetStream()
+        private StreamInfo? GetStream()
         {
             // Grabbing the correct stream is done every Read, so we'll try and do a mini-optimisation and cache the currently active
             // stream, which prevents having to iterate the list every request. Only if we're outside of the active stream will we
@@ -143,6 +162,9 @@ namespace NetEx.IO
                         // We've found the correct stream, so set it to our active stream.
                         _activeStream = stream;
 
+                        // Raise the event to say we have changed stream, and therefore stream name (if supported).
+                        ActiveStreamNameChanged?.Invoke(this, EventArgs.Empty);
+
                         // Break out the loop as we don't need to continue searching.
                         break;
                     }
@@ -158,7 +180,7 @@ namespace NetEx.IO
         #region Protected
 
         /// <inheritdoc/>
-        protected override sealed void Dispose(bool disposing)
+        protected sealed override void Dispose(bool disposing)
         {
             // Check we aren't already disposed.
             if (!_isDisposed)
@@ -181,33 +203,25 @@ namespace NetEx.IO
             base.Dispose(disposing);
         }
         /// <summary>
-        /// Increments the total <see cref="Length"/> for this <see cref="MultiStream"/> instance by the specified amount.
-        /// </summary>
-        /// <param name="amount">The amount to increase <see cref="Length"/> by.</param>
-        /// <remarks>This method is required because <see cref="Length"/> has no setter.</remarks>
-        protected void IncrementLength(long amount)
-        {
-            _length += amount;
-        }
-        /// <summary>
         /// Allows derived classes to dispose of any resources when the class is disposed or finalized.
         /// </summary>
         /// <param name="disposing"><see langword="true"/> to indicate that this method has been called during disposal, or
         /// <see langword="false"/> to indicate the method has been called during finalization.</param>
-        //protected abstract void OnDispose(bool disposing);
+        protected virtual void OnDispose(bool disposing)
+        { }
 
         #endregion
 
         #region Public
 
         /// <inheritdoc/>
-        public override sealed void Flush()
+        public override void Flush()
         {
             // https://learn.microsoft.com/en-us/dotnet/api/system.io.stream.flush?view=net-8.0#remarks
             // "In a class derived from Stream that doesn't support writing, Flush is typically implemented as an empty method to
             // ensure full compatibility with other Stream types since it's valid to flush a read-only stream."
 
-            // Check we haven't been diposed.
+            // Check we haven't been disposed.
             if (_isDisposed)
             {
                 // We have, so throw an exception.
@@ -215,9 +229,9 @@ namespace NetEx.IO
             }
         }
         /// <inheritdoc/>
-        public override sealed int Read(byte[] buffer, int offset, int count)
+        public override int Read(byte[] buffer, int offset, int count)
         {
-            // Check we haven't been diposed.
+            // Check we haven't been disposed.
             if (_isDisposed)
             {
                 // We have, so throw an exception.
@@ -305,7 +319,7 @@ namespace NetEx.IO
         /// <param name="offset">The new position within the stream. This is relative to the <code>loc</code> parameter, and can be positive or negative.</param>
         /// <param name="loc">A value of type <see cref="SeekOrigin"/>, which acts as the seek reference point.</param>
         /// <returns></returns>
-        public override sealed long Seek(long offset, SeekOrigin loc)
+        public override long Seek(long offset, SeekOrigin loc)
         {
             // Check we haven't been diposed.
             if (_isDisposed)
@@ -346,7 +360,7 @@ namespace NetEx.IO
             return Position;
         }
         /// <inheritdoc/>
-        public override sealed void SetLength(long value)
+        public override void SetLength(long value)
         {
             // If a stream does not support writing, the SetLength method should throw a NotSupportedException.
             //
@@ -357,7 +371,7 @@ namespace NetEx.IO
             throw Exceptions.StreamDoesNotSupportWriting();
         }
         /// <inheritdoc/>
-        public override sealed void Write(byte[] buffer, int offset, int count)
+        public override void Write(byte[] buffer, int offset, int count)
         {
             // If a stream does not support writing, the Write method should throw a NotSupportedException.
             //
