@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetEx.Windows.Forms;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows.Forms;
