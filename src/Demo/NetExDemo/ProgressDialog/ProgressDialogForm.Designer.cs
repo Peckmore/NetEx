@@ -33,7 +33,7 @@
             this.showButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this.progressDialog = new System.Windows.Forms.ProgressDialog();
+            this.progressDialog = new NetEx.Windows.Forms.ProgressDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.frameworkToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
@@ -130,7 +130,7 @@
         private System.Windows.Forms.Button showButton;
         private System.Windows.Forms.PropertyGrid propertyGrid;
         private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.ProgressDialog progressDialog;
+        private NetEx.Windows.Forms.ProgressDialog progressDialog;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel frameworkToolStripStatusLabel;
     }

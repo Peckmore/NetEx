@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetEx.Windows.Forms.Internal;
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
@@ -6,7 +7,6 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Forms.Internal;
 
 namespace NetEx.Windows.Forms
 {
