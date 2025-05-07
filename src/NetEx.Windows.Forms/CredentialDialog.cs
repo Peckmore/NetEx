@@ -21,7 +21,8 @@ namespace NetEx.Windows.Forms
     [DefaultEvent("HelpRequest")]
     [DefaultProperty("Username")]
     [Description("Displays a dialog box that prompts the user to enter credentials.")]
-    [ToolboxBitmap(typeof(CredentialDialog), "ToolboxBitmap.png")]
+    [ToolboxBitmap(typeof(CredentialDialog), "CredentialDialogToolboxBitmap.png")]
+    [ToolboxItem(true)]
     public sealed class CredentialDialog : CommonDialog
     {
         #region Constants

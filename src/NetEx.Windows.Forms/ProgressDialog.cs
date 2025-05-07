@@ -16,7 +16,8 @@ namespace NetEx.Windows.Forms
     [DefaultEvent("Closed")]
     [DefaultProperty("Value")]
     [Description("Displays a dialog box to inform the user of the progress of an action.")]
-    [ToolboxBitmap(typeof(ProgressDialog), "ToolboxBitmap.png")]
+    [ToolboxBitmap(typeof(ProgressDialog), "ProgressDialogToolboxBitmap.png")]
+    [ToolboxItem(true)]
     public sealed class ProgressDialog : CommonDialog
     {
         #region Fields

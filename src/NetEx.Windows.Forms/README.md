@@ -1,14 +1,10 @@
-# Credential Dialog
+# NetEx.Windows.Forms
 
-A managed implementation of the standard Windows credential dialog, for WinForms.
+Provides additional additional controls, classes, and extension methods for use with WinForms.
 
-## Usage
-
-Install the package from NuGet:
-
-```powershell
-Install-Package NetEx.WinForms.CredentialDialog
-```
+Currently Supported Controls:
+- NetEx.Windows.Forms.CredentialDialog
+- NetEx.Windows.Forms.ProgressDialog
 
 ## API
 
