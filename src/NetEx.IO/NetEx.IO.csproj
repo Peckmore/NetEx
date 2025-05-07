@@ -33,7 +33,10 @@
 		<PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
-		<PackageTags>netex;io;stream;multistream;ondisposestream</PackageTags>
+		<PackageTags>
+			netex;io;
+			stream;multistream;ondisposestream
+		</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<EnablePackageValidation>true</EnablePackageValidation>
 		<!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
