@@ -18,9 +18,9 @@ namespace NetEx.IO
         #region Construction
 
         /// <summary>  
-        /// Creates a new <see cref="StreamInfo"/> instance.  
+        /// Creates a new <see cref="StreamInfo"/> instance.
         /// </summary>  
-        /// <param name="stream">The base <see cref="System.IO.Stream"/> to wrap.</param>  
+        /// <param name="stream">The base <see cref="System.IO.Stream"/> to wrap.</param>
         /// <param name="start">The start position of the specified <see cref="System.IO.Stream"/> within the single, merged stream.</param>
         public StreamInfo(Stream stream, long start)
         {
@@ -64,7 +64,7 @@ namespace NetEx.IO
         /// <summary>
         /// The wrapped <see cref="System.IO.Stream"/>.
         /// </summary>
-        public Stream Stream { get; private set; }
+        public Stream Stream { get; }
 
         #endregion
 

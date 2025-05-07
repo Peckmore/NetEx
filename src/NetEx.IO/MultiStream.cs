@@ -22,7 +22,7 @@ namespace NetEx.IO
         #region Events
 
         /// <summary>
-        /// Occurs when the file currently being streamed from within the specified ISO changes.
+        /// Occurs when the wrapped stream currently being read from changes.
         /// </summary>
         public event EventHandler? ActiveStreamNameChanged;
 
@@ -51,7 +51,7 @@ namespace NetEx.IO
         #region Properties
 
         /// <summary>
-        /// The name of the file currently being accessed within the specified ISO, based on <see cref="Position"/>.
+        /// The name of the <see cref="Stream"/> currently being accessed within the <see cref="MultiStream"/>, based on <see cref="Position"/>.
         /// </summary>
         public string? ActiveStreamName
         {
