@@ -12,8 +12,8 @@
 		<LangVersion>latest</LangVersion>
 		<DebugType>embedded</DebugType>
 		<Nullable>enable</Nullable>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<RootNamespace>NetEx.Windows.Forms</RootNamespace>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 
@@ -36,7 +36,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
 		<PackageTags>
-			netex;commondialog;windowsforms;windows forms;
+			netex;windowsforms;windows forms;commondialog;
 			credential dialog;credentialdialog;credentials;
 			progress dialog;progressdialog;progresswinforms
 		</PackageTags>
@@ -64,14 +64,14 @@
 		<EmbeddedResource Include="ProgressDialogToolboxBitmap.png" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
-		<Reference Include="System.Windows.Forms" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
 		<PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.25" />
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
+		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 
 </Project>
