@@ -1,14 +1,10 @@
-# NetEx.IO.MultiStream
+# NetEx.IO
 
-A stream wrapper that presents multiple streams as a single, read-only stream.
+Provides additional input and output (I/O) types, including **NetEx.IO.MultiStream**, and **NetEx.IO.OnDisposeStream**, that allow reading and/or writing to data streams.
 
-## Usage
-
-Install the package from NuGet:
-
-```powershell
-Install-Package NetEx.IO.MultiStream
-```
+Currently Supported Types:
+- NetEx.IO.MultiStream
+- NetEx.IO.OnDisposeStream
 
 ## API
 
