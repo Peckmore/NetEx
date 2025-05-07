@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\NetEx.IO.MultiStream\NetEx.IO.csproj" />
+		<ProjectReference Include="..\..\NetEx.IO\NetEx.IO.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

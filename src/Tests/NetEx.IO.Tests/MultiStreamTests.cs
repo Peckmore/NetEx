@@ -1,10 +1,9 @@
 using FluentAssertions;
-using NetEx.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace NetEx.Windows.Forms.Tests
+namespace NetEx.IO.Tests
 {
     public class StreamTests
     {
@@ -36,13 +35,13 @@ namespace NetEx.Windows.Forms.Tests
             testLong = () => _ = stream.Position;
             testLong.Should().Throw<ObjectDisposedException>();
 
-            var testVoid = () => stream.Flush();
+            var testVoid = stream.Flush;
             testVoid.Should().Throw<ObjectDisposedException>();
 
             var testInt = () => stream.Read(new byte[1], 0, 1);
             testInt.Should().Throw<ObjectDisposedException>();
 
-            var testByte = () => stream.ReadByte();
+            var testByte = stream.ReadByte;
             testByte.Should().Throw<ObjectDisposedException>();
 
             testLong = () => stream.Seek(0, SeekOrigin.Begin);
