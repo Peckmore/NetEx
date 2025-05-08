@@ -3,17 +3,51 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFrameworks>net20;net9.0-windows</TargetFrameworks>
-		<Nullable>enable</Nullable>
+		<Platforms>AnyCPU;x86</Platforms>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<!--<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<RootNamespace>NetExDemo</RootNamespace>
-		<AssemblyName>NetExDemo</AssemblyName>
+		<AssemblyName>NetExDemo</AssemblyName>-->
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net20|AnyCPU'">
+	  <Prefer32Bit>False</Prefer32Bit>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net20|x86'">
+	  <Prefer32Bit>False</Prefer32Bit>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|AnyCPU'">
+	  <Prefer32Bit>False</Prefer32Bit>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|x86'">
+	  <Prefer32Bit>False</Prefer32Bit>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net20|AnyCPU'">
+	  <Prefer32Bit>False</Prefer32Bit>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net20|x86'">
+	  <Prefer32Bit>False</Prefer32Bit>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|AnyCPU'">
+	  <Prefer32Bit>False</Prefer32Bit>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|x86'">
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\NetEx.Windows.Forms.CredentialDialog\NetEx.Windows.Forms.CredentialDialog.csproj" />
-		<ProjectReference Include="..\..\NetEx.Windows.Forms.ProgressDialog\NetEx.Windows.Forms.ProgressDialog.csproj" />
+		<ProjectReference Include="..\..\NetEx.Hooks\NetEx.Hooks.csproj" />
+		<ProjectReference Include="..\..\NetEx.Windows.Forms\NetEx.Windows.Forms.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">

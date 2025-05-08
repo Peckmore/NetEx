@@ -11,7 +11,7 @@ namespace NetExDemo.ProgressDialog
         #region Fields
 
         private bool _cancelThread;
-        private Thread? _t;
+        private Thread _t;
 
         #endregion
 
