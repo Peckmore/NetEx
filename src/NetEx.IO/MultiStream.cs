@@ -114,7 +114,7 @@ namespace NetEx.IO
                 // https://learn.microsoft.com/en-us/dotnet/api/system.io.stream.readtimeout?view=net-8.0#notes-to-inheritors
                 // "The ReadTimeout property should be overridden to provide the appropriate behavior for the stream. If the stream
                 // does not support timing out, this property should raise an InvalidOperationException."
-                throw Exceptions.StreamDoesNotSupportTimeouts();
+                throw Exceptions.MultiStreamDoesNotSupportTimeouts();
             }
         }
         /// <inheritdoc/>
@@ -125,7 +125,7 @@ namespace NetEx.IO
                 // https://learn.microsoft.com/en-us/dotnet/api/system.io.stream.writetimeout?view=net-8.0#notes-to-inheritors
                 // "The WriteTimeout property should be overridden to provide the appropriate behavior for the stream. If the stream
                 // does not support timing out, this property should raise an InvalidOperationException."
-                throw Exceptions.StreamDoesNotSupportTimeouts();
+                throw Exceptions.MultiStreamDoesNotSupportTimeouts();
             }
         }
 
@@ -368,7 +368,7 @@ namespace NetEx.IO
             // "NotSupportedException
             // The stream does not support both writing and seeking, such as if the stream is constructed from a pipe or console output."
 
-            throw Exceptions.StreamDoesNotSupportWriting();
+            throw Exceptions.MultiStreamDoesNotSupportWriting();
         }
         /// <inheritdoc/>
         public override void Write(byte[] buffer, int offset, int count)
@@ -379,7 +379,7 @@ namespace NetEx.IO
             // "NotSupportedException
             // The stream does not support writing."
 
-            throw Exceptions.StreamDoesNotSupportWriting();
+            throw Exceptions.MultiStreamDoesNotSupportWriting();
         }
 
         #endregion
