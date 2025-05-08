@@ -2,6 +2,7 @@
 using NetExDemo.ProgressDialog;
 using System;
 using System.Windows.Forms;
+using Tcr.HooksDemo;
 
 namespace NetExDemo
 {
@@ -39,5 +40,9 @@ namespace NetExDemo
 
         #endregion
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Form1().Show();
+        }
     }
 }

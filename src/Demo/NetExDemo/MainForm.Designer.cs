@@ -32,6 +32,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.frameworkToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonProgressDialogDemo = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,14 +52,14 @@
             this.frameworkToolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 70);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(325, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(360, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // frameworkToolStripStatusLabel
             // 
             this.frameworkToolStripStatusLabel.Name = "frameworkToolStripStatusLabel";
-            this.frameworkToolStripStatusLabel.Size = new System.Drawing.Size(170, 17);
+            this.frameworkToolStripStatusLabel.Size = new System.Drawing.Size(171, 17);
             this.frameworkToolStripStatusLabel.Text = "frameworkToolStripStatusLabel";
             // 
             // buttonProgressDialogDemo
@@ -71,11 +72,22 @@
             this.buttonProgressDialogDemo.UseVisualStyleBackColor = true;
             this.buttonProgressDialogDemo.Click += new System.EventHandler(this.buttonProgressDialogDemo_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(242, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(109, 42);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Progress Dialog";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 92);
+            this.ClientSize = new System.Drawing.Size(360, 92);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonProgressDialogDemo);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.buttonCredentialDialogDemo);
@@ -96,5 +108,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel frameworkToolStripStatusLabel;
         private System.Windows.Forms.Button buttonProgressDialogDemo;
+        private System.Windows.Forms.Button button1;
     }
 }
