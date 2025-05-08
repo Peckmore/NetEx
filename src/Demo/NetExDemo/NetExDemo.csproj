@@ -5,12 +5,12 @@
 		<TargetFrameworks>net20;net9.0-windows</TargetFrameworks>
 		<Platforms>AnyCPU;x86</Platforms>
 		<PlatformTarget>AnyCPU</PlatformTarget>
-		<!--<Nullable>enable</Nullable>
+		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<RootNamespace>NetExDemo</RootNamespace>
-		<AssemblyName>NetExDemo</AssemblyName>-->
+		<AssemblyName>NetExDemo</AssemblyName>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net20|AnyCPU'">
@@ -47,7 +47,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\NetEx.Hooks\NetEx.Hooks.csproj" />
-		<ProjectReference Include="..\..\NetEx.Windows.Forms\NetEx.Windows.Forms.csproj" />
+		<ProjectReference Include="..\..\NetEx.WinForms.Dialogs\NetEx.WinForms.Dialogs.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
