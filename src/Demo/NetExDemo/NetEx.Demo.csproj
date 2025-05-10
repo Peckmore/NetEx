@@ -47,7 +47,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\NetEx.Hooks\NetEx.Hooks.csproj" />
-		<ProjectReference Include="..\..\NetEx.WinForms.Dialogs\NetEx.Dialogs.WinForms.csproj" />
+		<ProjectReference Include="..\..\NetEx.Dialogs.WinForms\NetEx.Dialogs.WinForms.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
