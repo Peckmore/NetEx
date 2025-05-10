@@ -1,4 +1,4 @@
-﻿namespace NetEx.Windows.Forms
+﻿namespace NetEx.Dialogs.WinForms
 {
     /// <summary>
     /// Specifies the credentials to display in a <see cref="CredentialDialog"/>.

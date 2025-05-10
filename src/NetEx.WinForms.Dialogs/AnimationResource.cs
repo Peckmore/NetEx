@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace NetEx.Windows.Forms
+namespace NetEx.Dialogs.WinForms
 {
     /// <summary>
     /// Represents a resource that contains an Audio-Video Interleaved (AVI) clip to run in a dialog box.
