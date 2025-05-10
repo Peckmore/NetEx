@@ -12,14 +12,15 @@ namespace NetEx.Hooks
     /// </summary>
     public class ClipboardHook
     {
-        #region Variables
+        #region Fields
 
-        private static int _messageLoopError;
+        private static readonly Semaphore _installationSemaphore;
         private static Thread? _messageLoopThread;
+        private static int _messageLoopThreadError;
         private static IntPtr _nextWindowHandle;
+        private static bool _useNewClipboardFormatListener;
         private static IntPtr _windowHandle;
         private static readonly Semaphore _windowSemaphore;
-        private static WndProc? _wndProc;
 
         #endregion
 
@@ -36,7 +37,16 @@ namespace NetEx.Hooks
 
         static ClipboardHook()
         {
-            _windowSemaphore = new Semaphore(0, 1);
+            // Initialize our semaphores
+            _installationSemaphore = new(1, 1);
+            _windowSemaphore = new(0, 1);
+
+            // Check if we're on Windows Vista or later, and set our flag accordingly.
+            if (Environment.OSVersion.Version >= new Version(6, 0))
+            {
+                // We're on Windows Vista or later, so we can use the newer "Clipboard Format Listener" API.
+                _useNewClipboardFormatListener = true;
+            }
         }
 
         #endregion
@@ -58,93 +68,122 @@ namespace NetEx.Hooks
         private static void MessageLoop()
         {
             // Clear our last error value so we can track errors.
-            _messageLoopError = 0;
+            _messageLoopThreadError = 0;
 
             // Track whether we have released our semaphore
             var released = false;
 
-            // Get the current process.
+            // We're going to get the module handle, so create a variable to store it.
+            var moduleHandle = IntPtr.Zero;
+
+            // First, get the current process.
             using (var currentProcess = Process.GetCurrentProcess())
             {
-                // Check that we can get a module name (which confirms that process, module, and name are not null).
+                // Then check that we can get a module name (which confirms that process, module, and name are not null).
                 if (currentProcess.MainModule?.ModuleName != null)
                 {
                     // Get the current module.
                     using (var currentModule = currentProcess.MainModule)
                     {
-                        // Check whether we have registered our window class. We only want to do this once, but we'll only do it when the hook
-                        // is installed.
-                        if (_wndProc == null)
-                        {
-                            // Define the window class
-                            _wndProc = WndProc;
-                            var wndClass = new WNDCLASSEX(Marshal.GetFunctionPointerForDelegate(_wndProc), NativeMethods.GetModuleHandle(currentModule.ModuleName));
+                        // Finally, get the module handle.
+                        moduleHandle = NativeMethods.GetModuleHandle(currentModule.ModuleName);
+                    }
+                }
+            }
 
-                            // Register the window class
-                            if (NativeMethods.RegisterClassEx(ref wndClass) == 0)
+            // Check we have a valid module handle.
+            if (moduleHandle != IntPtr.Zero)
+            {
+                // Define our window class
+                WndProc wndProc = WndProc;
+                var wndClass = new WNDCLASSEX(Marshal.GetFunctionPointerForDelegate(wndProc), moduleHandle);
+
+                // Register the window class
+                var atom = NativeMethods.RegisterClassEx(ref wndClass);
+                if (atom > 0)
+                {
+                    // Create a new window of our defined class type. We have to create a window as we need a message loop to receive window
+                    // messages, which include clipboard updates.
+                    _windowHandle = NativeMethods.CreateWindowEx(0,
+                                                                 WNDCLASSEX.ClassName,
+                                                                 WNDCLASSEX.ClassName,
+                                                                 0,
+                                                                 0,
+                                                                 0,
+                                                                 0,
+                                                                 0,
+                                                                 IntPtr.Zero,
+                                                                 IntPtr.Zero,
+                                                                 moduleHandle,
+                                                                 IntPtr.Zero);
+
+                    // Check that the window was created successfully
+                    if (_windowHandle != IntPtr.Zero)
+                    {
+                        // Our window was created and is valid, so we can release our semaphore to let our calling method continue, and we
+                        // can then start our message loop.
+                        _windowSemaphore.Release();
+                        released = true;
+
+                        // Start our message loop. We call `GetMessage` to wait for a message, then process it once received. This will run
+                        // until we receive a `WM_QUIT` message.
+                        while (NativeMethods.GetMessage(out MSG msg, IntPtr.Zero, 0, 0))
+                        {
+                            // Translate and dispatch each message once received - `DispatchMessage` will call our WndProc method, which is
+                            // where we can then identify and handle the message.
+                            NativeMethods.TranslateMessage(ref msg);
+                            NativeMethods.DispatchMessage(ref msg);
+                        }
+
+                        // We've received a `WM_QUIT` message, so we can begin cleaning up.
+
+                        if (_useNewClipboardFormatListener)
+                        {
+                            // We're on Windows Vista or later so we need to remove our clipboard format listener.
+                            if (!NativeMethods.RemoveClipboardFormatListener(_windowHandle))
                             {
-                                // Registration failed, so we'll clean up and throw an exception to let the user know.
-                                _wndProc = null;
-                                throw new Win32Exception();
+                                // We failed to remove the listener, so grab the error before we return.
+                                _messageLoopThreadError = Marshal.GetLastWin32Error();
                             }
                         }
 
-                        // Create a new window of our defined class type. We have to create a window as we need a message loop to receive window
-                        // messages, which include clipboard updates.
-                        _windowHandle = NativeMethods.CreateWindowEx(0,
-                                                                     WNDCLASSEX.ClassName,
-                                                                     WNDCLASSEX.ClassName,
-                                                                     0,
-                                                                     0,
-                                                                     0,
-                                                                     0,
-                                                                     0,
-                                                                     IntPtr.Zero,
-                                                                     IntPtr.Zero,
-                                                                     NativeMethods.GetModuleHandle(currentModule.ModuleName),
-                                                                     IntPtr.Zero);
+                        // Destroy our window.
+                        if (!NativeMethods.DestroyWindow(_windowHandle))
+                        {
+                            // We failed to destroy the window, so grab the error before we return.
+                            _messageLoopThreadError = Marshal.GetLastWin32Error();
+                        }
                     }
-                }
-            }
-
-            // Check that the window was created successfully
-            if (_windowHandle != IntPtr.Zero)
-            {
-                // As an extra check, make sure that our window is valid.
-                var isValid = NativeMethods.IsWindow(_windowHandle);
-                Debug.Assert(isValid);
-
-                if (isValid)
-                {
-                    // Our window was created and is valid, so we can release our semaphore to let our calling method continue, and we
-                    // can then start our message loop.
-                    _windowSemaphore.Release();
-                    released = true;
-
-                    // Start our message loop. We call `GetMessage` to wait for a message, then process it once received. This will run
-                    // until we receive a `WM_QUIT` message.
-                    while (NativeMethods.GetMessage(out MSG msg, IntPtr.Zero, 0, 0))
+                    else
                     {
-                        // Translate and dispatch each message once received - `DispatchMessage` will call our WndProc method, which is
-                        // where we can then identify and process the message.
-                        NativeMethods.TranslateMessage(ref msg);
-                        NativeMethods.DispatchMessage(ref msg);
+                        // We failed to create the window, so grab the error before we return.
+                        _messageLoopThreadError = Marshal.GetLastWin32Error();
                     }
 
-                    // We've received a `WM_QUIT` message, so we can begin cleaning up.
+                    // Unregister our window class.
+                    if (!NativeMethods.UnregisterClass(WNDCLASSEX.ClassName, moduleHandle))
+                    {
+                        // We failed to unregister the window class, so grab the error before we return.
+                        _messageLoopThreadError = Marshal.GetLastWin32Error();
+                    }
+                }
+                else
+                {
+                    // We failed to register the window class, so grab the error before we return.
+                    _messageLoopThreadError = Marshal.GetLastWin32Error();
                 }
 
-                // Destroy our window.
-                if (!NativeMethods.DestroyWindow(_windowHandle))
-                {
-                    _messageLoopError = Marshal.GetLastWin32Error();
-                }
+                // Ensure that our wndProc delegate is not GC'd until after we have finished with it.
+                GC.KeepAlive(wndProc);
             }
             else
             {
-                _messageLoopError = Marshal.GetLastWin32Error();
+                // We failed to get a valid module handle, so grab the error before we return.
+                _messageLoopThreadError = Marshal.GetLastWin32Error();
             }
 
+            // Finally, check whether the semaphore has already been released (due to successfully starting the message loop). If it
+            // hasn't, we need to release it now.
             if (!released)
             {
                 _windowSemaphore.Release();
@@ -154,7 +193,15 @@ namespace NetEx.Hooks
         {
             switch (msg)
             {
-                case NativeMethods.WM_DRAWCLIPBOARD: // Indicates that the clipboard has updated.
+                case NativeMethods.WM_CLIPBOARDUPDATE: // Clipboard content has changed.
+
+                    // Raise our event.
+                    ClipboardUpdated?.Invoke();
+                    
+                    break;
+
+                case NativeMethods.WM_DRAWCLIPBOARD: // Clipboard content has changed.
+
                     // Raise our event...
                     ClipboardUpdated?.Invoke();
 
@@ -163,6 +210,7 @@ namespace NetEx.Hooks
                     break;
 
                 case NativeMethods.WM_CHANGECBCHAIN: // A clipboard handler is being removed.
+
                     // Check if we're the link in the chain that needs to update.
                     if (wParam == _nextWindowHandle)
                     {
@@ -177,7 +225,14 @@ namespace NetEx.Hooks
                     break;
 
                 case NativeMethods.WM_DESTROY: // Close our window.
-                    NativeMethods.ChangeClipboardChain(_windowHandle, _nextWindowHandle);
+
+                    if (!_useNewClipboardFormatListener)
+                    {
+                        // We're on a version of Windows earlier than Windows Vista, so we need to unhook our window from the clipboard chain.
+                        NativeMethods.ChangeClipboardChain(_windowHandle, _nextWindowHandle);
+                    }
+                    
+                    // Post a quit message to end the message loop.
                     NativeMethods.PostQuitMessage(0);
                     break;
             }
@@ -190,53 +245,96 @@ namespace NetEx.Hooks
 
         #region Public Static
 
+        /// <summary>
+        /// Installs the clipboard hook, capturing all clipboard events.
+        /// </summary>
+        /// <remarks>
+        /// <para>There are three ways of monitoring changes to the clipboard. The oldest method is to create a clipboard viewer window. Windows 2000 added the ability to query the clipboard sequence number, and Windows Vista added support for clipboard format listeners. Clipboard viewer windows are supported for backward compatibility with earlier versions of Windows.</para>
+        /// <para>On Windows Vista and later, this method will create a <c>Clipboard Format Listener</c> to listen for clipboard updates. On earlier versions it will create a <c>Clipboard Viewer Window</c> instead.</para>
+        /// </remarks>
+        /// <exception cref="Win32Exception">The hook could not be installed.</exception>
+        /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#monitoring-clipboard-contents"/>
         public static void Install()
         {
-            if (_messageLoopThread == null)
+            _installationSemaphore.WaitOne();
+
+            try
             {
-                // We need to create a thread to run our window message loop on, so we'll create the thread here and start it running.
-                _messageLoopThread = new Thread(MessageLoop);
-                _messageLoopThread.Start();
-
-                // The thread will handle creating the window and then pumping the message queue, so we'll wait here until the thread
-                // lets us know it has either initialized, or failed to initialize.
-                _windowSemaphore.WaitOne();
-
-                // The loop thread will have set `LastError` if an error occurred during initialization, so we'll check that now.
-                if (_messageLoopError > 0)
+                if (_messageLoopThread == null)
                 {
-                    // There was an error, so let's throw it.
-                    throw new Win32Exception(_messageLoopError);
-                }
+                    // We need to create a thread to run our window message loop on, so we'll create the thread here and start it running.
+                    _messageLoopThread = new Thread(MessageLoop);
+                    _messageLoopThread.Start();
 
-                // There was no error, so the thread should now be running and ready to handle messages. So now we can register our
-                // window to receive clipboard messages. We have to do this after the message loop is running as registering to
-                // receive clipboard messages is doing through windows messages.
-                _nextWindowHandle = NativeMethods.SetClipboardViewer(_windowHandle);
+                    // The thread will handle creating the window and then pumping the message queue, so we'll wait here until the thread
+                    // lets us know it has either initialized, or failed to initialize.
+                    _windowSemaphore.WaitOne();
 
-                // Check whether we received a handle to the next process in the clipboard chain. If we did (and the handle isn't 0)
-                // then we definitely know that we have successfully registered. However, if the handle is 0 it doesn't necessarily
-                // mean that we failed - it could be that there are no other processes in the clipboard chain. So if it is 0 we'll
-                // check the last error code to see if there was a problem.
-                if (_nextWindowHandle == IntPtr.Zero)
-                {
-                    // Handle was 0, let's check last error.
-                    var clipboardError = Marshal.GetLastWin32Error();
-                    if (clipboardError > 0)
+                    // The loop thread will have set `LastError` if an error occurred during initialization, so we'll check that now.
+                    if (_messageLoopThreadError > 0)
                     {
                         // There was an error, so let's throw it.
-                        throw new Win32Exception(clipboardError);
+                        throw new Win32Exception(_messageLoopThreadError);
+                    }
+
+                    // There was no error, so the thread should now be running and ready to handle messages. So now we can register our
+                    // window to receive clipboard messages.
+                    if (_useNewClipboardFormatListener)
+                    {
+                        // We are on Windows Vista or later, so we can use the newer "Clipboard Format Listener" API. This is much more
+                        // efficient than the older "ClipboardViewer" API, and is the preferred method of monitoring clipboard changes.
+
+                        // Register as a Clipboard Format Listener
+                        if (!NativeMethods.AddClipboardFormatListener(_windowHandle))
+                        {
+                            // There was an error, so let's throw it.
+                            throw new Win32Exception();
+                        }
+                    }
+                    else
+                    {
+                        // We on a version of Windows earlier than Windows Vista, so we'll use the older "ClipboardViewer" API. We have to do
+                        // this after the message loop is running as registering to receive clipboard messages is done through windows messages.
+                        _nextWindowHandle = NativeMethods.SetClipboardViewer(_windowHandle);
+
+                        // Check whether we received a handle to the next process in the clipboard chain. If we did (and the handle isn't 0)
+                        // then we definitely know that we have successfully registered. However, if the handle is 0 it doesn't necessarily
+                        // mean that we failed - it could be that there are no other processes in the clipboard chain. So if it is 0 we'll
+                        // check the last error code to see if there was a problem.
+                        if (_nextWindowHandle == IntPtr.Zero)
+                        {
+                            // Handle was 0, let's check last error.
+                            var clipboardError = Marshal.GetLastWin32Error();
+                            if (clipboardError > 0)
+                            {
+                                // There was an error, so let's throw it.
+                                throw new Win32Exception(clipboardError);
+                            }
+                        }
                     }
                 }
+            }
+            finally
+            {
+                _installationSemaphore.Release();
             }
         }
         public static void Uninstall()
         {
-            if (_messageLoopThread != null)
+            _installationSemaphore.WaitOne();
+
+            try
+            { 
+                if (_messageLoopThread != null)
+                {
+                    NativeMethods.PostDestroyMessage(_windowHandle);
+                    _messageLoopThread.Join();
+                    _messageLoopThread = null;
+                }
+            }
+            finally
             {
-                NativeMethods.PostDestroyMessage(_windowHandle);
-                _messageLoopThread.Join();
-                _messageLoopThread = null;
+                _installationSemaphore.Release();
             }
         }
         public static bool TryInstall()
