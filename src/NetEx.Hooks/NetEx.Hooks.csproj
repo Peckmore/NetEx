@@ -8,12 +8,12 @@
 			net5.0-windows;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows
 		</TargetFrameworks>
 		<OutputType>Library</OutputType>
+		<RootNamespace>NetEx.Hooks</RootNamespace>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<LangVersion>latest</LangVersion>
-		<DebugType>embedded</DebugType>
 		<Nullable>enable</Nullable>
-		<RootNamespace>NetEx.Hooks</RootNamespace>
 		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+		<DebugType>embedded</DebugType>
 
 		<!-- Build Settings -->
 		<OutputPath>$(BaseOutputPath)</OutputPath>
@@ -21,8 +21,8 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
 		<!-- Metadata -->
-		<Version>3.0.0</Version>
-		<Description>Provides global hooks for capturing keyboard and mouse events.</Description>
+		<Version>9.0.0</Version>
+		<Description>Provides global hooks for capturing keyboard, mouse, and clipboard events.</Description>
 		<Author>Simon Peckmore</Author>
 		<Copyright>Copyright © Simon Peckmore 2025</Copyright>
 
@@ -38,8 +38,9 @@
 			windows;forms;windowsforms;winforms;
 			wpf;
 			hook;hooks;simulator;
-			mouse;mousehook;
 			key;keyhook;keyboard;keyboardhook;
+			mouse;mousehook;
+			clipboard;clipboardhook;
 		</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
