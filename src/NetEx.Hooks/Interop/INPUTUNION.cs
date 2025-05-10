@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace NetEx.Hooks.Internal
+namespace NetEx.Hooks.Interop
 {
     [StructLayout(LayoutKind.Explicit)]
     internal struct INPUTUNION

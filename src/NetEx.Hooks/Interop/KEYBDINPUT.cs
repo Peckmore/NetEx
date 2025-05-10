@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NetEx.Hooks.Internal
+namespace NetEx.Hooks.Interop
 {
     /// <summary>
     /// Contains information about a simulated keyboard event.

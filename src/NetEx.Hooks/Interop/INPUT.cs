@@ -1,4 +1,4 @@
-﻿namespace NetEx.Hooks.Internal
+﻿namespace NetEx.Hooks.Interop
 {
     /// <summary>
     /// Used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.

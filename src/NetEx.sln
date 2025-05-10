@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetExDemo", "Demo\NetExDemo\NetExDemo.csproj", "{91937276-F353-4B0A-BBA8-92FE3AD58E6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetEx.Demo", "Demo\NetExDemo\NetEx.Demo.csproj", "{91937276-F353-4B0A-BBA8-92FE3AD58E6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEx.WinForms.Dialogs", "NetEx.WinForms.Dialogs\NetEx.WinForms.Dialogs.csproj", "{7BDEE9A0-6915-D481-CAE9-3D3247AFCC8A}"
 EndProject
