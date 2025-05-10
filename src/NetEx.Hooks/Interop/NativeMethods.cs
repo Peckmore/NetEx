@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace NetEx.Hooks.Interop
@@ -13,12 +12,8 @@ namespace NetEx.Hooks.Interop
 
         public const int INPUT_MOUSE = 0;
         public const int INPUT_KEYBOARD = 0x1;
-        //public const int INPUT_HARDWARE = 0x2;
 
-        //public const int KEYEVENTF_EXTENDEDKEY = 0x1;
         public const int KEYEVENTF_KEYUP = 0x2;
-        //public const int KEYEVENTF_UNICODE = 0x4;
-        //public const int KEYEVENTF_SCANCODE = 0x8;
 
         public const int MOUSEEVENTF_MOVE = 1;
         public const int MOUSEEVENTF_LEFTDOWN = 0x2;
@@ -56,6 +51,7 @@ namespace NetEx.Hooks.Interop
         public const int WM_XBUTTONUP = 0x20C;
         public const int WM_DRAWCLIPBOARD = 0x308;
         public const int WM_CHANGECBCHAIN = 0x30D;
+        public const int WM_CLIPBOARDUPDATE = 0x031D;
 
         public const int XBUTTON1 = 0x1;
         public const int XBUTTON2 = 0x2;
@@ -66,77 +62,83 @@ namespace NetEx.Hooks.Interop
 
         #region kernel32.dll
 
-        [DllImport("kernel32.dll", EntryPoint = "GetModuleHandleW", SetLastError = true)]
+        [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
 
         #endregion
 
         #region user32.dll
 
-        [DllImport("user32.dll", EntryPoint = "CallNextHookEx", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool AddClipboardFormatListener(IntPtr hwnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr CallNextHookEx(SafeWindowsHookHandle hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", EntryPoint = "ChangeClipboardChain", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
 
-        [DllImport("user32.dll", EntryPoint = "CreateWindowExW", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr CreateWindowEx(int exStyle, string className, string windowName, uint style, int x, int y, int width, int height, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam);
 
-        [DllImport("user32.dll", EntryPoint = "DefWindowProcW", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr DefWindowProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", EntryPoint = "DestroyWindow", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DestroyWindow(IntPtr hWnd);
 
-        [DllImport("user32.dll", EntryPoint = "DispatchMessage", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr DispatchMessage(ref MSG lpMsg);
 
-        [DllImport("user32.dll", EntryPoint = "GetDoubleClickTime", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern int GetDoubleClickTime();
 
-        [DllImport("user32.dll", EntryPoint = "GetMessage", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
-        [DllImport("user32.dll", EntryPoint = "GetSystemMetrics", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern int GetSystemMetrics(SystemMetric smIndex);
 
-        [DllImport("user32.dll", EntryPoint = "IsWindow", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWindow(IntPtr hWnd);
 
-        [DllImport("user32.dll", EntryPoint = "PostMessageW", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern ushort PostMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", EntryPoint = "PostQuitMessage", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern ushort PostQuitMessage(int nExitCode);
 
-        [DllImport("user32.dll", EntryPoint = "RegisterClassExW", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern ushort RegisterClassEx(ref WNDCLASSEX lpwcx);
 
-        [DllImport("user32.dll", EntryPoint = "SendInput", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern uint SendInput(uint nInputs, [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs, int cbSize);
         
-        [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", EntryPoint = "SetClipboardViewer", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
 
-        [DllImport("user32.dll", EntryPoint = "SetWindowsHookExW", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern SafeWindowsHookHandle SetWindowsHookEx(int idHook, Delegate lpfn, IntPtr hMod, uint dwThreadId);
 
-        [DllImport("user32.dll", EntryPoint = "TranslateMessage", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool TranslateMessage(ref MSG lpMsg);
 
-        [DllImport("user32.dll", EntryPoint = "UnhookWindowsHookEx", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
-        [DllImport("user32.dll", EntryPoint = "UnregisterClassW", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool UnregisterClass(string lpClassName, IntPtr hInstance);
 
