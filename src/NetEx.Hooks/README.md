@@ -1,6 +1,6 @@
 # NetEx.Hooks
 
-Provides additional additional controls, classes, and extension methods for use with WinForms.
+Provides global hooks for capturing keyboard and mouse events.
 
 ## API
 

@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Collections.Generic;
 using NetEx.Hooks;
-using NetEx.Windows.Forms;
 using Keys = NetEx.Hooks.Keys;
 using KeyEventArgs = NetEx.Hooks.KeyEventArgs;
 using MouseEventArgs = NetEx.Hooks.MouseEventArgs;
@@ -20,8 +19,18 @@ namespace Tcr.HooksDemo
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
                 sendKeyComboBox.Items.Add(key);
 
-            KeyboardHook.Install();
-            MouseHook.Install();
+            ClipboardHook.ClipboardUpdated += ClipboardHook_ClipboardUpdated;
+            //KeyboardHook.Install();
+            //MouseHook.Install();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            KeyboardHook.Uninstall();
+            MouseHook.Uninstall();
+            ClipboardHook.Uninstall();
+
+            base.OnClosed(e);
         }
 
         #region Keyboard Tab
@@ -250,7 +259,7 @@ namespace Tcr.HooksDemo
             foreach (KeyValuePair<Int32, MouseEventArgs> item in _mouseHistory)
             {
                 Thread.Sleep(item.Key);
-                MouseSimulator.MouseMove(item.Value.Location, MouseCoordinateMapping.PrimaryMonitor);
+                MouseSimulator.MouseMove(item.Value.Location, MouseCoordinateMapping.Absolute);
             }
             playButton.Enabled = true;
             recordButton.Enabled = true;
@@ -300,19 +309,32 @@ namespace Tcr.HooksDemo
 
         private void hookClipboardCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //if (hookClipboardCheckBox.Checked)
-            //{
-            //    ClipboardEx.ClipboardChanged += ClipboardEx_ClipboardChanged;
-            //}
-            //else
-            //{
-            //    ClipboardEx.ClipboardChanged -= ClipboardEx_ClipboardChanged;
-            //}
+            if (hookClipboardCheckBox.Checked)
+            {
+                ClipboardHook.TryInstall();
+            }
+            else
+            {
+                ClipboardHook.TryUninstall();
+            }
         }
-        //void ClipboardEx_ClipboardChanged(object sender, ClipboardUpdatedEventArgs e)
-        //{
-        //    clipboardPropertyGrid.SelectedObject = e;
-        //}
+        void ClipboardHook_ClipboardUpdated()
+        {
+            if (InvokeRequired)
+            {
+#if NET9_0
+                Invoke(ClipboardHook_ClipboardUpdated);
+#else
+                Invoke(new MethodInvoker(ClipboardHook_ClipboardUpdated));
+#endif
+            }
+            else
+            {
+                var obj = Clipboard.GetDataObject();
+                clipboardPropertyGrid.SelectedObject = Clipboard.GetDataObject().GetFormats();
+            }
+            
+        }
 
         #endregion
 

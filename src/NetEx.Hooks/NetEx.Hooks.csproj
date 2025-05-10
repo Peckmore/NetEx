@@ -13,8 +13,7 @@
 		<DebugType>embedded</DebugType>
 		<Nullable>enable</Nullable>
 		<RootNamespace>NetEx.Hooks</RootNamespace>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
 
 		<!-- Build Settings -->
 		<OutputPath>$(BaseOutputPath)</OutputPath>
@@ -23,7 +22,7 @@
 
 		<!-- Metadata -->
 		<Version>3.0.0</Version>
-		<Description>Provides additional additional controls, classes, and extension methods for use with WinForms.</Description>
+		<Description>Provides global hooks for capturing keyboard and mouse events.</Description>
 		<Author>Simon Peckmore</Author>
 		<Copyright>Copyright © Simon Peckmore 2025</Copyright>
 
@@ -43,6 +42,7 @@
 			key;keyhook;keyboard;keyboardhook;
 		</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EnablePackageValidation>true</EnablePackageValidation>
 		<!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
 
@@ -57,12 +57,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="_HOOKS\**" />
-	  <EmbeddedResource Remove="_HOOKS\**" />
-	  <None Remove="_HOOKS\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<None Include="../../resources/icon.png" Pack="true" Visible="false" PackagePath="\" />
 		<None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
@@ -71,6 +65,7 @@
 		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
 		<PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.25" />
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 </Project>
