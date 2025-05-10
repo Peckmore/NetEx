@@ -99,7 +99,7 @@ namespace NetEx.Dialogs.WinForms
         /// <summary>
         /// Gets or sets a value indicating the types of credentials that will be shown in the dialog box when running on Windows XP and Windows Server 2003, or when <see cref="AutoUpgradeEnabled"/> is set to <see langword="false"/>.
         /// </summary>
-        /// <value>One of the <see cref="Forms.CredentialFilter"/> values. The default value is <see cref="CredentialFilter.AllCredentials"/>.</value>
+        /// <value>One of the <see cref="WinForms.CredentialFilter"/> values. The default value is <see cref="CredentialFilter.AllCredentials"/>.</value>
         /// <remarks>This property is only applicable on Windows XP and Windows Server 2003, or on later versions of Windows when using the dialog box with <see cref="AutoUpgradeEnabled"/> set to <see langword="false"/>.</remarks>
         [Category("Behaviour")]
         [DefaultValue(CredentialFilter.AllCredentials)]
