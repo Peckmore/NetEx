@@ -1,4 +1,4 @@
-﻿using NetEx.Windows.Forms.Internal;
+﻿using NetEx.Dialogs.WinForms.Interop;
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using System.Security.Permissions;
 #endif
 
-namespace NetEx.Windows.Forms
+namespace NetEx.Dialogs.WinForms
 {
     /// <summary>
     /// Displays a standard dialog box that prompts the user to enter credentials. This class cannot be inherited.

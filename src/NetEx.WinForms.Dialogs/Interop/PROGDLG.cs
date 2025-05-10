@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace NetEx.Windows.Forms.Internal
+namespace NetEx.Dialogs.WinForms.Interop
 {
     /// <summary>
     /// Flags that control the operation of the progress dialog box.

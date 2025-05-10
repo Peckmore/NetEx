@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
-namespace NetEx.Windows.Forms.Internal
+namespace NetEx.Dialogs.WinForms.Interop
 {
     [ComImport]
     [Guid("EBBC7C04-315E-11d2-B62F-006097DF5BD4")]

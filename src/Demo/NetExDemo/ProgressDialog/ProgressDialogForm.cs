@@ -1,4 +1,4 @@
-﻿using NetEx.Windows.Forms;
+﻿using NetEx.Dialogs.WinForms;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
