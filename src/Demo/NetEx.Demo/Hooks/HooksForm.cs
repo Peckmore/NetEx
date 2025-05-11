@@ -1,40 +1,137 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Threading;
+﻿using NetEx.Hooks;
+using System;
 using System.Collections.Generic;
-using NetEx.Hooks;
-using Keys = NetEx.Hooks.Keys;
+using System.Threading;
+using System.Windows.Forms;
 using KeyEventArgs = NetEx.Hooks.KeyEventArgs;
+using Keys = NetEx.Hooks.Keys;
 using MouseEventArgs = NetEx.Hooks.MouseEventArgs;
 
 namespace NetEx.Demo.Hooks
 {
     public partial class HooksForm : Form
     {
+        #region Fields
+
+        private List<KeyValuePair<int, MouseEventArgs>> _mouseHistory = new List<KeyValuePair<int, MouseEventArgs>>();
+        private DateTime _mouseHistoryBegin;
+
+        #endregion
+
+        #region Construction
 
         public HooksForm()
         {
             InitializeComponent();
-         
+
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
+            {
                 sendKeyComboBox.Items.Add(key);
+            }
 
             ClipboardHook.ClipboardUpdated += ClipboardHook_ClipboardUpdated;
-            //KeyboardHook.Install();
-            //MouseHook.Install();
         }
+
+        #endregion
+
+        #region Methods
+
+        #region Protected
 
         protected override void OnClosed(EventArgs e)
         {
-            KeyboardHook.Uninstall();
-            MouseHook.Uninstall();
-            ClipboardHook.Uninstall();
+            ClipboardHook.TryUninstall();
+            KeyboardHook.TryUninstall();
+            MouseHook.TryUninstall();
+
+            ClipboardHook.ClipboardUpdated -= ClipboardHook_ClipboardUpdated;
 
             base.OnClosed(e);
         }
 
-        #region Keyboard Tab
+        #endregion
 
+        #region Clipboard
+
+        private void ClipboardHook_ClipboardUpdated()
+        {
+            if (InvokeRequired)
+            {
+#if NET9_0
+                Invoke(ClipboardHook_ClipboardUpdated);
+#else
+                Invoke(new MethodInvoker(ClipboardHook_ClipboardUpdated));
+#endif
+            }
+            else
+            {
+                var obj = Clipboard.GetDataObject();
+                clipboardPropertyGrid.SelectedObject = Clipboard.GetDataObject()?.GetFormats();
+            }
+        }
+        private void hookClipboardCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (hookClipboardCheckBox.Checked)
+            {
+                if (ClipboardHook.TryInstall())
+                {
+                    clipboardPropertyGrid.Enabled = true;
+                }
+                else
+                { 
+                    MessageBox.Show("Clipboard Hook failed to install.");
+                    hookClipboardCheckBox.Checked = false;
+                }
+            }
+            else
+            {
+                ClipboardHook.TryUninstall();
+                clipboardPropertyGrid.SelectedObject = null;
+                clipboardPropertyGrid.Enabled = false;
+            }
+        }
+
+        #endregion
+
+        #region Keyboard
+
+        private void hookKeyboardCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (hookKeyboardCheckBox.Checked)
+            {
+                if (KeyboardHook.TryInstall())
+                {
+                    keyboardHookControlsPanel.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Keyboard Hook failed to install.");
+                    hookKeyboardCheckBox.Checked = false;
+                }
+            }
+            else
+            {
+                KeyboardHook.TryUninstall();
+                lastKeyPressedPropertyGrid.SelectedObject = null;
+                keyboardHookControlsPanel.Enabled = false;
+            }
+        }
+        private void HookKeys_KeyDown(KeyEventArgs e)
+        {
+            if (blockWinKeyCheckBox.Checked && (e.KeyCode == Keys.LWin || e.KeyCode == Keys.RWin))
+            {
+                e.SuppressKeyPress = true;
+            }
+
+            keyboardLogListBox.Items.Add(string.Format("Key Down:\t{0}", e.KeyCode.ToString()));
+            keyboardLogListBox.SelectedIndex = keyboardLogListBox.Items.Count - 1;
+        }
+        private void HookKeys_KeyUp(KeyEventArgs e)
+        {
+            keyboardLogListBox.Items.Add(string.Format("Key Up:\t\t{0}", e.KeyCode.ToString()));
+            keyboardLogListBox.SelectedIndex = keyboardLogListBox.Items.Count - 1;
+            lastKeyPressedPropertyGrid.SelectedObject = e;
+        }
         private void keyboardLogClearButton_Click(object sender, EventArgs e)
         {
             keyboardLogListBox.Items.Clear();
@@ -65,22 +162,6 @@ namespace NetEx.Demo.Hooks
 
             lastKeyPressedPropertyGrid.Enabled = keyUpHookCheckBox.Checked;
         }
-        private void HookKeys_KeyDown(KeyEventArgs e)
-        {
-            if (blockWinKeyCheckBox.Checked && (e.KeyCode == Keys.LWin || e.KeyCode == Keys.RWin))
-            {
-                e.SuppressKeyPress = true;
-            }
-
-            keyboardLogListBox.Items.Add(String.Format("Key Down:\t{0}", e.KeyCode.ToString()));
-            keyboardLogListBox.SelectedIndex = keyboardLogListBox.Items.Count - 1;
-        }
-        private void HookKeys_KeyUp(KeyEventArgs e)
-        {
-            keyboardLogListBox.Items.Add(String.Format("Key Up:\t\t{0}", e.KeyCode.ToString()));
-            keyboardLogListBox.SelectedIndex = keyboardLogListBox.Items.Count - 1;
-            lastKeyPressedPropertyGrid.SelectedObject = e;
-        }
         private void sendKeyDownButton_Click(object sender, EventArgs e)
         {
             KeyboardSimulator.KeyDown((Keys)sendKeyComboBox.SelectedItem);
@@ -96,11 +177,28 @@ namespace NetEx.Demo.Hooks
 
         #endregion
 
-        #region Mouse Tab
+        #region Mouse
 
-        private void mouseLogClearButton_Click(object sender, EventArgs e)
+        private void hookMouseCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            mouseLogListBox.Items.Clear();
+            if (hookMouseCheckBox.Checked)
+            {
+                if (MouseHook.TryInstall())
+                {
+                    mouseHookControlsPanel.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Mouse Hook failed to install.");
+                    hookMouseCheckBox.Checked = false;
+                }
+            }
+            else
+            {
+                MouseHook.TryUninstall();
+                lastKeyPressedPropertyGrid.SelectedObject = null;
+                mouseHookControlsPanel.Enabled = false;
+            }
         }
         private void hookMouseMoveCheckBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -170,39 +268,40 @@ namespace NetEx.Demo.Hooks
         }
         private void HookMouse_MouseMove(MouseEventArgs e)
         {
-            mouseLogListBox.Items.Add(String.Format("Move:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
+            mouseLogListBox.Items.Add(string.Format("Move:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
             mouseLogListBox.SelectedIndex = mouseLogListBox.Items.Count - 1;
         }
         private void HookMouse_MouseWheel(MouseEventArgs e)
         {
-            mouseLogListBox.Items.Add(String.Format("Wheel:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
+            mouseLogListBox.Items.Add(string.Format("Wheel:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
             mouseLogListBox.SelectedIndex = mouseLogListBox.Items.Count - 1;
         }
         private void HookMouse_MouseDown(MouseEventArgs e)
         {
-            mouseLogListBox.Items.Add(String.Format("Down:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
+            mouseLogListBox.Items.Add(string.Format("Down:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
             mouseLogListBox.SelectedIndex = mouseLogListBox.Items.Count - 1;
         }
         private void HookMouse_MouseUp(MouseEventArgs e)
         {
-            mouseLogListBox.Items.Add(String.Format("Up:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
+            mouseLogListBox.Items.Add(string.Format("Up:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
             mouseLogListBox.SelectedIndex = mouseLogListBox.Items.Count - 1;
         }
         private void HookMouse_MouseClick(MouseEventArgs e)
         {
-            mouseLogListBox.Items.Add(String.Format("Click:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
+            mouseLogListBox.Items.Add(string.Format("Click:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
             mouseLogListBox.SelectedIndex = mouseLogListBox.Items.Count - 1;
         }
         private void HookMouse_MouseDoubleClick(MouseEventArgs e)
         {
-            mouseLogListBox.Items.Add(String.Format("Double Click:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
+            mouseLogListBox.Items.Add(string.Format("Double Click:\tButtons:{0}\tLocation:{1}\tDelta:{2}\tClick:{3}", e.Button.ToString(), e.Location.ToString(), e.Delta.ToString(), e.Clicks.ToString()));
             mouseLogListBox.SelectedIndex = mouseLogListBox.Items.Count - 1;
+        }
+        private void mouseLogClearButton_Click(object sender, EventArgs e)
+        {
+            mouseLogListBox.Items.Clear();
         }
 
         #region Record Mouse
-
-        private List<KeyValuePair<Int32, MouseEventArgs>> _mouseHistory = new List<KeyValuePair<Int32, MouseEventArgs>>();
-        private DateTime _mouseHistoryBegin;
 
         private void Start()
         {
@@ -256,7 +355,7 @@ namespace NetEx.Demo.Hooks
             recordButton.Enabled = false;
             stopButton.Enabled = false;
             clearButton.Enabled = false;
-            foreach (KeyValuePair<Int32, MouseEventArgs> item in _mouseHistory)
+            foreach (KeyValuePair<int, MouseEventArgs> item in _mouseHistory)
             {
                 Thread.Sleep(item.Key);
                 MouseSimulator.MouseMove(item.Value.Location, MouseCoordinateMapping.Absolute);
@@ -275,9 +374,9 @@ namespace NetEx.Demo.Hooks
         }
         private void RecordMouse(MouseEventArgs e)
         {
-            _mouseHistory.Add(new KeyValuePair<Int32, MouseEventArgs>((DateTime.Now - _mouseHistoryBegin).Milliseconds, e));
+            _mouseHistory.Add(new KeyValuePair<int, MouseEventArgs>((DateTime.Now - _mouseHistoryBegin).Milliseconds, e));
             _mouseHistoryBegin = DateTime.Now;
-            recordedEventsLabel.Text = String.Format("{0} events recorded", _mouseHistory.Count);
+            recordedEventsLabel.Text = string.Format("{0} events recorded", _mouseHistory.Count);
             if (_mouseHistory.Count > 10000)
             {
                 Stop();
@@ -294,7 +393,7 @@ namespace NetEx.Demo.Hooks
         private void clearButton_Click(object sender, EventArgs e)
         {
             _mouseHistory.Clear();
-            recordedEventsLabel.Text = String.Format("{0} events recorded", _mouseHistory.Count);
+            recordedEventsLabel.Text = string.Format("{0} events recorded", _mouseHistory.Count);
         }
         private void playButton_Click(object sender, EventArgs e)
         {
@@ -305,38 +404,6 @@ namespace NetEx.Demo.Hooks
 
         #endregion
 
-        #region Clipboard Tab
-
-        private void hookClipboardCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (hookClipboardCheckBox.Checked)
-            {
-                ClipboardHook.TryInstall();
-            }
-            else
-            {
-                ClipboardHook.TryUninstall();
-            }
-        }
-        void ClipboardHook_ClipboardUpdated()
-        {
-            if (InvokeRequired)
-            {
-#if NET9_0
-                Invoke(ClipboardHook_ClipboardUpdated);
-#else
-                Invoke(new MethodInvoker(ClipboardHook_ClipboardUpdated));
-#endif
-            }
-            else
-            {
-                var obj = Clipboard.GetDataObject();
-                clipboardPropertyGrid.SelectedObject = Clipboard.GetDataObject().GetFormats();
-            }
-            
-        }
-
         #endregion
-
     }
 }
