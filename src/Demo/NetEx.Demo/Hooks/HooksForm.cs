@@ -7,12 +7,12 @@ using Keys = NetEx.Hooks.Keys;
 using KeyEventArgs = NetEx.Hooks.KeyEventArgs;
 using MouseEventArgs = NetEx.Hooks.MouseEventArgs;
 
-namespace Tcr.HooksDemo
+namespace NetEx.Demo.Hooks
 {
-    public partial class Form1 : Form
+    public partial class HooksForm : Form
     {
 
-        public Form1()
+        public HooksForm()
         {
             InitializeComponent();
          

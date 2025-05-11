@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
-namespace NetExDemo.CredentialDialog
+namespace NetEx.Demo.CredentialDialog
 {
     public partial class CredentialDialogForm : Form
     {
