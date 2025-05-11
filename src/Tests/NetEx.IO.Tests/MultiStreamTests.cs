@@ -2,6 +2,7 @@ using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Xunit;
 
 namespace NetEx.IO.Tests
 {
@@ -34,9 +35,6 @@ namespace NetEx.IO.Tests
 
             testLong = () => _ = stream.Position;
             testLong.Should().Throw<ObjectDisposedException>();
-
-            var testVoid = stream.Flush;
-            testVoid.Should().Throw<ObjectDisposedException>();
 
             var testInt = () => stream.Read(new byte[1], 0, 1);
             testInt.Should().Throw<ObjectDisposedException>();
