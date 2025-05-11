@@ -5,7 +5,7 @@ using System.IO;
 namespace NetEx.IO
 {
     /// <summary>
-    /// Creates a wrapper around a multiple <see cref="Stream"/> instances, and presents them as a single, read-only stream.
+    /// Creates a wrapper around multiple <see cref="Stream"/> instances, and presents them as a single, read-only stream.
     /// </summary>
     public class MultiStream : Stream
     {
@@ -33,15 +33,25 @@ namespace NetEx.IO
         /// <summary>
         /// Creates a new <see cref="MultiStream"/> instance.
         /// </summary>
+        /// <param name="streams">The collection of <see cref="Stream"/> instances to wrap.</param>
         public MultiStream(IEnumerable<Stream> streams)
         {
-            // We need to create our list where we'll store a stream for each file.
+            // We need to create a list for where we'll store our streams.
             _fileStreams = new List<StreamInfo>();
 
             foreach (var stream in streams)
             {
+                // MultiStream can only work with streams that support reading and seeking, so we need to check each stream first.
+                if (!stream.CanRead || !stream.CanSeek)
+                {
+                    // If the stream is not readable or seekable then we can't use it, so throw an exception.
+                    throw Exceptions.MultiStreamStreamDoesNotSupportRead();
+                }
+
+                // Add the stream to our list.
                 _fileStreams.Add(new StreamInfo(stream, _length));
 
+                // Increment our total length.
                 _length += stream.Length;
             }
         }
@@ -53,6 +63,8 @@ namespace NetEx.IO
         /// <summary>
         /// The name of the <see cref="Stream"/> currently being accessed within the <see cref="MultiStream"/>, based on <see cref="Position"/>.
         /// </summary>
+        /// <returns>The name of the <see cref="Stream"/> currently being accessed within the <see cref="MultiStream"/>.</returns>
+        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
         public string? ActiveStreamName
         {
             get
@@ -64,18 +76,41 @@ namespace NetEx.IO
                     throw Exceptions.StreamDisposed();
                 }
 
+                // Return the `Name` property of the active stream.
                 return _activeStream?.Name;
             }
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets a value indicating whether the stream supports reading.
+        /// </summary>
+        /// <value><see langword="true"/> if the stream supports reading; otherwise, <see langword="false"/>.</value>
+        /// <remarks>
+        /// <para>If the stream is closed, this property will return <see langword="false"/>.</para>
+        /// </remarks>
         public sealed override bool CanRead => !_isDisposed;
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets a value indicating whether the stream supports seeking.
+        /// </summary>
+        /// <value><see langword="true"/> if the stream supports seeking; otherwise, <see langword="false"/>.</value>
+        /// <remarks>
+        /// <para>If the stream is closed, this property will return <see langword="false"/>.</para>
+        /// </remarks>
         public sealed override bool CanSeek => !_isDisposed;
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets a value indicating whether the stream can time out.
+        /// </summary>
+        /// <value><see cref="MultiStream"/> does not support streams that can time out, so this property will always return <see langword="false"/>.</value>
         public sealed override bool CanTimeout => false;
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets a value indicating whether the stream supports writing.
+        /// </summary>
+        /// <value><see cref="MultiStream"/> does not support writing, so this property will always return <see langword="false"/>.</value>
         public sealed override bool CanWrite => false;
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the length in bytes of the stream.
+        /// </summary>
+        /// <value>A long value representing the length of the stream in bytes.</value>
+        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
         public sealed override long Length
         {
             get
@@ -87,10 +122,17 @@ namespace NetEx.IO
                     throw Exceptions.StreamDisposed();
                 }
 
+                // Return our total length, which is the sum of all the stream lengths.
                 return _length;
             }
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets or sets the position within the stream.
+        /// </summary>
+        /// <value>The current position within the stream.</value>
+        /// <exception cref="ArgumentOutOfRangeException">Attempted to set the position to a negative value.</exception>
+        /// <exception cref="EndOfStreamException">Attempted seeking past the end of the stream.</exception>
+        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
         public sealed override long Position
         {
             get
@@ -102,11 +144,31 @@ namespace NetEx.IO
                     throw Exceptions.StreamDisposed();
                 }
 
+                // Return our position within our collection of wrapped streams.
                 return _position;
             }
-            set => _position = value;
+            set
+            {
+                // Check that position is not being set to a negative value.
+                if (value < 0)
+                { 
+                    throw Exceptions.MultiStreamPositionLessThanZero(value);
+                }
+                
+                // Check that position is not being set to a value beyond the end of the stream.
+                if (value > _length - 1)
+                {
+                    throw Exceptions.MultiStreamPositionEndOfStream(value);
+                }
+
+                _position = value;
+            }
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets or sets a value, in milliseconds, that determines how long the stream will attempt to read before timing out.
+        /// </summary>
+        /// <value>A value, in milliseconds, that determines how long the stream will attempt to read before timing out.</value>
+        /// <exception cref="InvalidOperationException">The <see cref="ReadTimeout"/> method always throws an <see cref="InvalidOperationException"/>.</exception>
         public sealed override int ReadTimeout
         {
             get
@@ -117,7 +179,11 @@ namespace NetEx.IO
                 throw Exceptions.MultiStreamDoesNotSupportTimeouts();
             }
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets or sets a value, in milliseconds, that determines how long the stream will attempt to write before timing out.
+        /// </summary>
+        /// <value>A value, in milliseconds, that determines how long the stream will attempt to write before timing out.</value>
+        /// <exception cref="InvalidOperationException">The <see cref="WriteTimeout"/> method always throws an <see cref="InvalidOperationException"/>.</exception>
         public sealed override int WriteTimeout
         {
             get
@@ -185,6 +251,9 @@ namespace NetEx.IO
             // Check we aren't already disposed.
             if (!_isDisposed)
             {
+                // Call the OnDispose() method in any derived classes.
+                OnDispose(disposing);
+                
                 // Close each of our file streams.
                 foreach (var fileStream in _fileStreams)
                 {
@@ -192,8 +261,7 @@ namespace NetEx.IO
                 }
                 _fileStreams.Clear();
 
-                // Call the OnDispose() method in any derived classes.
-                //OnDispose(disposing);
+                _activeStream = null;
 
                 // Set our flag to indicate the object has been disposed.
                 _isDisposed = true;
@@ -214,21 +282,35 @@ namespace NetEx.IO
 
         #region Public
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Overrides the <see cref="Stream.Flush"/> method so that no action is performed.
+        /// </summary>
+        /// <remarks>
+        /// <para>This method overrides the Stream.Flush method.</para>
+        /// <para>Because MultiStream objects are read-only, this method is redundant.</para>
+        /// </remarks>
         public override void Flush()
         {
             // https://learn.microsoft.com/en-us/dotnet/api/system.io.stream.flush?view=net-8.0#remarks
             // "In a class derived from Stream that doesn't support writing, Flush is typically implemented as an empty method to
             // ensure full compatibility with other Stream types since it's valid to flush a read-only stream."
-
-            // Check we haven't been disposed.
-            if (_isDisposed)
-            {
-                // We have, so throw an exception.
-                throw Exceptions.StreamDisposed();
-            }
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+        /// </summary>
+        /// <param name="buffer">An array of bytes. When this method returns, the buffer contains the specified byte array with the values between <paramref name="offset"/> and (<paramref name="offset"/> + <paramref name="count"/> - 1) replaced by the bytes read from the stream.</param>
+        /// <param name="offset">The zero-based byte offset in <paramref name="buffer"/> at which to begin storing data from the stream.</param>
+        /// <param name="count">The maximum number of bytes to be read from the stream.</param>
+        /// <returns>The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if <c>count</c> is 0 or the end of the stream has been reached.</returns>
+        /// <exception cref="ArgumentException">The sum of <paramref name="offset"/> and <paramref name="count"/> is outside the supported range of the stream.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">The <paramref name="offset"/> or <paramref name="count"/> are set to a value outside the supported range of the stream.</exception>
+        /// <exception cref="IOException">An I/O error occurs.</exception>
+        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
+        /// <remarks>
+        /// <para>MultiStreams will read a maximum of <c>count</c> bytes and store them in <c>buffer</c> beginning at <c>offset</c>. The current position within the stream is advanced by the number of bytes read; however, if an exception occurs, the current position within the stream remains unchanged. MultiStreams will return the number of bytes read. If more than zero bytes are requested, the stream will not complete the operation until at least one byte of data can be read (some streams may similarly not complete until at least one byte is available even if zero bytes were requested, but no data will be consumed from the stream in such a case). <see cref="Read"/> returns 0 only if zero bytes were requested or when there is no more data in the stream and no more is expected (such as a closed socket or end of file). A stream may return fewer bytes than requested even if the end of the stream has not been reached.</para>
+        /// <para>Use <see cref="BinaryReader"/> for reading primitive data types.</para>
+        /// <para>Please note that the behaviour described is not guaranteed as it is dependent upon the implementation of the wrapped streams. Refer to the documentation for the wrapped stream implementations for expected behaviour.</para>
+        /// </remarks>
         public override int Read(byte[] buffer, int offset, int count)
         {
             // Check we haven't been disposed.
@@ -314,12 +396,20 @@ namespace NetEx.IO
             return totalBytesRead;
         }
         /// <summary>
-        /// Sets the position within the current stream to the specified value.
+        /// Sets the position within the stream.
         /// </summary>
-        /// <param name="offset">The new position within the stream. This is relative to the <code>loc</code> parameter, and can be positive or negative.</param>
-        /// <param name="loc">A value of type <see cref="SeekOrigin"/>, which acts as the seek reference point.</param>
-        /// <returns></returns>
-        public override long Seek(long offset, SeekOrigin loc)
+        /// <param name="offset">A byte offset relative to the <paramref name="origin"/> parameter.</param>
+        /// <param name="origin">A value of type <see cref="SeekOrigin"/> indicating the reference point used to obtain the new position.</param>
+        /// <returns>The new position within the stream.</returns>
+        /// <exception cref="ArgumentException">There is an invalid <see cref="T:System.IO.SeekOrigin"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Attempted to set the position to a negative value.</exception>
+        /// <exception cref="EndOfStreamException">Attempted seeking past the end of the stream.</exception>
+        /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
+        /// <remarks>
+        /// <para>Use the <see cref="CanSeek"/> property to determine whether the stream supports seeking.</para>
+        /// <para>If <c>offset</c> is negative, the new position is required to precede the position specified by <c>origin</c> by the number of bytes specified by <c>offset</c>.If <c>offset</c> is zero(0), the new position is required to be the position specified by <c>origin</c>.If <c>offset</c> is positive, the new position is required to follow the position specified by <c>origin</c> by the number of bytes specified by <c>offset</c>.</para>
+        /// </remarks>
+        public override long Seek(long offset, SeekOrigin origin)
         {
             // Check we haven't been diposed.
             if (_isDisposed)
@@ -330,7 +420,7 @@ namespace NetEx.IO
 
             // Depending on the SeekOrigin type, we seek to the specified offset relative to the start, end, or current position of the
             // stream.
-            switch (loc)
+            switch (origin)
             {
                 case SeekOrigin.Begin:
                     Position = offset;
@@ -341,6 +431,8 @@ namespace NetEx.IO
                 case SeekOrigin.End:
                     Position = Length - offset;
                     break;
+                default:
+                    throw Exceptions.InvalidSeekOrigin();
             }
 
             // Now we check whether the specified position has exceeded the bounds of the stream and, if so, adjust the position to be in
@@ -359,7 +451,12 @@ namespace NetEx.IO
             // Return the new position.
             return Position;
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Sets the length of the wrapped stream
+        /// </summary>
+        /// <param name="value">The desired length of the stream in bytes.</param>
+        /// <exception cref="NotSupportedException">The stream does not support both writing and seeking.</exception>
+        /// <remarks>MultiStreams are read-only, so this method will always throw a <see cref="NotSupportedException"/>.</remarks>
         public override void SetLength(long value)
         {
             // If a stream does not support writing, the SetLength method should throw a NotSupportedException.
@@ -370,7 +467,22 @@ namespace NetEx.IO
 
             throw Exceptions.MultiStreamDoesNotSupportWriting();
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Writes a block of bytes to the current stream using data read from a buffer.
+        /// </summary>
+        /// <param name="value">The value at which to set the length.</param>
+        /// <exception cref="NotSupportedException">The current stream does not support writing.</exception>
+        /// <remarks>MultiStreams are read-only, so this method will always throw a <see cref="NotSupportedException"/>.</remarks>
+        /// 
+
+        /// <summary>
+        /// Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
+        /// </summary>
+        /// <param name="buffer">An array of bytes. This method copies <paramref name="count"/> bytes from <paramref name="buffer"/> to the current stream.</param>
+        /// <param name="offset">The zero-based byte offset in <paramref name="buffer"/> at which to begin copying bytes to the current stream.</param>
+        /// <param name="count">The number of bytes to be written to the current stream.</param>
+        /// <exception cref="NotSupportedException">The stream does not support writing.</exception>
+        /// <remarks>MultiStreams are read-only, so this method will always throw a <see cref="NotSupportedException"/>.</remarks>
         public override void Write(byte[] buffer, int offset, int count)
         {
             // If a stream does not support writing, the Write method should throw a NotSupportedException.
