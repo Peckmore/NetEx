@@ -156,7 +156,7 @@ namespace NetEx.IO
                 }
                 
                 // Check that position is not being set to a value beyond the end of the stream.
-                if (value > _length - 1)
+                if (value > _length)
                 {
                     throw Exceptions.MultiStreamPositionEndOfStream(value);
                 }

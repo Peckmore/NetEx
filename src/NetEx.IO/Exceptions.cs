@@ -21,7 +21,7 @@ namespace NetEx.IO
         }
         public static EndOfStreamException MultiStreamPositionEndOfStream(long index)
         {
-            return new EndOfStreamException("Position must be non-negative and less than Length - 1.");
+            return new EndOfStreamException("Position must be non-negative and less than or equal to Length.");
         }
         public static ArgumentOutOfRangeException MultiStreamPositionLessThanZero(long index)
         {
