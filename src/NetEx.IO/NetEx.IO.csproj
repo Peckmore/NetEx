@@ -9,11 +9,12 @@
 			net5.0;net6.0;net7.0;net8.0;net9.0
 		</TargetFrameworks>
 		<OutputType>Library</OutputType>
+		<RootNamespace>NetEx.IO</RootNamespace>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<LangVersion>latest</LangVersion>
-		<DebugType>embedded</DebugType>
 		<Nullable>enable</Nullable>
-		<RootNamespace>NetEx.IO</RootNamespace>
+		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+		<DebugType>embedded</DebugType>
 
 		<!-- Build Settings -->
 		<OutputPath>$(BaseOutputPath)</OutputPath>
@@ -21,7 +22,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
 		<!-- Metadata -->
-		<Version>3.0.0</Version>
+		<Version>9.0.0</Version>
 		<Description>Provides additional input and output (I/O) types, including NetEx.IO.MultiStream, and NetEx.IO.OnDisposeStream, that allow reading and/or writing to data streams.</Description>
 		<Author>Simon Peckmore</Author>
 		<Copyright>Copyright © Simon Peckmore 2025</Copyright>
@@ -34,7 +35,8 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
 		<PackageTags>
-			netex;io;
+			netex;
+			io;
 			stream;multistream;ondisposestream
 		</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -44,6 +46,7 @@
 		<!-- Repository -->
 		<RepositoryUrl>https://github.com/Peckmore/NetEx</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 
 		<!-- Analyzers -->
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -60,6 +63,7 @@
 		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
 		<PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.25" />
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 </Project>
