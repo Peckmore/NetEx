@@ -40,16 +40,16 @@
 			hook;hooks;simulator;
 			key;keyhook;keyboard;keyboardhook;
 			mouse;mousehook;
-			clipboard;clipboardhook;
+			clipboard;clipboardhook
 		</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EnablePackageValidation>true</EnablePackageValidation>
 		<!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
 
 		<!-- Repository -->
 		<RepositoryUrl>https://github.com/Peckmore/NetEx</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 
 		<!-- Analyzers -->
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>

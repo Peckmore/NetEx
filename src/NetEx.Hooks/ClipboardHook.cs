@@ -102,8 +102,8 @@ namespace NetEx.Hooks
                 var atom = NativeMethods.RegisterClassEx(ref wndClass);
                 if (atom > 0)
                 {
-                    // Create a new window of our defined class type. We have to create a window as we need a message loop to receive window
-                    // messages, which include clipboard updates.
+                    // Create a new window of our defined class type. We have to create a window as we need a message loop to receive
+                    // window messages, which include clipboard updates.
                     _windowHandle = NativeMethods.CreateWindowEx(0,
                                                                  WNDCLASSEX.ClassName,
                                                                  WNDCLASSEX.ClassName,
@@ -120,17 +120,17 @@ namespace NetEx.Hooks
                     // Check that the window was created successfully
                     if (_windowHandle != IntPtr.Zero)
                     {
-                        // Our window was created and is valid, so we can release our semaphore to let our calling method continue, and we
-                        // can then start our message loop.
+                        // Our window was created and is valid, so we can release our semaphore to let our calling method continue, and
+                        // we can then start our message loop.
                         _windowSemaphore.Release();
                         released = true;
 
-                        // Start our message loop. We call `GetMessage` to wait for a message, then process it once received. This will run
-                        // until we receive a `WM_QUIT` message.
+                        // Start our message loop. We call `GetMessage` to wait for a message, then process it once received. This will
+                        // run until we receive a `WM_QUIT` message.
                         while (NativeMethods.GetMessage(out MSG msg, IntPtr.Zero, 0, 0))
                         {
-                            // Translate and dispatch each message once received - `DispatchMessage` will call our WndProc method, which is
-                            // where we can then identify and handle the message.
+                            // Translate and dispatch each message once received - `DispatchMessage` will call our WndProc method, which
+                            // is where we can then identify and handle the message.
                             NativeMethods.TranslateMessage(ref msg);
                             NativeMethods.DispatchMessage(ref msg);
                         }
@@ -147,7 +147,8 @@ namespace NetEx.Hooks
                             }
                         }
 
-                        // Destroy our window.
+                        // Destroy our window. Although we've already sent a `WM_DESTROY` message we still need to call `DestroyWindow`
+                        // to ensure that all resources are released.
                         if (!NativeMethods.DestroyWindow(_windowHandle))
                         {
                             // We failed to destroy the window, so grab the error before we return.

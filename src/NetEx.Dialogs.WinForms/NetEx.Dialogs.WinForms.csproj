@@ -8,37 +8,39 @@
 			net5.0-windows;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows
 		</TargetFrameworks>
 		<OutputType>Library</OutputType>
+		<RootNamespace>NetEx.Dialogs.WinForms</RootNamespace>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<LangVersion>latest</LangVersion>
-		<DebugType>embedded</DebugType>
 		<Nullable>enable</Nullable>
-		<RootNamespace>NetEx.Windows.Forms</RootNamespace>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DebugType>embedded</DebugType>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 
 		<!-- Build Settings -->
 		<OutputPath>$(BaseOutputPath)</OutputPath>
-		<AssemblyName>NetEx.Windows.Forms</AssemblyName>
+		<AssemblyName>NetEx.Dialogs.WinForms</AssemblyName>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
 		<!-- Metadata -->
-		<Version>3.0.0</Version>
+		<Version>9.0.0</Version>
 		<Description>Provides additional additional controls, classes, and extension methods for use with WinForms.</Description>
 		<Author>Simon Peckmore</Author>
 		<Copyright>Copyright © Simon Peckmore 2025</Copyright>
 
 		<!-- Package Settings -->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageId>NetEx.Windows.Forms</PackageId>
+		<PackageId>NetEx.Dialogs.WinForms</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
 		<PackageTags>
-			netex;windowsforms;windows forms;commondialog;
-			credential dialog;credentialdialog;credentials;
-			progress dialog;progressdialog;progresswinforms
+			netex;
+			windowsforms;windows forms;
+			commondialog;dialog;
+			credential;credentialdialog;credentials;
+			progress;progressdialog;progresswinforms
 		</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<EnablePackageValidation>true</EnablePackageValidation>
@@ -47,6 +49,7 @@
 		<!-- Repository -->
 		<RepositoryUrl>https://github.com/Peckmore/NetEx</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 
 		<!-- Analyzers -->
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -68,6 +71,7 @@
 		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
 		<PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.25" />
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
