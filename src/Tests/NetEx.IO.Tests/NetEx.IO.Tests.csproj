@@ -22,9 +22,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="coverlet.collector" Version="6.0.0" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-		<PackageReference Include="System.IO.Compression" Version="4.0.0" />
+		<PackageReference Include="coverlet.collector" Version="6.0.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+		<PackageReference Include="System.IO.Compression" Version="4.3.0" />
 	</ItemGroup>
 
 	<!-- These are the package references for the latest frameworks. -->
@@ -35,7 +38,7 @@
 							And '$(TargetFramework)' != 'net5.0'
 							And '$(TargetFramework)' != 'net6.0'
 							And '$(TargetFramework)' != 'net7.0'">
-		<PackageReference Include="FluentAssertions" Version="6.12.1" />
+		<PackageReference Include="FluentAssertions" Version="8.2.0" />
 		<PackageReference Include="xunit" Version="2.9.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.0" />
 	</ItemGroup>
@@ -64,21 +67,21 @@
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
 		<!-- Latest -->
-		<PackageReference Include="FluentAssertions" Version="6.12.1" />
+		<PackageReference Include="FluentAssertions" Version="8.2.0" />
 		<!-- Latest -->
 		<PackageReference Include="xunit" Version="2.9.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
 		<!-- Latest -->
-		<PackageReference Include="FluentAssertions" Version="6.12.1" />
+		<PackageReference Include="FluentAssertions" Version="8.2.0" />
 		<!-- Latest -->
 		<PackageReference Include="xunit" Version="2.9.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="3.0.2" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
 		<!-- Latest -->
-		<PackageReference Include="FluentAssertions" Version="6.12.1" />
+		<PackageReference Include="FluentAssertions" Version="8.2.0" />
 		<!-- Latest -->
 		<PackageReference Include="xunit" Version="2.9.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="3.0.2" />
