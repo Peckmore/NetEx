@@ -18,6 +18,11 @@ namespace NetEx.Dialogs.WinForms
     /// <summary>
     /// Displays a standard dialog box that prompts the user to enter credentials. This class cannot be inherited.
     /// </summary>
+    /// <remarks>
+    /// <para><c>CredentialDialog</c> supports the standard <c>ShowDialog()</c> method of invocation, as is standard across all dialogs using <c>CommonDialog</c>.</para>
+    /// <para><c>CredentialDialog</c> is supported on all versions of Windows starting with <b>Windows XP</b>.</para>
+    /// <para><b>Windows Vista</b> introduced new visual styling for many controls and UI elements, but for the credential dialog this was done as a seperate implementation. As a result, on <b>Windows Vista</b> and later, the appearance of the dialog can be selected using <see cref="AutoUpgradeEnabled"/>.</para>
+    /// </remarks>
     [DefaultEvent("HelpRequest")]
     [DefaultProperty("Username")]
     [Description("Displays a dialog box that prompts the user to enter credentials.")]

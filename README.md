@@ -1,68 +1,86 @@
+---
+outputFileName: index.html
+---
+
 <div align="center">
 
-<img src="resources/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
+<img src="resources/images/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
 
 # NetEx
-[![Latest Version](https://img.shields.io/github/v/release/Peckmore/NetEx?label=latest%20version)](https://github.com/Peckmore/NetEx/releases/latest)
-[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
-[![License](https://img.shields.io/:license-MIT-orange)](https://github.com/Peckmore/NetEx?tab=readme-ov-file#MIT-1-ov-file)
-[![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
-[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
-
-A collection of (hopefully!) useful extensions to .Net.
+A collection of (hopefully!) useful "extensions" to .Net.
 
 </div>
 
 ## Overview
-This project aims to collect together extensions to .Net in a single repo, and currently consists of the following projects.
+This project aims to collect together any .Net code, controls, or libraries I've either come across or written that I thought other people might also find useful. :relaxed:
 
-### NetEx.WinForms.CredentialDialog
-A managed implementation of the standard Windows credential dialog, for WinForms.
+### NetEx.Dialogs.WinForms
+[![NuGet)](https://img.shields.io/nuget/v/NetEx.Dialogs.WinForms.svg)](https://www.nuget.org/packages/NetEx.Dialogs.WinForms/)
+[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
+[![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
+[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 
-![A credential dialog with upgraded appearance.](docs/images/credential-dialog-new.png)
+A managed implementation of the standard Windows credential and progress dialogs, for WinForms.
 
-### NetEx.WinForms.ProgressDialog
-A managed implementation of the standard Windows progress dialog, for WinForms.
+<div align="center">
 
-![A progress dialog with upgraded appearance.](docs/images/progress-dialog-new.png)
+![A credential dialog with upgraded appearance.](resources/images/credential-dialog-new.png)
+
+![A credential dialog with classic appearance.](resources/images/credential-dialog-old.png)
+
+![A progress dialog with upgraded appearance.](resources/images/progress-dialog-new.png)
+
+</div>
+
+### NetEx.Hooks
+[![NuGet)](https://img.shields.io/nuget/v/NetEx.Hooks.svg)](https://www.nuget.org/packages/NetEx.Hooks/)
+[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
+[![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
+[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
+
+Provides global hooks for capturing keyboard, mouse, and clipboard events.
+
+### NetEx.IO
+[![NuGet)](https://img.shields.io/nuget/v/NetEx.IO.svg)](https://www.nuget.org/packages/NetEx.IO/)
+[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
+[![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
+[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
+[![.NET Standard](https://img.shields.io/badge/.net%20standard-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/platform/dotnet-standard)
+
+Provides additional input and output (I/O) types, that allow reading and/or writing to data streams.
 
 ## Usage
 
-Install the required package from NuGet:
+To use, simply install the required package from NuGet:
 
-**Credential Dialog**
 ```powershell
-Install-Package NetEx.WinForms.CredentialDialog
-```
+# NetEx.Dialogs.WinForms
+Install-Package NetEx.Dialogs.WinForms
 
-**Progress Dialog**
-```powershell
-Install-Package NetEx.WinForms.CredentialDialog
+# NetEx.Hooks
+Install-Package NetEx.Hooks
+
+# NetEx.IO
+Install-Package NetEx.IO
 ```
 
 ## Documentation
-Documentation is available [here](https://peckmore.github.io/netex).
+Documentation is available [here](https://peckmore.github.io/netex/overview/overview.html).
 
-A test project is also included with the source that demonstrates the use of each project.
+A test project is also included with the source that demonstrates some of the functionality of the packages.
 
 ## Compatibility
-Each project targets the lowest framework version or standard possible in order to try and maximise compatibility.
+Each package targets the lowest framework version or standard possible in order to try and maximise compatibility.
 
-| Project                             | .Net                     | .Net Framework | .Net Standard |
-|-------------------------------------|--------------------------|----------------|---------------|
-| **NetEx.WinForms.CredentialDialog** | 5.0+<br>*(Windows only)* | 2.0 to 4.8.1   | -             |
-| **NetEx.WinForms.ProgressDialog**   | 5.0+<br>*(Windows only)* | 2.0 to 4.8.1   | -             |
+| Project                    | .Net                          | .Net Framework | .Net Standard |
+|----------------------------|-------------------------------|----------------|---------------|
+| **NetEx.Dialogs.WinForms** | 5.0 - 9.0<br>*(Windows only)* | 2.0 - 4.8.1    | -             |
+| **NetEx.Hooks**            | 5.0 - 9.0<br>*(Windows only)* | 2.0 - 4.8.1    | -             |
+| **NetEx.IO**               | 5.0 - 9.0                     | 2.0 - 4.8.1    | 2.0 - 2.1     |
 
 ## Releases
 
-A full list of all releases is available on the [Releases](https://github.com/Peckmore/netex.winforms.progressdialog/releases) tab on GitHub.
-
-Releases are also available on NuGet:
-
-| Name                                | NuGet |
-|-------------------------------------|-------|
-| **NetEx.WinForms.CredentialDialog** | [![NuGet version (NetEx-CredentialDialog)](https://img.shields.io/nuget/v/NetEx.WinForms.CredentialDialog.svg)](https://www.nuget.org/packages/NetEx.WinForms.CredentialDialog/) |
-| **NetEx.WinForms.ProgressDialog**   | [![NuGet version (NetEx-ProgressDialog)](https://img.shields.io/nuget/v/NetEx.WinForms.ProgressDialog.svg)](https://www.nuget.org/packages/NetEx.WinForms.ProgressDialog/) |
+A full list of all releases is available on the [Releases](https://github.com/Peckmore/netex/releases) tab on GitHub.
 
 ##  License
 

@@ -1,10 +1,10 @@
-# NetEx.Windows.Forms
+# NetEx.Dialogs.WinForms
 
-Provides additional additional controls, classes, and extension methods for use with WinForms.
+A managed implementation of the standard Windows credential and progress dialogs, for WinForms.
 
-Currently Supported Controls:
-- NetEx.Windows.Forms.CredentialDialog
-- NetEx.Windows.Forms.ProgressDialog
+Currently Supported Types:
+- NetEx.Dialogs.WinForms.**CredentialDialog**
+- NetEx.Dialogs.WinForms.**ProgressDialog**
 
 ## API
 
@@ -12,7 +12,7 @@ API documentation is available [here](https://peckmore.github.io/NetEx).
 
 ## Compatibility
 
-| Product                   | Versions              |
-|---------------------------|-----------------------|
-| **.Net**                  | 5.0+ *(Windows only)* |
-| **.Net Framework**        | 2.0 to 4.8.1          |
+| Product                   | Versions    |
+|---------------------------|-------------|
+| **.Net** *(Windows only)* | 5.0 - 9.0   |
+| **.Net Framework**        | 2.0 - 4.8.1 |

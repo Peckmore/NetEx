@@ -1,8 +1,8 @@
 - name: Home
-  href: index.md
-- name: Getting Started
-  href: libraries/
+  href: index.html
+- name: Overview
+  href: overview/
 - name: API
   href: api/
-- name: GitHub
+- name: Source
   href: https://github.com/Peckmore/NetEx
