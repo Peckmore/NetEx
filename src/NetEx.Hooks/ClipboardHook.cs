@@ -257,10 +257,12 @@ namespace NetEx.Hooks
         /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#monitoring-clipboard-contents"/>
         public static void Install()
         {
+            // Check that an installation/uninstallation is not already in progress.
             _installationSemaphore.WaitOne();
 
             try
             {
+                // Check we haven't already installed the hook.
                 if (_messageLoopThread == null)
                 {
                     // We need to create a thread to run our window message loop on, so we'll create the thread here and start it running.
@@ -317,27 +319,14 @@ namespace NetEx.Hooks
             }
             finally
             {
+                // Release our semaphore to allow other threads to install/uninstall the hook.
                 _installationSemaphore.Release();
             }
         }
-        public static void Uninstall()
-        {
-            _installationSemaphore.WaitOne();
-
-            try
-            { 
-                if (_messageLoopThread != null)
-                {
-                    NativeMethods.PostDestroyMessage(_windowHandle);
-                    _messageLoopThread.Join();
-                    _messageLoopThread = null;
-                }
-            }
-            finally
-            {
-                _installationSemaphore.Release();
-            }
-        }
+        /// <summary>
+        /// Attempts to install the clipboard hook.
+        /// </summary>
+        /// <returns><see langword="true"/> if the hook was successfully installed; otherwise <see langword="false"/>.</returns>
         public static bool TryInstall()
         {
             try
@@ -351,6 +340,10 @@ namespace NetEx.Hooks
                 return false;
             }
         }
+        /// <summary>
+        /// Attempts to uninstall the clipboard hook.
+        /// </summary>
+        /// <returns><see langword="true"/> if the hook was successfully installed; otherwise <see langword="false"/>.</returns>
         public static bool TryUninstall()
         {
             try
@@ -362,6 +355,35 @@ namespace NetEx.Hooks
             {
                 Debug.Assert(false, e.Message);
                 return false;
+            }
+        }
+        /// <summary>
+        /// Uninstalls the clipboard hook, and stops further clipboard events from being captured.
+        /// </summary>
+        /// <exception cref="Win32Exception">The hook could not be uninstalled.</exception>
+        public static void Uninstall()
+        {
+            // Check that an installation/uninstallation is not already in progress.
+            _installationSemaphore.WaitOne();
+
+            try
+            {
+                // Check whether the hook has been installed before we attempt to uninstall it.
+                if (_messageLoopThread != null)
+                {
+                    // Send a `WM_DESTORY` message to our window to close it down. This will also post a quit message to the message loop, which will
+                    // cause it to exit.
+                    NativeMethods.PostDestroyMessage(_windowHandle);
+
+                    // Wait for the message loop thread to finish processing, then clear our reference to the thread.
+                    _messageLoopThread.Join();
+                    _messageLoopThread = null;
+                }
+            }
+            finally
+            {
+                // Release our semaphore to allow other threads to install/uninstall the hook.
+                _installationSemaphore.Release();
             }
         }
 
