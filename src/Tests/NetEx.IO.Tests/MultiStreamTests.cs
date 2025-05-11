@@ -6,7 +6,7 @@ using Xunit;
 
 namespace NetEx.IO.Tests
 {
-    public class StreamTests
+    public class MultiStreamTests
     {
         #region Constants
 
@@ -81,7 +81,7 @@ namespace NetEx.IO.Tests
             var streams = new List<Stream>();
             for (var x = 1; x < 9; x++)
             {
-                streams.Add(File.Open(@$"TestData\{x}.file", FileMode.Open));
+                streams.Add(File.Open(@$"TestData\MultiStream\{x}.file", FileMode.Open));
             }
 
             yield return new[] { new MultiStream(streams) };
