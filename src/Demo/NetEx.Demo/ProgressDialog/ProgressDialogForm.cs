@@ -11,7 +11,7 @@ namespace NetEx.Demo.ProgressDialog
         #region Fields
 
         private bool _cancelThread;
-        private Thread _t;
+        private Thread? _workerThread;
 
         #endregion
 
@@ -23,12 +23,6 @@ namespace NetEx.Demo.ProgressDialog
             InitializeComponent();
 
             progressDialog.Animation = AnimationResource.CopyFile;
-
-#if NET20
-            frameworkToolStripStatusLabel.Text = ".Net Framework 2.0";
-#elif NET9_0
-            frameworkToolStripStatusLabel.Text = ".Net 9.0";
-#endif
         }
 
         #endregion
@@ -111,18 +105,18 @@ namespace NetEx.Demo.ProgressDialog
             _cancelThread = false;
 
             // Start worker thread.
-            _t = new Thread(ThreadMethod);
-            _t.Start();
+            _workerThread = new Thread(ThreadMethod);
+            _workerThread.Start();
         }
         private void StopThread()
         {
             _cancelThread = true;
 
-            if (_t != null)
+            if (_workerThread != null)
             {
-                _t.Join(500);
+                _workerThread.Join(500);
 
-                if (_t.IsAlive)
+                if (_workerThread.IsAlive)
                 {
                     throw new Exception("Failed to end thread.");
                 }

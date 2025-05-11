@@ -34,9 +34,6 @@
             this.closeButton = new System.Windows.Forms.Button();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.progressDialog = new NetEx.Dialogs.WinForms.ProgressDialog();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.frameworkToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // showDialogButton
@@ -72,13 +69,13 @@
             // 
             // propertyGrid
             // 
-            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGrid.Location = new System.Drawing.Point(12, 41);
             this.propertyGrid.Name = "propertyGrid";
             this.propertyGrid.SelectedObject = this.progressDialog;
-            this.propertyGrid.Size = new System.Drawing.Size(314, 446);
+            this.propertyGrid.Size = new System.Drawing.Size(314, 470);
             this.propertyGrid.TabIndex = 3;
             // 
             // progressDialog
@@ -87,28 +84,11 @@
             this.progressDialog.Canceled += new System.EventHandler(this.ProgressDialog_Canceled);
             this.progressDialog.Closed += new System.EventHandler(this.ProgressDialog_Closed);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.frameworkToolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 501);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(338, 22);
-            this.statusStrip1.TabIndex = 5;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // frameworkToolStripStatusLabel
-            // 
-            this.frameworkToolStripStatusLabel.Name = "frameworkToolStripStatusLabel";
-            this.frameworkToolStripStatusLabel.Size = new System.Drawing.Size(171, 17);
-            this.frameworkToolStripStatusLabel.Text = "frameworkToolStripStatusLabel";
-            // 
             // ProgressDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 523);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.propertyGrid);
             this.Controls.Add(this.showButton);
@@ -117,10 +97,7 @@
             this.Name = "ProgressDialogForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Progress Dialog Demo";
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -131,8 +108,6 @@
         private System.Windows.Forms.PropertyGrid propertyGrid;
         private System.Windows.Forms.Button closeButton;
         private NetEx.Dialogs.WinForms.ProgressDialog progressDialog;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel frameworkToolStripStatusLabel;
     }
 }
 

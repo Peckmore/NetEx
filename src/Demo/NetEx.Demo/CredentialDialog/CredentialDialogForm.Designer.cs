@@ -34,9 +34,6 @@ namespace NetEx.Demo.CredentialDialog
             this.showDialogButton = new System.Windows.Forms.Button();
             this.credentialDialogPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.credentialDialog = new NetEx.Dialogs.WinForms.CredentialDialog();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.frameworkToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // showDialogButton
@@ -57,45 +54,25 @@ namespace NetEx.Demo.CredentialDialog
             this.credentialDialogPropertyGrid.Location = new System.Drawing.Point(12, 41);
             this.credentialDialogPropertyGrid.Name = "credentialDialogPropertyGrid";
             this.credentialDialogPropertyGrid.SelectedObject = this.credentialDialog;
-            this.credentialDialogPropertyGrid.Size = new System.Drawing.Size(314, 446);
+            this.credentialDialogPropertyGrid.Size = new System.Drawing.Size(314, 470);
             this.credentialDialogPropertyGrid.TabIndex = 4;
             // 
             // credentialDialog
             // 
             this.credentialDialog.Title = "Credential Dialog";
             // 
-            // statusStrip
-            // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.frameworkToolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 501);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(338, 22);
-            this.statusStrip.TabIndex = 5;
-            this.statusStrip.Text = "statusStrip1";
-            // 
-            // frameworkToolStripStatusLabel
-            // 
-            this.frameworkToolStripStatusLabel.Name = "frameworkToolStripStatusLabel";
-            this.frameworkToolStripStatusLabel.Size = new System.Drawing.Size(171, 17);
-            this.frameworkToolStripStatusLabel.Text = "frameworkToolStripStatusLabel";
-            // 
             // CredentialDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 523);
-            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.credentialDialogPropertyGrid);
             this.Controls.Add(this.showDialogButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CredentialDialogForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Credential Dialog Demo";
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -104,7 +81,5 @@ namespace NetEx.Demo.CredentialDialog
         private Button showDialogButton;
         private PropertyGrid credentialDialogPropertyGrid;
         private NetEx.Dialogs.WinForms.CredentialDialog credentialDialog;
-        private StatusStrip statusStrip;
-        private ToolStripStatusLabel frameworkToolStripStatusLabel;
     }
 }

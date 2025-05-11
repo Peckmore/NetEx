@@ -9,41 +9,14 @@
 		<LangVersion>latest</LangVersion>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-		<RootNamespace>NetExDemo</RootNamespace>
+		<RootNamespace>NetEx.Demo</RootNamespace>
 		<AssemblyName>NetExDemo</AssemblyName>
+		<ApplicationIcon>Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net20|AnyCPU'">
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net20|x86'">
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|AnyCPU'">
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows|x86'">
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net20|AnyCPU'">
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net20|x86'">
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|AnyCPU'">
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows|x86'">
-	  <Prefer32Bit>False</Prefer32Bit>
-	</PropertyGroup>
+	<ItemGroup>
+	  <Content Include="Icon.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\NetEx.Hooks\NetEx.Hooks.csproj" />
