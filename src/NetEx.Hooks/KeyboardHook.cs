@@ -150,6 +150,40 @@ namespace NetEx.Hooks
             }
         }
         /// <summary>
+        /// Attempts to install the keyboard hook.
+        /// </summary>
+        /// <returns><see langword="true"/> if the hook was successfully installed; otherwise <see langword="false"/>.</returns>
+        public static bool TryInstall()
+        {
+            try
+            {
+                Install();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.Assert(false, e.Message);
+                return false;
+            }
+        }
+        /// <summary>
+        /// Attempts to uninstall the keyboard hook.
+        /// </summary>
+        /// <returns><see langword="true"/> if the hook was successfully installed; otherwise <see langword="false"/>.</returns>
+        public static bool TryUninstall()
+        {
+            try
+            {
+                Uninstall();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.Assert(false, e.Message);
+                return false;
+            }
+        }
+        /// <summary>
         /// Uninstalls the keyboard hook, and stops further keyboard events from being captured.
         /// </summary>
         /// <exception cref="Win32Exception">The hook could not be uninstalled.</exception>
