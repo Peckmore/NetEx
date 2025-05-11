@@ -38,7 +38,7 @@ A managed implementation of the standard Windows credential and progress dialogs
 [![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
 [![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 
-Provides global hooks for capturing keyboard, mouse, and clipboard events.
+Provides global hooks for capturing keyboard, mouse, and clipboard events, and simulators for keyboard and mouse events.
 
 ### NetEx.IO
 [![NuGet)](https://img.shields.io/nuget/v/NetEx.IO.svg)](https://www.nuget.org/packages/NetEx.IO/)
