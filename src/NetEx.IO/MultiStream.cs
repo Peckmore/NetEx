@@ -468,14 +468,6 @@ namespace NetEx.IO
             throw Exceptions.MultiStreamDoesNotSupportWriting();
         }
         /// <summary>
-        /// Writes a block of bytes to the current stream using data read from a buffer.
-        /// </summary>
-        /// <param name="value">The value at which to set the length.</param>
-        /// <exception cref="NotSupportedException">The current stream does not support writing.</exception>
-        /// <remarks>MultiStreams are read-only, so this method will always throw a <see cref="NotSupportedException"/>.</remarks>
-        /// 
-
-        /// <summary>
         /// Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
         /// </summary>
         /// <param name="buffer">An array of bytes. This method copies <paramref name="count"/> bytes from <paramref name="buffer"/> to the current stream.</param>
