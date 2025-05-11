@@ -9,6 +9,7 @@ namespace NetEx.Hooks
     /// <summary>
     /// Provides a mechanism for hooking all keyboard events within the operating system.
     /// </summary>
+    /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/winmsg/lowlevelkeyboardproc"/>
     public static class KeyboardHook
     {
         #region Fields
@@ -103,11 +104,10 @@ namespace NetEx.Hooks
         /// <para>This hook is called in the context of the thread that installed it. The call is made by sending a message to the thread that installed the hook. Therefore, the thread that installed the hook must have a message loop.</para>
         /// <para>The hook procedure should process a message in less time than the data entry specified in the <c>LowLevelHooksTimeout</c> value in the following registry key:</para>
         /// <code>HKEY_CURRENT_USER\Control Panel\Desktop</code>
-        /// <para>The value is in milliseconds.If the hook procedure times out, the system passes the message to the next hook. However, on Windows 7 and later, the hook is silently removed without being called. There is no way for the application to know whether the hook is removed.</para>
-        /// <para><b>Windows 10 version 1709 and later</b> The maximum timeout value the system allows is 1000 milliseconds(1 second). The system will default to using a 1000 millisecond timeout if the <c>LowLevelHooksTimeout</c> value is set to a value larger than 1000.</para>
+        /// <para>The value is in milliseconds. If the hook procedure times out, the system passes the message to the next hook. However, on <b>Windows 7</b> and later, the hook is silently removed without being called. There is no way for the application to know whether the hook is removed.</para>
+        /// <para><b>Windows 10 version 1709 and later</b> The maximum timeout value the system allows is 1000 milliseconds (1 second). The system will default to using a 1000 millisecond timeout if the <c>LowLevelHooksTimeout</c> value is set to a value larger than 1000.</para>
         /// </remarks>
         /// <exception cref="Win32Exception">The hook could not be installed.</exception>
-        /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/winmsg/lowlevelkeyboardproc"/>
         public static void Install()
         {
             // Check we haven't already installed the hook.

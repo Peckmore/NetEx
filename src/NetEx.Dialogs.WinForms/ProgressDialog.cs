@@ -12,7 +12,13 @@ namespace NetEx.Dialogs.WinForms
 {
     /// <summary>
     /// Displays a standard dialog box that informs the user of the progress of an action. This class cannot be inherited.
-    /// </summary> 
+    /// </summary>
+    /// <remarks>
+    /// <para><c>ProgressDialog</c> supports the standard <c>ShowDialog()</c> method of invocation, as is standard across all dialogs using <c>CommonDialog</c>. However, because the dialog is typically expected to be shown in a non-modal fashion, it is recommended to use the <c>Show()</c> method instead.</para>
+    /// <para><c>CredentialDialog</c> is supported on all versions of Windows starting with <b>Windows XP</b>.</para>
+    /// <para><b>Windows Vista</b> introduced new visual styling for many controls and UI elements, including the progress dialog. As a result, the appearance of the dialog is different between <b>Windows XP</b> and later Windows versions.</para>
+    /// <para><b>Windows 7</b> introduced the ability to display progress indicators on a taskbar icon.As a result the progress dialog, and subsequently this <c>ProgressDialog</c> implementation, will automatically display progress in the host application's taskbar icon on <b>Windows 7</b> or later.</para>
+    /// </remarks>
     [DefaultEvent("Closed")]
     [DefaultProperty("Value")]
     [Description("Displays a dialog box to inform the user of the progress of an action.")]

@@ -10,6 +10,11 @@ namespace NetEx.Hooks
     /// <summary>
     /// Provides a mechanism for hooking all clipboard events within the operating system.
     /// </summary>
+    /// <remarks>
+    /// <para>There are three ways of monitoring changes to the clipboard. The oldest method is to create a clipboard viewer window. <b>Windows 2000</b> added the ability to query the clipboard sequence number, and <b>Windows Vista</b> added support for clipboard format listeners. Clipboard viewer windows are supported for backward compatibility with earlier versions of Windows.</para>
+    /// <para>On <b>Windows Vista</b> and later, <c>ClipboardHook</c> will create a <c>Clipboard Format Listener</c> to listen for clipboard updates. On earlier versions it will create a <c>Clipboard Viewer Window</c> instead.</para>
+    /// </remarks>
+    /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#monitoring-clipboard-contents"/>
     public class ClipboardHook
     {
         #region Fields
@@ -249,12 +254,7 @@ namespace NetEx.Hooks
         /// <summary>
         /// Installs the clipboard hook, capturing all clipboard events.
         /// </summary>
-        /// <remarks>
-        /// <para>There are three ways of monitoring changes to the clipboard. The oldest method is to create a clipboard viewer window. Windows 2000 added the ability to query the clipboard sequence number, and Windows Vista added support for clipboard format listeners. Clipboard viewer windows are supported for backward compatibility with earlier versions of Windows.</para>
-        /// <para>On Windows Vista and later, this method will create a <c>Clipboard Format Listener</c> to listen for clipboard updates. On earlier versions it will create a <c>Clipboard Viewer Window</c> instead.</para>
-        /// </remarks>
         /// <exception cref="Win32Exception">The hook could not be installed.</exception>
-        /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#monitoring-clipboard-contents"/>
         public static void Install()
         {
             // Check that an installation/uninstallation is not already in progress.

@@ -24,9 +24,18 @@ namespace NetEx.Demo.CredentialDialog
             if (credentialDialog.ShowDialog() == DialogResult.OK)
             {
 #if DEBUG
-                MessageBox.Show("Domain:\t" + credentialDialog.Domain + "\nUser:\t" + credentialDialog.Username + "\nPassword:\t" + credentialDialog.PasswordString);
+                MessageBox.Show("Domain:\n"
+                                + credentialDialog.Domain
+                                + "\n\nUser:\n"
+                                + credentialDialog.Username
+                                + "\n\nPassword:\n"
+                                + credentialDialog.PasswordString);
 #else
-                MessageBox.Show("Domain:\t" + credentialDialog.Domain + "\nUser:\t" + credentialDialog.Username + "\nPassword is a SecureString and cannot be displayed without converting to a String.");
+                MessageBox.Show("Domain:\n"
+                                + credentialDialog.Domain
+                                + "\n\nUser:\n"
+                                + credentialDialog.Username
+                                + "\n\nPassword is a SecureString and cannot be displayed without converting to a String.");
 #endif
             }
 
