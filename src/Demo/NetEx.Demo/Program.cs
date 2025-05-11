@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace NetExDemo
+namespace NetEx.Demo
 {
     internal static class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace NetExDemo.ProgressDialog
+﻿namespace NetEx.Demo.ProgressDialog
 {
     partial class ProgressDialogForm
     {

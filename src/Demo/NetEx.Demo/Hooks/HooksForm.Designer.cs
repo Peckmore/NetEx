@@ -1,6 +1,6 @@
-﻿namespace Tcr.HooksDemo
+﻿namespace NetEx.Demo.Hooks
 {
-    partial class Form1
+    partial class HooksForm
     {
         /// <summary>
         /// Required designer variable.

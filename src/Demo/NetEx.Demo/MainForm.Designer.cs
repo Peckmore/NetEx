@@ -1,4 +1,4 @@
-﻿namespace NetExDemo
+﻿namespace NetEx.Demo
 {
     partial class MainForm
     {
@@ -59,7 +59,7 @@
             // frameworkToolStripStatusLabel
             // 
             this.frameworkToolStripStatusLabel.Name = "frameworkToolStripStatusLabel";
-            this.frameworkToolStripStatusLabel.Size = new System.Drawing.Size(171, 17);
+            this.frameworkToolStripStatusLabel.Size = new System.Drawing.Size(170, 17);
             this.frameworkToolStripStatusLabel.Text = "frameworkToolStripStatusLabel";
             // 
             // buttonProgressDialogDemo
@@ -78,9 +78,9 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(109, 42);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Progress Dialog";
+            this.button1.Text = "Hooks";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.buttonHooks_Click);
             // 
             // MainForm
             // 

@@ -1,10 +1,10 @@
-﻿using NetExDemo.CredentialDialog;
-using NetExDemo.ProgressDialog;
+﻿using NetEx.Demo.CredentialDialog;
+using NetEx.Demo.Hooks;
+using NetEx.Demo.ProgressDialog;
 using System;
 using System.Windows.Forms;
-using Tcr.HooksDemo;
 
-namespace NetExDemo
+namespace NetEx.Demo
 {
     public partial class MainForm : Form
     {
@@ -31,6 +31,10 @@ namespace NetExDemo
         {
             new CredentialDialogForm().Show();
         }
+        private void buttonHooks_Click(object sender, EventArgs e)
+        {
+            new HooksForm().Show();
+        }
         private void buttonProgressDialogDemo_Click(object sender, EventArgs e)
         {
             new ProgressDialogForm().Show();
@@ -39,10 +43,5 @@ namespace NetExDemo
         #endregion
 
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new Form1().Show();
-        }
     }
 }
