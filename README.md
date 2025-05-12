@@ -14,9 +14,8 @@ A collection of (hopefully!) useful "extensions" to .Net.
 ## Overview
 This project aims to collect together any .Net code, controls, or libraries I've either come across or written that I thought other people might also find useful. :relaxed:
 
-### NetEx.Dialogs.WinForms
+### [NetEx.Dialogs.WinForms](https://peckmore.github.io/netex/api/NetEx.Dialogs.WinForms.html)
 [![NuGet)](https://img.shields.io/nuget/v/NetEx.Dialogs.WinForms.svg)](https://www.nuget.org/packages/NetEx.Dialogs.WinForms/)
-[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
 [![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
 [![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 
@@ -32,17 +31,15 @@ A managed implementation of the standard Windows credential and progress dialogs
 
 </div>
 
-### NetEx.Hooks
+### [NetEx.Hooks](https://peckmore.github.io/netex/api/NetEx.Hooks.html)
 [![NuGet)](https://img.shields.io/nuget/v/NetEx.Hooks.svg)](https://www.nuget.org/packages/NetEx.Hooks/)
-[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
 [![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
 [![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 
 Provides global hooks for capturing keyboard, mouse, and clipboard events, and simulators for keyboard and mouse events.
 
-### NetEx.IO
+### [NetEx.IO](https://peckmore.github.io/netex/api/NetEx.IO.html)
 [![NuGet)](https://img.shields.io/nuget/v/NetEx.IO.svg)](https://www.nuget.org/packages/NetEx.IO/)
-[![Build](https://img.shields.io/github/actions/workflow/status/peckmore/NetEx/build.yml)](https://github.com/Peckmore/NetEx/actions/workflows/build.yml)
 [![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
 [![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 [![.NET Standard](https://img.shields.io/badge/.net%20standard-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/platform/dotnet-standard)
@@ -68,15 +65,6 @@ Install-Package NetEx.IO
 Documentation is available [here](https://peckmore.github.io/netex/overview/overview.html).
 
 A test project is also included with the source that demonstrates some of the functionality of the packages.
-
-## Compatibility
-Each package targets the lowest framework version or standard possible in order to try and maximise compatibility.
-
-| Project                    | .Net                          | .Net Framework | .Net Standard |
-|----------------------------|-------------------------------|----------------|---------------|
-| **NetEx.Dialogs.WinForms** | 5.0 - 9.0<br>*(Windows only)* | 2.0 - 4.8.1    | -             |
-| **NetEx.Hooks**            | 5.0 - 9.0<br>*(Windows only)* | 2.0 - 4.8.1    | -             |
-| **NetEx.IO**               | 5.0 - 9.0                     | 2.0 - 4.8.1    | 2.0 - 2.1     |
 
 ## Releases
 

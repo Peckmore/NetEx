@@ -14,7 +14,6 @@ namespace NetEx.Hooks
     /// <para>There are three ways of monitoring changes to the clipboard. The oldest method is to create a clipboard viewer window. <b>Windows 2000</b> added the ability to query the clipboard sequence number, and <b>Windows Vista</b> added support for clipboard format listeners. Clipboard viewer windows are supported for backward compatibility with earlier versions of Windows.</para>
     /// <para>On <b>Windows Vista</b> and later, <c>ClipboardHook</c> will create a <c>Clipboard Format Listener</c> to listen for clipboard updates. On earlier versions it will create a <c>Clipboard Viewer Window</c> instead.</para>
     /// </remarks>
-    /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#monitoring-clipboard-contents"/>
     public class ClipboardHook
     {
         #region Fields
@@ -59,7 +58,7 @@ namespace NetEx.Hooks
         #region Properties
 
         /// <summary>
-        /// Indicates whether <seealso cref="ClipboardHook"/> has been installed and is capturing clipboard events.
+        /// Indicates whether <see cref="ClipboardHook"/> has been installed and is capturing clipboard events.
         /// </summary>
         /// <returns><see langword="true"/> if the hook is installed and valid; otherwise <see langword="false"/>.</returns>
         public static bool IsInstalled => _windowHandle != IntPtr.Zero;

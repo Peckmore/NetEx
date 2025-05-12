@@ -10,7 +10,6 @@ namespace NetEx.Hooks
     /// <summary>
     /// Provides a mechanism for hooking all mouse events within the operating system.
     /// </summary>
-    /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/winmsg/lowlevelmouseproc"/>
     public static class MouseHook
     {
         #region Variables
@@ -67,7 +66,7 @@ namespace NetEx.Hooks
         #region Properties
 
         /// <summary>
-        /// Indicates whether <seealso cref="MouseHook"/> has been installed and is capturing mouse events.
+        /// Indicates whether <see cref="MouseHook"/> has been installed and is capturing mouse events.
         /// </summary>
         /// <returns><see langword="true"/> if the hook is installed and valid; otherwise <see langword="false"/>.</returns>
         public static bool IsInstalled => _hookProcedureHandle is { IsInvalid: false };
