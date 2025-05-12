@@ -9,11 +9,3 @@ Currently Supported Types:
 ## API
 
 API documentation is available [here](https://peckmore.github.io/NetEx).
-
-## Compatibility
-
-| Product            | Versions    |
-|--------------------|-------------|
-| **.Net**           | 5.0 - 9.0   |
-| **.Net Framework** | 2.0 - 4.8.1 |
-| **.Net Standard**  | 2.0 - 2.1   |

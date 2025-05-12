@@ -1,11 +1,11 @@
 # ProgressDialog
-The [ProgressDialog](xref:NetEx.Dialogs.WinForms.ProgressDialog) component is a pre-configured dialog box. It is the same <b>Progress</b> dialog box exposed by the Windows operating system. It inherits from the [CommonDialog](xref:System.Windows.Forms.CommonDialog) class.
+The [ProgressDialog](xref:NetEx.Dialogs.WinForms.ProgressDialog) component is a pre-configured dialog box. It is the same **Progress** dialog box exposed by the Windows operating system. It inherits from the [CommonDialog](xref:System.Windows.Forms.CommonDialog) class.
 
 The project aims to match standard .Net Framework and WinForms behaviour as closely as possible.
 
 <div align="center">
 
-![A progress dialog with upgraded appearance.](../images/progress-dialog-new.png)
+![A progress dialog with upgraded appearance.](../../images/progress-dialog-new.png)
 
 </div>
 
@@ -85,13 +85,9 @@ public class ProgressDialogForm : Form
 }
 ```
 
-## API
+## Applies to
 
-API documentation is available [here](xref:NetEx.Dialogs.WinForms.ProgressDialog).
-
-## Compatibility
-
-| Product                   | Versions    |
-|---------------------------|-------------|
-| **.Net** *(Windows only)* | 5.0 - 9.0   |
-| **.Net Framework**        | 2.0 - 4.8.1 |
+| Product             | Versions |
+|---------------------|----------|
+| **.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1 |
+| **Windows Desktop** | 5, 6, 7, 8, 9 |

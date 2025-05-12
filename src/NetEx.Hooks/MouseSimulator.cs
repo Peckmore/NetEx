@@ -43,7 +43,7 @@ namespace NetEx.Hooks
         /// <returns><see langword="true"/> if the event was sent successfully; otherwise <see landword="false"/></returns>
         /// <remarks>
         /// <para>A <c>MouseClick</c> event consists of a <c>MouseDown</c> event, followed by a short delay, then a <c>MouseUp</c> event.</para>
-        /// <para>This method uses an awaitable <seealso cref="Task"/> to create the delay between <c>MouseDown</c> and <c>MouseUp</c> events.</para>
+        /// <para>This method uses an awaitable <see cref="Task"/> to create the delay between <c>MouseDown</c> and <c>MouseUp</c> events.</para>
         /// </remarks>
         public static async Task<bool> MouseClickAsync(MouseButtons mouseButton)
         {
@@ -80,7 +80,7 @@ namespace NetEx.Hooks
         /// <returns><see langword="true"/> if the event was sent successfully; otherwise <see landword="false"/></returns>
         /// <remarks>
         /// <para>A <c>MouseDoubleClick</c> event consists of a <c>MouseClick</c> event, followed by a delay 1ms shorter than the allowed double-click time (as defined by the operating system), then another <c>MouseClick</c> event.</para>
-        /// <para>This method uses an awaitable <seealso cref="Task"/> to create the delay between <c>MouseClick</c> events.</para>
+        /// <para>This method uses an awaitable <see cref="Task"/> to create the delay between <c>MouseClick</c> events.</para>
         /// </remarks>
         public static async Task<bool> MouseDoubleClickAsync(MouseButtons mouseButton)
         {
@@ -133,7 +133,7 @@ namespace NetEx.Hooks
             return false;
         }
         /// <summary>
-        /// Simulates a <c>MouseMove</c> event using <seealso cref="MouseCoordinateMapping.Absolute"/> coordinate mapping.
+        /// Simulates a <c>MouseMove</c> event using <see cref="MouseCoordinateMapping.Absolute"/> coordinate mapping.
         /// </summary>
         /// <param name="location">The location to simulator moving the mouse cursor to.</param>
         /// <returns><see langword="true"/> if the event was sent successfully; otherwise <see landword="false"/></returns>

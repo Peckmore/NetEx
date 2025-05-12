@@ -6,36 +6,36 @@
 - name: NetEx.Dialogs.WinForms
 
 - name: CredentialDialog
-  href: credentialdialog.md
+  href: dialogs.winforms/credentialdialog.md
  
 - name: ProgressDialog
-  href: progressdialog.md
+  href: dialogs.winforms/progressdialog.md
 
 
 
 - name: NetEx.Hooks
 
 - name: ClipboardHook
-  href: clipboardhook.md
+  href: hooks/clipboardhook.md
  
 - name: KeyboardHook
-  href: keyboardhook.md
+  href: hooks/keyboardhook.md
  
 - name: KeyboardSimulator
-  href: keyboardsimulator.md
+  href: hooks/keyboardsimulator.md
  
 - name: MouseHook
-  href: mousehook.md
+  href: hooks/mousehook.md
  
 - name: MouseSimulator
-  href: mousesimulator.md
+  href: hooks/mousesimulator.md
 
 
 
 - name: NetEx.IO
 
 - name: MultiStream
-  href: multistream.md
+  href: io/multistream.md
  
 - name: OnDisposeStream
-  href: ondisposestream.md
+  href: io/ondisposestream.md

@@ -49,7 +49,8 @@
     "output": "_site",
     "template": [
       "default",
-      "modern"
+      "modern",
+      "template"
     ],
     "xref": [
       "https://learn.microsoft.com/en-us/dotnet/.xrefmap.json"

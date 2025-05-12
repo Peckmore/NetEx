@@ -80,7 +80,7 @@ namespace NetEx.Hooks
         /// <returns><see langword="true"/> if both events were sent successfully; otherwise <see landword="false"/></returns>
         /// <remarks>
         /// <para>A <c>KeyPress</c> event consists of a <c>KeyDown</c> event, followed by a short delay, then a <c>KeyUp</c> event.</para>
-        /// <para>This method uses an awaitable <seealso cref="Task"/> to create the delay between <c>KeyDown</c> and <c>KeyUp</c> events.</para>
+        /// <para>This method uses an awaitable <see cref="Task"/> to create the delay between <c>KeyDown</c> and <c>KeyUp</c> events.</para>
         /// </remarks>
         public static async Task<bool> KeyPressAsync(Keys key)
         {

@@ -9,7 +9,6 @@ namespace NetEx.Hooks
     /// <summary>
     /// Provides a mechanism for hooking all keyboard events within the operating system.
     /// </summary>
-    /// <seealso href="https://learn.microsoft.com/en-us/windows/win32/winmsg/lowlevelkeyboardproc"/>
     public static class KeyboardHook
     {
         #region Fields
@@ -38,7 +37,7 @@ namespace NetEx.Hooks
         #region Properties
 
         /// <summary>
-        /// Indicates whether <seealso cref="KeyboardHook"/> has been installed and is capturing keyboard events.
+        /// Indicates whether <see cref="KeyboardHook"/> has been installed and is capturing keyboard events.
         /// </summary>
         /// <returns><see langword="true"/> if the hook is installed and valid; otherwise <see langword="false"/>.</returns>
         public static bool IsInstalled => _hookProcedureHandle is { IsInvalid: false };
