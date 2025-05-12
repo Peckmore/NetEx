@@ -1,4 +1,4 @@
----
+﻿---
 outputFileName: index.html
 ---
 
@@ -7,46 +7,19 @@ outputFileName: index.html
 <img src="resources/images/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
 
 # NetEx
-A collection of (hopefully!) useful "extensions" to .Net.
+This project aims to collect together any .Net code, controls, or libraries I've come across or written that I thought other people might also find useful. :relaxed:
 
 </div>
 
-## Overview
-This project aims to collect together any .Net code, controls, or libraries I've either come across or written that I thought other people might also find useful. :relaxed:
+## 👀 Libraries
 
-### [NetEx.Dialogs.WinForms](https://peckmore.github.io/netex/api/NetEx.Dialogs.WinForms.html)
-[![NuGet)](https://img.shields.io/nuget/v/NetEx.Dialogs.WinForms.svg)](https://www.nuget.org/packages/NetEx.Dialogs.WinForms/)
-[![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
-[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
+Package | Latest Version | Supported Frameworks | Description
+--------|----------------|----------------------|------------
+[`NetEx.Dialogs.WinForms`](https://peckmore.github.io/NetEx/api/NetEx.Dialogs.WinForms.html) | [![NetEx.Dialogs.WinForms)](https://img.shields.io/nuget/v/NetEx.Dialogs.WinForms.svg)](https://www.nuget.org/packages/NetEx.Dialogs.WinForms/) | [![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)<br/>[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework) | A managed implementation of the standard Windows credential and progress dialogs, for WinForms.
+[`NetEx.Hooks`](https://peckmore.github.io/NetEx/api/NetEx.Hooks.html) | [![NetEx.Hooks)](https://img.shields.io/nuget/v/NetEx.Hooks.svg)](https://www.nuget.org/packages/NetEx.Hooks/) | [![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)<br/>[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework) | Provides global hooks for capturing keyboard, mouse, and clipboard events, and simulators for keyboard and mouse events.
+[`NetEx.IO`](https://peckmore.github.io/NetEx/api/NetEx.IO.html) | [![NetEx.IO)](https://img.shields.io/nuget/v/NetEx.IO.svg)](https://www.nuget.org/packages/NetEx.IO/) | [![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)<br/>[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)<br/>[![.NET Standard](https://img.shields.io/badge/.net%20standard-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/platform/dotnet-standard) | Provides additional input and output (I/O) types, that allow reading and/or writing to data streams.
 
-A managed implementation of the standard Windows credential and progress dialogs, for WinForms.
-
-<div align="center">
-
-![A credential dialog with upgraded appearance.](resources/images/credential-dialog-new.png)
-
-![A credential dialog with classic appearance.](resources/images/credential-dialog-old.png)
-
-![A progress dialog with upgraded appearance.](resources/images/progress-dialog-new.png)
-
-</div>
-
-### [NetEx.Hooks](https://peckmore.github.io/netex/api/NetEx.Hooks.html)
-[![NuGet)](https://img.shields.io/nuget/v/NetEx.Hooks.svg)](https://www.nuget.org/packages/NetEx.Hooks/)
-[![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
-[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
-
-Provides global hooks for capturing keyboard, mouse, and clipboard events, and simulators for keyboard and mouse events.
-
-### [NetEx.IO](https://peckmore.github.io/netex/api/NetEx.IO.html)
-[![NuGet)](https://img.shields.io/nuget/v/NetEx.IO.svg)](https://www.nuget.org/packages/NetEx.IO/)
-[![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download)
-[![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
-[![.NET Standard](https://img.shields.io/badge/.net%20standard-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/platform/dotnet-standard)
-
-Provides additional input and output (I/O) types, that allow reading and/or writing to data streams.
-
-## Usage
+## 🙌 Usage
 
 To use, simply install the required package from NuGet:
 
@@ -61,15 +34,15 @@ Install-Package NetEx.Hooks
 Install-Package NetEx.IO
 ```
 
-## Documentation
-Documentation is available [here](https://peckmore.github.io/netex/overview/overview.html).
+## 📃 Documentation
+Documentation for every library, including an overview and example code, is available [here](https://peckmore.github.io/netex/overview/overview.html).
 
-A test project is also included with the source that demonstrates some of the functionality of the packages.
+Full API documentation can be found [here](https://peckmore.github.io/netex/api/index.html).
 
-## Releases
+## 📦 Releases
 
 A full list of all releases is available on the [Releases](https://github.com/Peckmore/netex/releases) tab on GitHub.
 
-##  License
+## 📄 License
 
 The code is licensed under the [MIT license](https://github.com/Peckmore/NetEx?tab=readme-ov-file#MIT-1-ov-file).
