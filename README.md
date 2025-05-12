@@ -11,7 +11,8 @@ This project aims to collect together any .Net code, controls, or libraries I've
 
 </div>
 
-## 👀 Libraries
+## 📦 Packages
+This repository contains the source code for the following packages:
 
 Package | Latest Version | Supported Frameworks | Description
 --------|----------------|----------------------|------------
@@ -34,12 +35,12 @@ Install-Package NetEx.Hooks
 Install-Package NetEx.IO
 ```
 
-## 📃 Documentation
+## 📖 Documentation
 Documentation for every library, including an overview and example code, is available [here](https://peckmore.github.io/netex/overview/overview.html).
 
 Full API documentation can be found [here](https://peckmore.github.io/netex/api/index.html).
 
-## 📦 Releases
+## 🚀 Releases
 
 A full list of all releases is available on the [Releases](https://github.com/Peckmore/netex/releases) tab on GitHub.
 
