@@ -30,31 +30,46 @@ namespace NetEx.IO
 
         #region Construction
 
+        private MultiStream(IEnumerator<Stream> streams)
+        {
+            // We need to create a list for where we'll store our streams.
+            _fileStreams = new List<StreamInfo>();
+
+            // Enumerate through our streams.
+            while (streams.MoveNext())
+            {
+                var stream = streams.Current;
+                if (stream != null)
+                {
+                    // MultiStream can only work with streams that support reading and seeking, so we need to check each stream first.
+                    if (!stream.CanRead || !stream.CanSeek)
+                    {
+                        // If the stream is not readable or seekable then we can't use it, so throw an exception.
+                        throw Exceptions.MultiStreamStreamDoesNotSupportRead();
+                    }
+
+                    // Add the stream to our list.
+                    _fileStreams.Add(new StreamInfo(stream, _length));
+
+                    // Increment our total length.
+                    _length += stream.Length;
+                }
+            }
+        }
+        /// <summary>
+        /// Creates a new <see cref="MultiStream"/> instance.
+        /// </summary>
+        /// <param name="streams">The collection of <see cref="Stream"/> instances to wrap.</param>
+        public MultiStream(params Stream[] streams)
+            : this(((IEnumerable<Stream>)streams).GetEnumerator())
+        { }
         /// <summary>
         /// Creates a new <see cref="MultiStream"/> instance.
         /// </summary>
         /// <param name="streams">The collection of <see cref="Stream"/> instances to wrap.</param>
         public MultiStream(IEnumerable<Stream> streams)
-        {
-            // We need to create a list for where we'll store our streams.
-            _fileStreams = new List<StreamInfo>();
-
-            foreach (var stream in streams)
-            {
-                // MultiStream can only work with streams that support reading and seeking, so we need to check each stream first.
-                if (!stream.CanRead || !stream.CanSeek)
-                {
-                    // If the stream is not readable or seekable then we can't use it, so throw an exception.
-                    throw Exceptions.MultiStreamStreamDoesNotSupportRead();
-                }
-
-                // Add the stream to our list.
-                _fileStreams.Add(new StreamInfo(stream, _length));
-
-                // Increment our total length.
-                _length += stream.Length;
-            }
-        }
+            : this(streams.GetEnumerator())
+        { }
 
         #endregion
 
