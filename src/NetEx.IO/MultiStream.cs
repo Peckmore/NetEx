@@ -84,12 +84,8 @@ namespace NetEx.IO
         {
             get
             {
-                // Check we haven't been diposed.
-                if (_isDisposed)
-                {
-                    // We have, so throw an exception.
-                    throw Exceptions.StreamDisposed();
-                }
+                // Check we haven't been disposed.
+                CheckIfClosed();
 
                 // Return the `Name` property of the active stream.
                 return _activeStream?.Name;
@@ -130,12 +126,8 @@ namespace NetEx.IO
         {
             get
             {
-                // Check we haven't been diposed.
-                if (_isDisposed)
-                {
-                    // We have, so throw an exception.
-                    throw Exceptions.StreamDisposed();
-                }
+                // Check we haven't been disposed.
+                CheckIfClosed();
 
                 // Return our total length, which is the sum of all the stream lengths.
                 return _length;
@@ -152,12 +144,8 @@ namespace NetEx.IO
         {
             get
             {
-                // Check we haven't been diposed.
-                if (_isDisposed)
-                {
-                    // We have, so throw an exception.
-                    throw Exceptions.StreamDisposed();
-                }
+                // Check we haven't been disposed.
+                CheckIfClosed();
 
                 // Return our position within our collection of wrapped streams.
                 return _position;
@@ -169,7 +157,10 @@ namespace NetEx.IO
                 { 
                     throw Exceptions.MultiStreamPositionLessThanZero(value);
                 }
-                
+
+                // Check we haven't been disposed.
+                CheckIfClosed();
+
                 // Check that position is not being set to a value beyond the end of the stream.
                 if (value > _length)
                 {
@@ -216,6 +207,14 @@ namespace NetEx.IO
 
         #region Private
 
+        private void CheckIfClosed()
+        {
+            if (_isDisposed)
+            {
+                // Stream has been closed, so throw an exception.
+                throw Exceptions.StreamDisposed();
+            }
+        }
         private StreamInfo? GetStream()
         {
             // Grabbing the correct stream is done every Read, so we'll try and do a mini-optimisation and cache the currently active
@@ -329,11 +328,7 @@ namespace NetEx.IO
         public override int Read(byte[] buffer, int offset, int count)
         {
             // Check we haven't been disposed.
-            if (_isDisposed)
-            {
-                // We have, so throw an exception.
-                throw Exceptions.StreamDisposed();
-            }
+            CheckIfClosed();
 
             // A variable to keep track of how many bytes we've read in total.
             var totalBytesRead = 0;
@@ -426,12 +421,8 @@ namespace NetEx.IO
         /// </remarks>
         public override long Seek(long offset, SeekOrigin origin)
         {
-            // Check we haven't been diposed.
-            if (_isDisposed)
-            {
-                // We have, so throw an exception.
-                throw Exceptions.StreamDisposed();
-            }
+            // Check we haven't been disposed.
+            CheckIfClosed();
 
             // Depending on the SeekOrigin type, we seek to the specified offset relative to the start, end, or current position of the
             // stream.
