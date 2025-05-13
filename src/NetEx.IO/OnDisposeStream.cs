@@ -10,7 +10,7 @@ namespace NetEx.IO
     {
         #region Fields
 
-        private readonly Action<bool> _disposeAction;
+        private Action<bool>? _disposeAction;
         private readonly Stream _stream;
 
         #endregion
@@ -78,7 +78,7 @@ namespace NetEx.IO
         /// </summary>
         /// <value>The current position within the wrapped stream.</value>
         /// <exception cref="NotSupportedException">The wrapped stream does not support seeking.</exception>
-        /// <exception cref="IOException">An I/O error occured.</exception>
+        /// <exception cref="IOException">An I/O error occurred.</exception>
         /// <exception cref="ArgumentOutOfRangeException">The position is set to a value outside the supported range of the wrapped stream.</exception>
         /// <exception cref="EndOfStreamException">Attempted seeking past the end of a wrapped stream that does not support this.</exception>
         /// <exception cref="ObjectDisposedException">Methods were called after the wrapped stream was closed.</exception>
@@ -108,8 +108,14 @@ namespace NetEx.IO
                 _stream.Dispose();
             }
 
-            // With the wrapped stream disposed, invoke the dispose action.
-            _disposeAction(disposing);
+            if (_disposeAction != null)
+            {
+                // With the wrapped stream disposed, invoke the dispose action.
+                _disposeAction.Invoke(disposing);
+
+                // Clear the disposed action to prevent it being called again.
+                _disposeAction = null;
+            }
 
             // Finally, call the base Dispose method.
             base.Dispose(disposing);
