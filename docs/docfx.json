@@ -4,13 +4,14 @@
     {
       "src": [
         {
-          "src": "../src",
+          "exclude": [
+            "**/*Demo*",
+            "**/*Tests*"
+          ],
           "files": [
             "**/*.csproj"
           ],
-          "exclude": [
-            "**/*Demo*"
-          ]
+          "src": "../src"
         }
       ],
       "dest": "api",
@@ -21,6 +22,13 @@
   ],
   "build": {
     "content": [
+      {
+        "dest": "",
+        "files": [
+          "README.md"
+        ],
+        "src": "../"
+      },
       {
         "files": [
           "**/*.{md,yml}"
@@ -34,17 +42,22 @@
       {
         "files": [
           "images/**"
-        ]
+        ],
+        "src": "../resources"
       }
     ],
     "output": "_site",
     "template": [
       "default",
-      "modern"
+      "modern",
+      "template"
+    ],
+    "xref": [
+      "https://learn.microsoft.com/en-us/dotnet/.xrefmap.json"
     ],
     "globalMetadata": {
-      "_appFaviconPath": "images/logo.png",
-      "_appLogoPath": "images/logo.png",
+      "_appFaviconPath": "images/logo_docfx.png",
+      "_appLogoPath": "images/logo_docfx.png",
       "_disableContribution": true,
       "_disableNextArticle": true,
       "_enableSearch": true,

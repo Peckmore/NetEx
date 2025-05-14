@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+
+		<!-- Project Settings -->
+		<TargetFrameworks>
+			netstandard2.0;netstandard2.1;
+			net20;net35;net40;net462;net48;net481;
+			net5.0;net6.0;net7.0;net8.0;net9.0
+		</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<RootNamespace>NetEx.IO</RootNamespace>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+		<DebugType>embedded</DebugType>
+
+		<!-- Build Settings -->
+		<OutputPath>$(BaseOutputPath)</OutputPath>
+		<AssemblyName>NetEx.IO</AssemblyName>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<!-- Metadata -->
+		<Version>9.0.0</Version>
+		<Description>Provides additional input and output (I/O) types, that allow reading and/or writing to data streams.</Description>
+		<Author>Simon Peckmore</Author>
+		<Copyright>Copyright © Simon Peckmore 2025</Copyright>
+
+		<!-- Package Settings -->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>NetEx.IO</PackageId>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
+		<PackageTags>
+			netex;
+			io;
+			stream;multistream;ondisposestream
+		</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<EnablePackageValidation>true</EnablePackageValidation>
+		<!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
+
+		<!-- Repository -->
+		<RepositoryUrl>https://github.com/Peckmore/NetEx</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+		<!-- Analyzers -->
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../../resources/images/icon.png" Pack="true" Visible="false" PackagePath="\" />
+		<None Include="README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
+		<PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.25" />
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+	</ItemGroup>
+
+</Project>

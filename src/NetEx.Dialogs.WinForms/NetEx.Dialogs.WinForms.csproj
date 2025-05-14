@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+
+		<!-- Project Settings -->
+		<TargetFrameworks>
+			net20;net35;net40;net462;net48;net481;
+			net5.0-windows;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows
+		</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<RootNamespace>NetEx.Dialogs.WinForms</RootNamespace>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DebugType>embedded</DebugType>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+
+		<!-- Build Settings -->
+		<OutputPath>$(BaseOutputPath)</OutputPath>
+		<AssemblyName>NetEx.Dialogs.WinForms</AssemblyName>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<!-- Metadata -->
+		<Version>9.0.0</Version>
+		<Description>A managed implementation of the standard Windows credential and progress dialogs, for WinForms.</Description>
+		<Author>Simon Peckmore</Author>
+		<Copyright>Copyright © Simon Peckmore 2025</Copyright>
+
+		<!-- Package Settings -->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>NetEx.Dialogs.WinForms</PackageId>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
+		<PackageTags>
+			netex;
+			windowsforms;windows forms;
+			commondialog;dialog;
+			credential;credentialdialog;credentials;
+			progress;progressdialog;progresswinforms
+		</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<EnablePackageValidation>true</EnablePackageValidation>
+		<!--<PackageValidationBaselineVersion>3.0.0</PackageValidationBaselineVersion>-->
+
+		<!-- Repository -->
+		<RepositoryUrl>https://github.com/Peckmore/NetEx</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+		<!-- Analyzers -->
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../../resources/images/icon.png" Pack="true" Visible="false" PackagePath="\" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="CredentialDialogToolboxBitmap.png" />
+		<EmbeddedResource Include="ProgressDialogToolboxBitmap.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
+		<PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.2.25" />
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+
+</Project>
