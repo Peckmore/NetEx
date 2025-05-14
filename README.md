@@ -41,7 +41,7 @@ Install-Package NetEx.IO
 
 Documentation and example code is available [here](https://peckmore.github.io/NetEx/overview/overview.html).
 
-Full API documentation can be found [here](https://peckmore.github.io/NetEx/api/index.html).
+Full API documentation can be found [here](https://peckmore.github.io/NetEx/api/NetEx.Dialogs.WinForms.html).
 
 ## 🚀 Releases
 
