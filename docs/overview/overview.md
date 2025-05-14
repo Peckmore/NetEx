@@ -1,8 +1,6 @@
 # Overview
 
-<b>NetEx</b> is a collection of .Net controls and libraries I've written that I thought other people might also find useful.
-
-The following topics give an overview of each library or control within the project, along with examples, and links to API documentation.
+The following topics give an overview of each library or control within the <b>NetEx</b> project, along with examples and links to API documentation.
 
 ## NetEx.Dialogs.WinForms
 
