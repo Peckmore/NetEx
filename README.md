@@ -39,13 +39,13 @@ Install-Package NetEx.IO
 
 ## 📖 Documentation
 
-Documentation and example code is available [here](https://peckmore.github.io/netex/overview/overview.html).
+Documentation and example code is available [here](https://peckmore.github.io/NetEx/overview/overview.html).
 
-Full API documentation can be found [here](https://peckmore.github.io/netex/api/index.html).
+Full API documentation can be found [here](https://peckmore.github.io/NetEx/api/index.html).
 
 ## 🚀 Releases
 
-A full list of all releases is available on the [Releases](https://github.com/Peckmore/netex/releases) tab on GitHub.
+A full list of all releases is available on the [Releases](https://github.com/Peckmore/NetEx/releases) tab on GitHub.
 
 ## 📄 License
 
