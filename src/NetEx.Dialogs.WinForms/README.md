@@ -6,6 +6,6 @@ Currently Supported Types:
 - NetEx.Dialogs.WinForms.**CredentialDialog**
 - NetEx.Dialogs.WinForms.**ProgressDialog**
 
-## API
+## Documentation
 
-API documentation is available [here](https://peckmore.github.io/NetEx).
+Documentation is available [here](https://peckmore.github.io/NetEx)

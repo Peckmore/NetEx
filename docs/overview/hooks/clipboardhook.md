@@ -1,4 +1,5 @@
 # ClipboardHook
+
 There are three ways of monitoring changes to the clipboard. The oldest method is to create a _clipboard viewer window_. **Windows 2000** added the ability to query the clipboard sequence number, and **Windows Vista** added support for _clipboard format listeners_.
 
 A _clipboard viewer window_ displays the current content of the clipboard, and receives messages when the clipboard content changes. A _clipboard format listener_ is a window which has registered to be notified when the contents of the clipboard has changed.
@@ -89,10 +90,11 @@ public class ClipboardHookForm : Form
 
 ## Applies to
 
-| Product             | Versions |
-|---------------------|----------|
-| **.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1 |
-| **Windows Desktop** | 5, 6, 7, 8, 9 |
+Product             | Versions
+--------------------|---------
+**.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1
+**Windows Desktop** | 5, 6, 7, 8, 9
 
 ## See Also
+
 [Monitoring Clipboard Contents](https://learn.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#monitoring-clipboard-contents)

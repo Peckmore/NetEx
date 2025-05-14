@@ -1,4 +1,5 @@
 # MouseHook
+
 A _hook_ is a mechanism by which an application can intercept events, such as messages, mouse actions, and keystrokes. A function that intercepts a particular type of event is known as a _hook procedure_. A hook procedure can act on each event it receives, and then modify or discard the event.
 
 [MouseHook](xref:NetEx.Hooks.MouseHook) enables you to monitor mouse input events about to be posted in a thread input queue.
@@ -91,12 +92,13 @@ public class MouseHookForm : Form
 
 ## Applies to
 
-| Product             | Versions |
-|---------------------|----------|
-| **.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1 |
-| **Windows Desktop** | 5, 6, 7, 8, 9 |
+Product             | Versions
+--------------------|---------
+**.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1
+**Windows Desktop** | 5, 6, 7, 8, 9
 
 ## See also
+
 [Hooks Overview](https://learn.microsoft.com/en-us/windows/win32/winmsg/about-hooks)
 
 [LowLevelMouseProc function](https://learn.microsoft.com/en-us/windows/win32/winmsg/lowlevelmouseproc)

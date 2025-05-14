@@ -7,11 +7,13 @@ outputFileName: index.html
 <img src="resources/images/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
 
 # NetEx
-This project aims to collect together any .Net code, controls, or libraries I've come across or written that I thought other people might also find useful. :relaxed:
+
+This project is a collection of .Net controls and libraries I've written that I thought other people might also find useful. :relaxed:
 
 </div>
 
 ## 📦 Packages
+
 This repository contains the source code for the following packages:
 
 Package | Latest Version | Supported Frameworks | Description
@@ -36,7 +38,8 @@ Install-Package NetEx.IO
 ```
 
 ## 📖 Documentation
-Documentation for every library, including an overview and example code, is available [here](https://peckmore.github.io/netex/overview/overview.html).
+
+Documentation and example code is available [here](https://peckmore.github.io/netex/overview/overview.html).
 
 Full API documentation can be found [here](https://peckmore.github.io/netex/api/index.html).
 

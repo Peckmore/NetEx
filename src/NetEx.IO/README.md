@@ -6,6 +6,6 @@ Currently Supported Types:
 - NetEx.IO.**MultiStream**
 - NetEx.IO.**OnDisposeStream**
 
-## API
+## Documentation
 
-API documentation is available [here](https://peckmore.github.io/NetEx).
+Documentation is available [here](https://peckmore.github.io/NetEx)

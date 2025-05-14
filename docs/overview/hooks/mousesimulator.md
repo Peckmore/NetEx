@@ -1,4 +1,5 @@
 # MouseSimulator
+
 [MouseSimulator](xref:NetEx.Hooks.MouseSimulator) uses [SendInput](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput) to synthesize mouse motions and button clicks.
 
 ## Use this component
@@ -59,12 +60,13 @@ public class MouseSimulatorForm : Form
 
 ## Applies to
 
-| Product             | Versions |
-|---------------------|----------|
-| **.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1 |
-| **Windows Desktop** | 5, 6, 7, 8, 9 |
+Product             | Versions
+--------------------|---------
+**.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1
+**Windows Desktop** | 5, 6, 7, 8, 9
 
 ## See also
+
 [SendInput function (winuser.h)](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput)
 
 [INPUT structure (winuser.h)](https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-input)
