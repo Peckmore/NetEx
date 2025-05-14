@@ -1,4 +1,5 @@
 # CredentialDialog
+
 The [CredentialDialog](xref:NetEx.Dialogs.WinForms.CredentialDialog) component is a pre-configured dialog box. It is the same **Credential** dialog box exposed by the Windows operating system. It inherits from the [CommonDialog](xref:System.Windows.Forms.CommonDialog) class.
 
 The project aims to match standard .Net Framework and WinForms behaviour as closely as possible.
@@ -74,7 +75,7 @@ public class CredentialDialogForm : Form
 
 ## Applies to
 
-| Product             | Versions |
-|---------------------|----------|
-| **.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1 |
-| **Windows Desktop** | 5, 6, 7, 8, 9 |
+Product             | Versions
+--------------------|---------
+**.Net Framework**  | 2.0, 3.0, 3.5, 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1
+**Windows Desktop** | 5, 6, 7, 8, 9

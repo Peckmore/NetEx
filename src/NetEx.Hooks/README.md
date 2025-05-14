@@ -9,6 +9,6 @@ Currently Supported Types:
 - NetEx.Hooks.**MouseHook**
 - NetEx.Hooks.**MouseSimulator**
 
-## API
+## Documentation
 
-API documentation is available [here](https://peckmore.github.io/NetEx).
+Documentation is available [here](https://peckmore.github.io/NetEx)
