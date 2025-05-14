@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFrameworks>net20;net9.0-windows</TargetFrameworks>
+		<Platforms>AnyCPU;x86</Platforms>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+		<RootNamespace>NetEx.Demo</RootNamespace>
+		<AssemblyName>NetExDemo</AssemblyName>
+		<ApplicationIcon>Icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="Icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\NetEx.Hooks\NetEx.Hooks.csproj" />
+		<ProjectReference Include="..\..\NetEx.Dialogs.WinForms\NetEx.Dialogs.WinForms.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.ToLower().Contains('net20'))">
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+
+</Project>
