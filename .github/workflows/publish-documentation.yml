@@ -6,12 +6,11 @@ on:
   workflow_dispatch:
 
 env:
-  BUILD_CONFIGURATION: Release
   DOTNET_VERSION: 9.0.x
 
 jobs:
 
-  Build:
+  Publish:
     runs-on: windows-latest
     permissions:
       contents: write
@@ -33,11 +32,6 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    # Restore dependencies
-    - name: Restore Dependencies
-      run: dotnet restore
-      working-directory: src
-
     # Update DocFX tool
     - name: Update DocFX
       run: dotnet tool update -g docfx
@@ -47,9 +41,14 @@ jobs:
       run: docfx docfx.json
       working-directory: docs
 
-    # Upload documentation to GitHub Pages
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+    # Upload documentation artifacts
+    - name: Upload Documentation Artifacts
+      id: upload
+      uses: actions/upload-pages-artifact@v3
       with:
         path: docs/_site/
+        
+    # Publish documentation to GitHub Pages
+    - name: Publish to GitHub Pages
+      id: publish
+      uses: actions/deploy-pages@v4
