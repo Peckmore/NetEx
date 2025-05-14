@@ -8,7 +8,7 @@ outputFileName: index.html
 
 # NetEx
 
-This project is a collection of .Net controls and libraries I've written that I thought other people might also find useful. :relaxed:
+This project is a collection of .Net controls and libraries that people might (hopefully!) find useful. :relaxed:
 
 </div>
 
