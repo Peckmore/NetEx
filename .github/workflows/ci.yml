@@ -11,7 +11,7 @@ on:
       - main
     paths:
       - src/**
-  workflow_call:
+  workflow_dispatch:
 
 env:
   BUILD_CONFIGURATION: Release
