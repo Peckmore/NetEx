@@ -6,7 +6,7 @@ The project aims to match standard .Net Framework and WinForms behaviour as clos
 
 <div align="center">
 
-![Credential dialogs.](../../images/credential-dialog-both.png)
+![Credential dialogs.](../../../resources/images/credential-dialog-both.png)
 
 </div>
 

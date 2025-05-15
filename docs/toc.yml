@@ -1,5 +1,5 @@
 - name: Home
-  href: index.html
+  href: index.md
 - name: Overview
   href: overview/
 - name: API

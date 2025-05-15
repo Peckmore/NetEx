@@ -23,13 +23,6 @@
   "build": {
     "content": [
       {
-        "dest": "",
-        "files": [
-          "README.md"
-        ],
-        "src": "../"
-      },
-      {
         "files": [
           "**/*.{md,yml}"
         ],
