@@ -24,6 +24,12 @@
     "content": [
       {
         "files": [
+          "index.md"
+        ],
+        "src": "../"
+      },
+      {
+        "files": [
           "**/*.{md,yml}"
         ],
         "exclude": [
