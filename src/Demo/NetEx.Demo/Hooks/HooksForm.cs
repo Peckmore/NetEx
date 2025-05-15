@@ -53,15 +53,11 @@ namespace NetEx.Demo.Hooks
 
         #region Clipboard
 
-        private void ClipboardHook_ClipboardUpdated()
+        private void ClipboardHook_ClipboardUpdated(ClipboardUpdatedEventArgs e)
         {
             if (InvokeRequired)
             {
-#if NET9_0
-                Invoke(ClipboardHook_ClipboardUpdated);
-#else
-                Invoke(new MethodInvoker(ClipboardHook_ClipboardUpdated));
-#endif
+                Invoke(ClipboardHook_ClipboardUpdated, e);
             }
             else
             {
@@ -164,15 +160,24 @@ namespace NetEx.Demo.Hooks
         }
         private void sendKeyDownButton_Click(object sender, EventArgs e)
         {
-            KeyboardSimulator.KeyDown((Keys)sendKeyComboBox.SelectedItem);
+            if (sendKeyComboBox.SelectedItem != null)
+            {
+                KeyboardSimulator.KeyDown((Keys)sendKeyComboBox.SelectedItem);
+            }
         }
         private void sendKeyPressButton_Click(object sender, EventArgs e)
         {
-            KeyboardSimulator.KeyPress((Keys)sendKeyComboBox.SelectedItem);
+            if (sendKeyComboBox.SelectedItem != null)
+            {
+                KeyboardSimulator.KeyPress((Keys)sendKeyComboBox.SelectedItem);
+            }
         }
         private void sendKeyUpButton_Click(object sender, EventArgs e)
         {
-            KeyboardSimulator.KeyUp((Keys)sendKeyComboBox.SelectedItem);
+            if (sendKeyComboBox.SelectedItem != null)
+            {
+                KeyboardSimulator.KeyUp((Keys)sendKeyComboBox.SelectedItem);
+            }
         }
 
         #endregion
