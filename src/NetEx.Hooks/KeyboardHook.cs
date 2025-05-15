@@ -52,7 +52,12 @@ namespace NetEx.Hooks
         {
             if (nCode >= NativeMethods.HC_ACTION)
             {
+                // We have a keyboard event, so we can begin to parse it.
+#if NET451_OR_GREATER || NETCOREAPP
+                KEYBDINPUT keyboardHookStruct = Marshal.PtrToStructure<KEYBDINPUT>(lParam);
+#else
                 var keyboardHookStruct = (KEYBDINPUT)Marshal.PtrToStructure(lParam, typeof(KEYBDINPUT));
+#endif
                 var keyData = (Keys)keyboardHookStruct.wVk;
                 Keys modifierKey = keyData switch
                 {

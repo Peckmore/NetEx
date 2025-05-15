@@ -82,7 +82,11 @@ namespace NetEx.Hooks
             if (nCode >= NativeMethods.HC_ACTION)
             {
                 // We have a mouse event, so we can begin to parse it.
+#if NET451_OR_GREATER || NETCOREAPP
+                MOUSEINPUT mouseHookStruct = Marshal.PtrToStructure<MOUSEINPUT>(lParam);
+#else
                 var mouseHookStruct = (MOUSEINPUT)Marshal.PtrToStructure(lParam, typeof(MOUSEINPUT));
+#endif
 
                 switch (wParam)
                 {

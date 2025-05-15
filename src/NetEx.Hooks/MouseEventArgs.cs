@@ -8,7 +8,7 @@ namespace NetEx.Hooks
     /// </summary>
     /// <remarks>This code was taken from the .Net Framework.</remarks>
     /// <seealso href="https://github.com/dotnet/winforms/blob/release/9.0/src/System.Windows.Forms/src/System/Windows/Forms/Input/MouseEventArgs.cs"/>
-    public class MouseEventArgs : EventArgs
+    public sealed class MouseEventArgs : EventArgs
     {
         #region Construction
 
