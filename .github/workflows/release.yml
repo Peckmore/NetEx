@@ -11,7 +11,7 @@ env:
 jobs:
 
   Build:
-    uses: ./.github/workflows/build-library.yml
+    uses: ./.github/workflows/build-libraries.yml
     with:
       BUILD_CONFIGURATION: Release
       DOTNET_VERSION: ${{ vars.DOTNET_VERSION }}
