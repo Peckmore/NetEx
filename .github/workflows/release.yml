@@ -13,6 +13,7 @@ jobs:
 
   Build:
     uses: ./.github/workflows/build-library.yml
-      
+
   Documentation:
+    needs: Build
     uses: ./.github/workflows/publish-documentation.yml
