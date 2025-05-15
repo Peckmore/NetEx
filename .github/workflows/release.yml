@@ -7,7 +7,6 @@ on:
 
 env:
   BUILD_CONFIGURATION: Release
-  DOTNET_VERSION: 9.0.x
 
 jobs:
 
@@ -15,7 +14,7 @@ jobs:
     uses: ./.github/workflows/build-library.yml
     with:
       BUILD_CONFIGURATION: Release
-      DOTNET_VERSION: ${{ env.DOTNET_VERSION }}
+      DOTNET_VERSION: ${{ vars.DOTNET_VERSION }}
 
   Publish:
     runs-on: windows-latest
@@ -45,5 +44,3 @@ jobs:
   Documentation:
     needs: Publish
     uses: ./.github/workflows/publish-documentation.yml
-    with:
-      DOTNET_VERSION: ${{ env.DOTNET_VERSION }}
