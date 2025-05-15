@@ -12,9 +12,6 @@ jobs:
 
   Build:
     uses: ./.github/workflows/build-libraries.yml
-    with:
-      BUILD_CONFIGURATION: Release
-      DOTNET_VERSION: ${{ vars.DOTNET_VERSION }}
 
   Publish:
     runs-on: windows-latest
