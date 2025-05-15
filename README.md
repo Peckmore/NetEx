@@ -4,7 +4,7 @@
 
 # NetEx
 
-This project is a collection of .Net controls and libraries that people might (hopefully!) find useful. :relaxed:
+This project is a collection of .NET controls and libraries that people might (hopefully!) find useful. :relaxed:
 
 </div>
 

@@ -159,7 +159,7 @@ namespace NetEx.Hooks.Interop
         }
         public static Rectangle GetVirtualScreen()
         {
-            // Borrowed from .Net/WinForms
+            // Borrowed from .NET/WinForms
             // https://github.com/dotnet/winforms/blob/release/9.0/src/System.Windows.Forms/src/System/Windows/Forms/SystemInformation.cs#L449
 
             if (GetSystemMetrics(SystemMetric.SM_CMONITORS) != 0)

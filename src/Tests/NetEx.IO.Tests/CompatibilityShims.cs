@@ -12,7 +12,7 @@ namespace NetEx.IO.Tests
         /// <param name="minValue">The inclusive lower bound of the random number returned.</param>
         /// <param name="maxValue">The exclusive upper bound of the random number returned.</param>
         /// <returns>A 64-bit signed integer greater than or equal to <paramref name="minValue"/> and less than <paramref name="maxValue"/>.</returns>
-        /// <remarks>A compatibility-shim as this method doesn't exist < .Net 6.0.</remarks>
+        /// <remarks>A compatibility-shim as this method doesn't exist before .NET 6.0.</remarks>
         public static long NextInt64(this Random random, long minValue, long maxValue)
         {
             if (random == null)

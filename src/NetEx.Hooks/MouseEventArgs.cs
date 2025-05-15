@@ -6,7 +6,7 @@ namespace NetEx.Hooks
     /// <summary>
     ///  Provides data for the <see cref="MouseHook.MouseUp"/>, <see cref="MouseHook.MouseDown"/> and <see cref="MouseHook.MouseMove"/> events.
     /// </summary>
-    /// <remarks>This code was taken from the .Net Framework.</remarks>
+    /// <remarks>This code was taken from the .NET Framework.</remarks>
     /// <seealso href="https://github.com/dotnet/winforms/blob/release/9.0/src/System.Windows.Forms/src/System/Windows/Forms/Input/MouseEventArgs.cs"/>
     public sealed class MouseEventArgs : EventArgs
     {

@@ -627,7 +627,7 @@ namespace NetEx.Dialogs.WinForms
         }
         private bool UseVistaDialogInternal()
         {
-            // This code is based on the FileDialog class, included as part of the .Net Framework
+            // This code is based on the FileDialog class, included as part of the .NET Framework
 
             // Check that we are running on Windows NT
             if (Environment.OSVersion.Platform != PlatformID.Win32NT)

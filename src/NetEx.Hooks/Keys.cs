@@ -5,7 +5,7 @@ namespace NetEx.Hooks
     /// <summary>
     /// Specifies key codes and modifiers.
     /// </summary>
-    /// <remarks>This code was taken from the .Net Framework.</remarks>
+    /// <remarks>This code was taken from the .NET Framework.</remarks>
     /// <seealso href="https://github.com/dotnet/winforms/blob/release/9.0/src/System.Windows.Forms/src/System/Windows/Forms/Input/Keys.cs"/>
     [Flags]
     public enum Keys

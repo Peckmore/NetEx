@@ -15,9 +15,9 @@ namespace NetEx.Demo
             InitializeComponent();
 
 #if NET20
-            frameworkToolStripStatusLabel.Text = ".Net Framework 2.0";
+            frameworkToolStripStatusLabel.Text = ".NET Framework 2.0";
 #elif NET9_0
-            frameworkToolStripStatusLabel.Text = ".Net 9.0";
+            frameworkToolStripStatusLabel.Text = ".NET 9.0";
 #endif
         }
 
