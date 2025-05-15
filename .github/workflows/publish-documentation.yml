@@ -2,10 +2,14 @@ name: Publish Documentation
 
 on:
   workflow_call:
+    inputs:
+      DOTNET_VERSION:
+        type: string
   workflow_dispatch:
-
-env:
-  DOTNET_VERSION: 9.0.x
+    inputs:
+      DOTNET_VERSION:
+        description: .NET Version
+        default: 9.0.x
 
 jobs:
 
@@ -29,7 +33,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: ${{ inputs.DOTNET_VERSION }}
 
     # Update DocFX tool
     - name: Update DocFX

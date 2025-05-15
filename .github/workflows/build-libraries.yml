@@ -1,22 +1,12 @@
 name: Build Libraries
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - src/**
-  push:
-    branches:
-      - main
-    paths:
-      - src/**
   workflow_call:
-  workflow_dispatch:
-
-env:
-  BUILD_CONFIGURATION: Release
-  DOTNET_VERSION: 9.0.x
+    inputs:
+      BUILD_CONFIGURATION:
+        type: string
+      DOTNET_VERSION:
+        type: string
 
 jobs:
 
@@ -33,7 +23,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: ${{ inputs.DOTNET_VERSION }}
 
     # Restore dependencies
     - name: Restore Dependencies
@@ -43,9 +33,9 @@ jobs:
     # Build the project
     - name: Build
       run: |
-        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
-        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
-        dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ inputs.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ inputs.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ inputs.BUILD_CONFIGURATION }} --no-restore
       working-directory: src
           
     # Upload build artifacts
