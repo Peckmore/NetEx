@@ -7,7 +7,7 @@ namespace NetEx.Hooks
     /// </summary>
     /// <remarks>This code was taken from the .Net Framework.</remarks>
     /// <seealso href="https://github.com/dotnet/winforms/blob/release/9.0/src/System.Windows.Forms/src/System/Windows/Forms/Input/KeyEventArgs.cs"/>
-    public class KeyEventArgs : EventArgs
+    public sealed class KeyEventArgs : EventArgs
     {
         #region Fields
 
@@ -32,7 +32,7 @@ namespace NetEx.Hooks
         /// <summary>
         /// Gets a value indicating whether the ALT key was pressed.
         /// </summary>
-        public virtual bool Alt => (KeyData & Keys.Alt) == Keys.Alt;
+        public bool Alt => (KeyData & Keys.Alt) == Keys.Alt;
         /// <summary>
         /// Gets a value indicating whether the CTRL key was pressed.
         /// </summary>
@@ -72,7 +72,7 @@ namespace NetEx.Hooks
         /// <summary>
         /// Gets a value indicating whether the SHIFT key was pressed.
         /// </summary>
-        public virtual bool Shift => (KeyData & Keys.Shift) == Keys.Shift;
+        public bool Shift => (KeyData & Keys.Shift) == Keys.Shift;
         /// <summary>
         /// Gets or sets a value indicating whether the key event should be passed on to the next listener.</summary>
         /// <returns><see langword="true" /> if the key event should not be sent to the control; otherwise, <see langword="false" />.</returns>

@@ -6,7 +6,7 @@ namespace NetEx.Hooks
     /// <summary>
     /// A safe handle implementation for Windows hooks.
     /// </summary>
-    internal class SafeWindowsHookHandle : SafeHandleZeroOrMinusOneIsInvalid
+    internal sealed class SafeWindowsHookHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         #region Construction
 
