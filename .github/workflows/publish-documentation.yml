@@ -39,7 +39,7 @@ jobs:
     # Copy DocFX index
     - name: Copy DocFX index
       shell: pwsh
-      run: Copy-Item  -Path .\README.md -Destination .\docs\index.md
+      run: Copy-Item  -Path .\README.md -Destination .\index.md
 
     # Generate documentation
     - name: Generate Documentation
