@@ -6,7 +6,7 @@ The project aims to match standard .Net Framework and WinForms behaviour as clos
 
 <div align="center">
 
-![A progress dialog with upgraded appearance.](../../images/progress-dialog-new.png)
+![A progress dialog with upgraded appearance.](../../../resources/images/progress-dialog-new.png)
 
 </div>
 

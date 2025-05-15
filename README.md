@@ -1,8 +1,4 @@
-﻿---
-outputFileName: index.html
----
-
-<div align="center">
+﻿<div align="center">
 
 <img src="resources/images/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
 

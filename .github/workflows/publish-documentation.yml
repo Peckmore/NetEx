@@ -21,11 +21,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-    
+
     # Checkout the repository
     - name: Checkout Code
       uses: actions/checkout@v4
-    
+
     # Set up .NET environment
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -35,7 +35,12 @@ jobs:
     # Update DocFX tool
     - name: Update DocFX
       run: dotnet tool update -g docfx
-    
+
+    # Copy DocFX index
+    - name: Copy DocFX index
+      shell: pwsh
+      run: Copy-Item  -Path .\README.md -Destination .\docs\index.md
+
     # Generate documentation
     - name: Generate Documentation
       run: docfx docfx.json
@@ -47,7 +52,7 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: docs/_site/
-        
+
     # Publish documentation to GitHub Pages
     - name: Publish to GitHub Pages
       id: publish
