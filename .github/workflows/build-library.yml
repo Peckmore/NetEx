@@ -1,0 +1,56 @@
+name: Build Library
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - src/**
+  push:
+    branches:
+      - main
+    paths:
+      - src/**
+  workflow_call:
+  workflow_dispatch:
+
+env:
+  BUILD_CONFIGURATION: Release
+  DOTNET_VERSION: 9.0.x
+
+jobs:
+
+  Build:
+    runs-on: windows-latest
+
+    steps:
+    
+    # Checkout the repository
+    - name: Checkout Code
+      uses: actions/checkout@v4
+    
+    # Set up .NET environment
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    # Restore dependencies
+    - name: Restore Dependencies
+      run: dotnet restore
+      working-directory: src
+
+    # Build the project
+    - name: Build
+      run: |
+        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+      working-directory: src
+          
+    # Upload build artifacts
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: nupkg-files
+        path: src/**/*.nupkg
