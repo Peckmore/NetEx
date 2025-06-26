@@ -31,11 +31,11 @@ jobs:
         files: ./**/*.nupkg
 
     # Publish the build packages to NuGet
-    #- name: Publish to NuGet
-    #  env:
-    #    NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-    #  run: |
-    #    dotnet nuget push ./**/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+    - name: Publish to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: |
+        dotnet nuget push ./**/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
 
   Documentation:
     needs: Publish
