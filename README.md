@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-<img src="resources/images/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
+<img src="res/images/icon.png" alt="NetEx.WinForms.ProgressDialog" width="75" />
 
 # NetEx
 
@@ -20,12 +20,12 @@ A managed implementation of the standard Windows credential and progress dialogs
 #### [CredentialDialog](https://peckmore.github.io/NetEx/overview/dialogs.winforms/credentialdialog.html)
 Displays a standard dialog box that prompts the user to enter credentials.
 
-![Credential Dialog)](resources/images/credential-dialog-both.png)
+![Credential Dialog)](res/images/credential-dialog-both.png)
 
 #### [ProgressDialog](https://peckmore.github.io/NetEx/overview/dialogs.winforms/progressdialog.html)
 Displays a standard dialog box that informs the user of the progress of an action.
 
-![Progress Dialog)](resources/images/progress-dialog-new.png)
+![Progress Dialog)](res/images/progress-dialog-new.png)
 
 ### NetEx.Hooks
 [![NetEx.Hooks)](https://img.shields.io/nuget/v/NetEx.Hooks.svg)](https://www.nuget.org/packages/NetEx.Hooks/) [![.NET](https://img.shields.io/badge/.net%20-5.0+-8A2BE2)](https://dotnet.microsoft.com/download) [![.NET Framework](https://img.shields.io/badge/.net%20framework-2.0+-8A2BE2)](https://dotnet.microsoft.com/en-us/download/dotnet-framework)

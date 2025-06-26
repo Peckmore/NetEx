@@ -42,7 +42,7 @@
         "files": [
           "images/**"
         ],
-        "src": "../resources"
+        "src": "../res"
       }
     ],
     "output": "_site",
