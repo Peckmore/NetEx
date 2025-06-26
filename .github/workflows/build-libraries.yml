@@ -37,12 +37,8 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
     
     # Set version number (for Release)
-    - name: Set Version from Release Tag
-      if: github.event_name == 'release'
-      run: |
-        TAG_NAME="${GITHUB_REF##*/}"
-        VERSION="${TAG_NAME#v}"
-        echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+    - name: Set VERSION_​NUMBER variable from tag
+      run: echo "RELEASE_VERSION=${GITHUB_​REF_​NAME/​v/​}" >> $GITHUB_​ENV
 
     # Restore dependencies
     - name: Restore Dependencies
