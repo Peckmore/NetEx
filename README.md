@@ -17,12 +17,12 @@ This repo contains the following projects:
 
 A managed implementation of the standard Windows credential and progress dialogs, for WinForms.
 
-#### [CredentialDialog](dialogs.winforms/credentialdialog.md)
+#### [CredentialDialog](https://peckmore.github.io/NetEx/overview/dialogs.winforms/credentialdialog.html)
 Displays a standard dialog box that prompts the user to enter credentials.
 
 ![Credential Dialog)](resources/images/credential-dialog-both.png)
 
-#### [ProgressDialog](dialogs.winforms/progressdialog.md)
+#### [ProgressDialog](https://peckmore.github.io/NetEx/overview/dialogs.winforms/progressdialog.html)
 Displays a standard dialog box that informs the user of the progress of an action.
 
 ![Progress Dialog)](resources/images/progress-dialog-new.png)
@@ -32,17 +32,17 @@ Displays a standard dialog box that informs the user of the progress of an actio
 
 Provides global hooks for capturing keyboard, mouse, and clipboard events, and simulators for keyboard and mouse events.
 
-#### [ClipboardHook](hooks/clipboardhook.md)
+#### [ClipboardHook](https://peckmore.github.io/NetEx/overview/hooks/clipboardhook.html)
 Provides a mechanism for hooking all clipboard events within the operating system.
 
-#### [KeyboardHook](hooks/keyboardhook.md)
+#### [KeyboardHook](https://peckmore.github.io/NetEx/overview/hooks/keyboardhook.html)
 Provides a mechanism for hooking all keyboard events within the operating system.
-#### [KeyboardSimulator](hooks/keyboardsimulator.md)
+#### [KeyboardSimulator](https://peckmore.github.io/NetEx/overview/hooks/keyboardsimulator.html)
 A keyboard event simulator, which can simulate `KeyDown`, `KeyUp`, and `KeyPress` events.
-#### [MouseHook](hooks/mousehook.md)
+#### [MouseHook](https://peckmore.github.io/NetEx/overview/hooks/mousehook.html)
 Provides a mechanism for hooking all mouse events within the operating system.
 
-#### [MouseSimulator](hooks/mousesimulator.md)
+#### [MouseSimulator](https://peckmore.github.io/NetEx/overview/hooks/mousesimulator.html)
 A mouse event simulator, which can simulate `MouseClick`, `MouseDoubleClick`, `MouseDown`, `MouseUp`, `MouseMove`, and `MouseWheel` events.
 
 ### NetEx.IO
@@ -50,9 +50,9 @@ A mouse event simulator, which can simulate `MouseClick`, `MouseDoubleClick`, `M
 
 Provides additional input and output (I/O) types, that allow reading and/or writing to data streams.
 
-#### [MultiStream](io/multistream.md)
+#### [MultiStream](https://peckmore.github.io/NetEx/overview/io/multistream.html)
 Creates a wrapper around multiple `Stream` instances, and presents them as a single, read-only stream.
-#### [OnDisposeStream](io/ondisposestream.md)
+#### [OnDisposeStream](https://peckmore.github.io/NetEx/overview/io/ondisposestream.html)
 Creates a wrapper around a `Stream` that can be used to perform additional cleanup when the underlying stream is disposed.
 
 ## 🙌 Usage
