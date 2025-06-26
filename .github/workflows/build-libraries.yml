@@ -39,13 +39,11 @@ jobs:
     # Set version number (for Release)
     - name: Set Version Number
       if: github.event_name == 'release'
-      env:
-        GITHUB_REF_NAME: ${{ github.ref_name }}
       run: |
-        echo "GitHub Ref Name: ${{ github.ref_name }}"
-        VERSION_NUMBER="${GITHUB_REF_NAME#v}"
-        echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
-        echo "Version set to: $VERSION_NUMBER"
+        Write-Host "GitHub Ref Name: ${{ github.ref_name }}"
+        $version = ${{ github.ref_name }} -replace '^v', ''
+        "VERSION_NUMBER=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        Write-Host "Version set to: $version"
 
     # Restore dependencies
     - name: Restore Dependencies
