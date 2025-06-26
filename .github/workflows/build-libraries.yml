@@ -65,6 +65,7 @@ jobs:
         dotnet test NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build /p:Version=${{ env.VERSION_NUMBER }}
         dotnet test NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build /p:Version=${{ env.VERSION_NUMBER }}
         dotnet test NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build /p:Version=${{ env.VERSION_NUMBER }}
+      working-directory: src
 
     # Upload build artifacts
     - name: Upload Build Artifacts
