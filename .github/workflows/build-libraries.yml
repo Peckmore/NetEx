@@ -38,7 +38,8 @@ jobs:
     
     # Set version number (for Release)
     - name: Set Version Number
-      run: | 
+      run: |
+        echo "GitHub Ref Name: ${GITHUB_​REF_​NAME}"
         echo "VERSION_NUMBER=${GITHUB_​REF_​NAME/​v/​}" >> $GITHUB_​ENV
         echo "Version set to: ${{ env.VERSION_NUMBER }}"
 
