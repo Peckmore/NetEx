@@ -4,6 +4,9 @@ on:
   workflow_call:
   workflow_dispatch:
 
+env:
+  DOTNET_VERSION: 9.0.x
+
 jobs:
 
   Publish:
@@ -26,7 +29,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ vars.DOTNET_VERSION }}
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
     # Update DocFX tool
     - name: Update DocFX
