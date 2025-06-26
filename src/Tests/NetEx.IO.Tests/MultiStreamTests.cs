@@ -81,7 +81,7 @@ namespace NetEx.IO.Tests
             var streams = new List<Stream>();
             for (var x = 1; x < 9; x++)
             {
-                streams.Add(File.Open(@$"TestData\MultiStream\{x}.file", FileMode.Open));
+                streams.Add(File.OpenRead(@$"TestData\MultiStream\{x}.file"));
             }
 
             yield return new[] { new MultiStream(streams) };
