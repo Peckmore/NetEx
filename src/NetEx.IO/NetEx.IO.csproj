@@ -22,7 +22,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
 		<!-- Metadata -->
-		<Version>9.0.0</Version>
+		<Version>3.0.0</Version>
 		<Description>Provides additional input and output (I/O) types, that allow reading and/or writing to data streams.</Description>
 		<Author>Simon Peckmore</Author>
 		<Copyright>Copyright © Simon Peckmore 2025</Copyright>
