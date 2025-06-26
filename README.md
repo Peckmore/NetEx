@@ -84,6 +84,8 @@ A full list of all releases is available on the [Releases](https://github.com/Pe
 
 **NetEx** use [Semantic Versioning](https://semver.org) for all packages.
 
+At present, all packages are _built and versioned together_ as this simplifies release management. If a situation is reached whereby some packages are being updated significantly more than others (resulting in a large number of artifical version bumps for some packages) then this will be revisited.
+
 ## 📄 License
 
 The code is licensed under the [MIT license](https://github.com/Peckmore/NetEx?tab=readme-ov-file#MIT-1-ov-file).
