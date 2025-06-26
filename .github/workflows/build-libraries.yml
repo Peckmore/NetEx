@@ -39,8 +39,11 @@ jobs:
     # Set version number (for Release)
     - name: Set Version Number
       if: github.event_name == 'release'
+      env:
+        GITHUB_REF_NAME: ${{ github.ref_name }}
       run: |
-        VERSION_NUMBER="${${{ github.ref_name }}#v}"
+        echo "GitHub Ref Name: ${{ github.ref_name }}"
+        VERSION_NUMBER="${GITHUB_REF_NAME#v}"
         echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
         echo "Version set to: $VERSION_NUMBER"
 
