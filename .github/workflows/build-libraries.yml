@@ -58,7 +58,14 @@ jobs:
         dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
         dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
       working-directory: src
-          
+
+    # Run tests
+    - name: Test
+      run: |
+        dotnet test NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build /p:Version=${{ env.VERSION_NUMBER }}
+        dotnet test NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build /p:Version=${{ env.VERSION_NUMBER }}
+        dotnet test NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build /p:Version=${{ env.VERSION_NUMBER }}
+
     # Upload build artifacts
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
