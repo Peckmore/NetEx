@@ -62,7 +62,15 @@ jobs:
     # Run tests
     - name: Test
       run: |
-        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
+        # NetEx.IO
+        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }} --framework net462
+        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }} --framework net48
+        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }} --framework net481
+        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }} --framework net5.0
+        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }} --framework net6.0
+        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }} --framework net7.0
+        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }} --framework net8.0
+        dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }} --framework net9.0
       working-directory: src
 
     # Upload build artifacts
