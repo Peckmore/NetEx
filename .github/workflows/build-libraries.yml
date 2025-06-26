@@ -38,7 +38,9 @@ jobs:
     
     # Set version number (for Release)
     - name: Set Version Number
-      run: echo "VERSION_NUMBER=${GITHUB_​REF_​NAME/​v/​}" >> $GITHUB_​ENV
+      run: | 
+        echo "VERSION_NUMBER=${GITHUB_​REF_​NAME/​v/​}" >> $GITHUB_​ENV
+        echo "Version set to: ${{ env.VERSION_NUMBER }}"
 
     # Restore dependencies
     - name: Restore Dependencies
@@ -48,9 +50,9 @@ jobs:
     # Build the project
     - name: Build
       run: |
-        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration $BUILD_CONFIGURATION --no-restore /p:Version=$VERSION_NUMBER
-        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration $BUILD_CONFIGURATION --no-restore /p:Version=$VERSION_NUMBER
-        dotnet build NetEx.IO/NetEx.IO.csproj --configuration $BUILD_CONFIGURATION --no-restore /p:Version=$VERSION_NUMBER
+        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
+        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
+        dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
       working-directory: src
           
     # Upload build artifacts
