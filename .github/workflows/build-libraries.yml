@@ -40,7 +40,7 @@ jobs:
     - name: Set Version Number
       run: |
         echo "GitHub Ref Name: ${{ github.ref_name }}"
-        echo "VERSION_NUMBER=${github.ref_name/​v/​}" >> $GITHUB_​ENV
+        echo "VERSION_NUMBER=${${{ github.ref_name }}/​v/​}" >> $GITHUB_​ENV
         echo "Version set to: ${{ env.VERSION_NUMBER }}"
 
     # Restore dependencies
