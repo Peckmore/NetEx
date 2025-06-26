@@ -62,9 +62,7 @@ jobs:
     # Run tests
     - name: Test
       run: |
-        dotnet test NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build --no-restore
-        dotnet test NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build --no-restore
-        dotnet test NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-build --no-restore
+        dotnet test Tests/NetEx.IO/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
       working-directory: src
 
     # Upload build artifacts
