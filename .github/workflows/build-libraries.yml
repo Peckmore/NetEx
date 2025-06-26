@@ -38,10 +38,11 @@ jobs:
     
     # Set version number (for Release)
     - name: Set Version Number
+      if: github.event_name == 'release'
       run: |
-        echo "GitHub Ref Name: ${{ github.ref_name }}"
-        echo "VERSION_NUMBER=${${{ github.ref_name }}/​v/​}" >> $GITHUB_​ENV
-        echo "Version set to: ${{ env.VERSION_NUMBER }}"
+        VERSION_NUMBER="${${{ github.ref_name }}#v}"
+        echo "VERSION_NUMBER=$VERSION_NUMBER" >> $GITHUB_ENV
+        echo "Version set to: $VERSION_NUMBER"
 
     # Restore dependencies
     - name: Restore Dependencies
