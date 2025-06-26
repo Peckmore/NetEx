@@ -1,4 +1,4 @@
-name: Build Libraries
+﻿name: Build Libraries
 
 on:
   pull_request:
@@ -16,6 +16,8 @@ on:
   
 env:
   BUILD_CONFIGURATION: Release
+  DOTNET_VERSION: 9.0.x
+  RELEASE_VERSION: 0
 
 jobs:
 
@@ -32,7 +34,15 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ vars.DOTNET_VERSION }}
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    # Set version number (for Release)
+    - name: Set Version from Release Tag
+      if: github.event_name == 'release'
+      run: |
+        TAG_NAME="${GITHUB_REF##*/}"
+        VERSION="${TAG_NAME#v}"
+        echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
 
     # Restore dependencies
     - name: Restore Dependencies
@@ -42,9 +52,9 @@ jobs:
     # Build the project
     - name: Build
       run: |
-        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
-        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
-        dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.RELEASE_VERSION }}
+        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.RELEASE_VERSION }}
+        dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.RELEASE_VERSION }}
       working-directory: src
           
     # Upload build artifacts
