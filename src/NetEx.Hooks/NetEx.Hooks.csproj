@@ -30,7 +30,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>NetEx.Hooks</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageProjectUrl>https://github.com/Peckmore/NetEx</PackageProjectUrl>
+		<PackageProjectUrl>https://peckmore.github.io/NetEx</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>Please refer to GitHub for changes.</PackageReleaseNotes>
 		<PackageTags>
