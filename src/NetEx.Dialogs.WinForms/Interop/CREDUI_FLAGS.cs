@@ -13,7 +13,7 @@ namespace NetEx.Dialogs.WinForms.Interop
     internal enum CREDUI_FLAGS
     {
         /// <summary>
-        /// Specifies that a user interface will be shown even if the credentials can be returned from an existing credential in credential manager. This flag is permitted only if CREDUI_FLAGS_GENERIC_CREDENTIALS is also specified. 
+        /// Specifies that a user interface will be shown even if the credentials can be returned from an existing credential in credential manager. This flag is permitted only if CREDUI_FLAGS_GENERIC_CREDENTIALS is also specified.
         /// </summary>
         CREDUI_FLAGS_ALWAYS_SHOW_UI = 0x00080,
         /// <summary>
@@ -21,7 +21,7 @@ namespace NetEx.Dialogs.WinForms.Interop
         /// </summary>
         CREDUI_FLAGS_COMPLETE_USERNAME = 0x00800,
         /// <summary>
-        /// Do not store credentials or display check boxes. You can pass CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX with this flag to display the Save check box only, and the result is returned in the pfSave output parameter. 
+        /// Do not store credentials or display check boxes. You can pass CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX with this flag to display the Save check box only, and the result is returned in the pfSave output parameter.
         /// </summary>
         CREDUI_FLAGS_DO_NOT_PERSIST = 0x00002,
         /// <summary>
@@ -37,7 +37,7 @@ namespace NetEx.Dialogs.WinForms.Interop
         /// </summary>
         CREDUI_FLAGS_GENERIC_CREDENTIALS = 0x40000,
         /// <summary>
-        /// Notify the user of insufficient credentials by displaying the "Logon unsuccessful" balloon tip. 
+        /// Notify the user of insufficient credentials by displaying the "Logon unsuccessful" balloon tip.
         /// </summary>
         CREDUI_FLAGS_INCORRECT_PASSWORD = 0x00001,
         /// <summary>

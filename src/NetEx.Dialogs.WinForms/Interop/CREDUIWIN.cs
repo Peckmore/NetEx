@@ -10,7 +10,7 @@ namespace NetEx.Dialogs.WinForms.Interop
     [Flags]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    internal enum CREDUIWIN
+    internal enum CREDUIWIN : uint
     {
         /// <summary>
         /// The caller is requesting that the credential provider return the user name and password in plain text.
@@ -22,41 +22,53 @@ namespace NetEx.Dialogs.WinForms.Interop
         /// </summary>
         CREDUIWIN_CHECKBOX = 0x2,
         /// <summary>
-        /// Only credential providers that support the authentication package specified by the pulAuthPackage parameter should be enumerated. 
+        /// Only credential providers that support the authentication package specified by the pulAuthPackage parameter should be enumerated.
         /// <para>This value cannot be combined with CREDUIWIN_IN_CRED_ONLY.</para>
         /// </summary>
         [SuppressMessage("ReSharper", "IdentifierTypo")]
         CREDUIWIN_AUTHPACKAGE_ONLY = 0x10,
         /// <summary>
-        /// Only the credentials specified by the pvInAuthBuffer parameter for the authentication package specified by the pulAuthPackage parameter should be enumerated. 
+        /// Only the credentials specified by the pvInAuthBuffer parameter for the authentication package specified by the pulAuthPackage parameter should be enumerated.
         /// <para>If this flag is set, and the pvInAuthBuffer parameter is NULL, the function fails.</para>
         /// <para>This value cannot be combined with CREDUIWIN_AUTHPACKAGE_ONLY.</para>
         /// </summary>
         [SuppressMessage("ReSharper", "CommentTypo")]
         CREDUIWIN_IN_CRED_ONLY = 0x20,
         /// <summary>
-        /// Credential providers should enumerate only administrators. This value is intended for User Account Control (UAC) purposes only. We recommend that external callers not set this flag. 
+        /// Credential providers should enumerate only administrators. This value is intended for User Account Control (UAC) purposes only. We recommend that external callers not set this flag.
         /// </summary>
         CREDUIWIN_ENUMERATE_ADMINS = 0x100,
         /// <summary>
-        /// Only the incoming credentials for the authentication package specified by the pulAuthPackage parameter should be enumerated. 
+        /// Only the incoming credentials for the authentication package specified by the pulAuthPackage parameter should be enumerated.
         /// </summary>
         CREDUIWIN_ENUMERATE_CURRENT_USER = 0x200,
         /// <summary>
-        /// The credential dialog box should be displayed on the secure desktop. This value cannot be combined with CREDUIWIN_GENERIC. 
+        /// The credential dialog box should be displayed on the secure desktop. This value cannot be combined with CREDUIWIN_GENERIC.
         /// <para>Windows Vista:  This value is supported beginning with Windows Vista with SP1.</para>
         /// </summary>
         CREDUIWIN_SECURE_PROMPT = 0x1000,
         /// <summary>
-        /// The credential dialog box is invoked by the SspiPromptForCredentials function, and the client is prompted before a prior handshake. If SSPIPFC_NO_CHECKBOX is passed in the pvInAuthBuffer parameter, then the credential provider should not display the check box. 
+        /// The credential dialog box is invoked by the SspiPromptForCredentials function, and the client is prompted before a prior handshake. If SSPIPFC_NO_CHECKBOX is passed in the pvInAuthBuffer parameter, then the credential provider should not display the check box.
         /// <para>Windows Vista:  This value is supported beginning with Windows Vista with SP1.</para>
         /// </summary>
         [SuppressMessage("ReSharper", "CommentTypo")]
         [SuppressMessage("ReSharper", "IdentifierTypo")]
         CREDUIWIN_PREPROMPTING = 0x2000,
         /// <summary>
-        /// The credential provider should align the credential BLOB pointed to by the ppvOutAuthBuffer parameter to a 32-bit boundary, even if the provider is running on a 64-bit system. 
+        /// The credential provider will not pack the AAD authority name. This is only applied to Azure AD joined devices.
+        /// <para>Windows 10, version 1607:  This value is supported beginning with Windows 10, version 1607.</para>
         /// </summary>
-        CREDUIWIN_PACK_32_WOW = 0x10000000
+        /// <remarks>This value does not have an explicit name defined in the original enum, so the name is generated for this library.</remarks>
+        CREDUIWIN_DO_NOT_PACK_AAD_AUTHORITY_NAME = 0x40000,
+        /// <summary>
+        /// The credential provider should align the credential BLOB pointed to by the ppvOutAuthBuffer parameter to a 32-bit boundary, even if the provider is running on a 64-bit system.
+        /// </summary>
+        CREDUIWIN_PACK_32_WOW = 0x10000000,
+        /// <summary>
+        /// Windows Hello credentials will be packed in a smart card auth buffer. This only applies to the face, fingerprint, and PIN credential providers.
+        /// <para>Windows 10, version 1809:  This value is supported beginning with Windows 10, version 1809.</para>
+        /// </summary>
+        /// <remarks>This value does not have an explicit name defined in the original enum, so the name is generated for this library.</remarks>
+        CREDUIWIN_PACK_WINDOWS_HELLO = 0x80000000
     }
 }

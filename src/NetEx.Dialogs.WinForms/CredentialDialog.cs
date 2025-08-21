@@ -409,9 +409,12 @@ namespace NetEx.Dialogs.WinForms
         private int RunDialogOld(CREDUI_INFO credUiInfo)
         {
             // Begin setting the flags to be used to display the classic credential dialog. We know
-            // that we do not want the credentials entered to be stored in the Credential Manager so
-            // we can immediately set this flag.
-            var flags = CREDUI_FLAGS.CREDUI_FLAGS_DO_NOT_PERSIST;
+            // that we do not want the credentials entered to be stored in the Credential Manager,
+            // and we always want to show a UI rather than retrieve existing credentials, so we
+            // immediately set these flags.
+            var flags = CREDUI_FLAGS.CREDUI_FLAGS_DO_NOT_PERSIST |
+                        CREDUI_FLAGS.CREDUI_FLAGS_GENERIC_CREDENTIALS |
+                        CREDUI_FLAGS.CREDUI_FLAGS_ALWAYS_SHOW_UI;
 
             // Set the flag to determine whether to show the "Incorrect Password" prompt to the user
             if (IncorrectPasswordPrompt)
@@ -485,19 +488,12 @@ namespace NetEx.Dialogs.WinForms
         private int RunDialogVista(CREDUI_INFO credUiInfo)
         {
             // Create a variable to store our calculated flags.
-            CREDUIWIN flags = 0;
+            CREDUIWIN flags = CREDUIWIN.CREDUIWIN_GENERIC;
 
             // Set the flag to determine whether the "Save Password" checkbox is shown.
             if (ShowSave)
             {
                 flags |= CREDUIWIN.CREDUIWIN_CHECKBOX;
-            }
-
-            // Check the value of our CredentialFilter enum and set the flag to display only the
-            // usernames requested by the user.
-            if (CredentialFilter == CredentialFilter.AdministratorsOnly)
-            {
-                flags |= CREDUIWIN.CREDUIWIN_ENUMERATE_ADMINS;
             }
 
             // A variable for storing the result code from showing the dialog.
