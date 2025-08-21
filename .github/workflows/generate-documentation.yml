@@ -1,7 +1,12 @@
-name: Publish Documentation
+# This workflow generates documentation using DocFX, and publishes it to GitHub Pages. It is triggered whenever a release is published, or
+# can be manually invoked.
+
+name: Generate Documentation
+run-name: Generate Documentation
 
 on:
-  workflow_call:
+  release:
+   types: [published]
   workflow_dispatch:
 
 env:
@@ -9,7 +14,7 @@ env:
 
 jobs:
 
-  Publish:
+  Generate:
     runs-on: windows-latest
     permissions:
       contents: write
@@ -17,42 +22,44 @@ jobs:
       pages: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
 
-    # Checkout the repository
+    # Checkout the repository.
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    # Set up .NET environment
+    # Set up .NET environment.
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    # Update DocFX tool
+    # Update DocFX.
     - name: Update DocFX
       run: dotnet tool update -g docfx
 
-    # Copy DocFX index
+    # Copy DocFX `index.md`.
     - name: Copy DocFX index
       shell: pwsh
       run: Copy-Item  -Path .\README.md -Destination .\index.md
 
-    # Generate documentation
+    # Rename `CHANGELOG.md`.
+    - name: Rename `CHANGELOG.md`
+      shell: pwsh
+      run: Move-Item  -Path .\CHANGELOG.md -Destination .\changelog.md
+
+    # Generate documentation.
     - name: Generate Documentation
       run: docfx docfx.json
       working-directory: docs
 
-    # Upload documentation artifacts
+    # Upload documentation artifacts.
     - name: Upload Documentation Artifacts
-      id: upload
       uses: actions/upload-pages-artifact@v3
       with:
         path: docs/_site/
 
-    # Publish documentation to GitHub Pages
+    # Publish documentation to GitHub Pages.
     - name: Publish to GitHub Pages
-      id: publish
       uses: actions/deploy-pages@v4

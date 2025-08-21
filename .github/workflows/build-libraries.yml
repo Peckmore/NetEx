@@ -1,4 +1,7 @@
-﻿name: Build Libraries
+﻿# This workflow builds the libraries. The workflow is triggered on pull requests and pushes to `main`, can be called from other workflows,
+# or invoked manually.
+
+name: Build Libraries
 
 on:
   pull_request:
@@ -12,12 +15,16 @@ on:
     paths:
       - src/**
   workflow_call:
+    inputs:
+      commit:
+        description: 'Commit to build (Optional)'
+        required: false
+        type: string
   workflow_dispatch:
   
 env:
   BUILD_CONFIGURATION: Release
   DOTNET_VERSION: 9.0.x
-  VERSION_NUMBER: 0
 
 jobs:
 
@@ -26,37 +33,29 @@ jobs:
 
     steps:
     
-    # Checkout the repository
+    # Checkout the repository.
     - name: Checkout Code
       uses: actions/checkout@v4
-    
-    # Set up .NET environment
+      with:
+        ref: ${{ inputs.commit || github.ref }}
+
+    # Set up .NET environment.
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
-    
-    # Set version number (for Release)
-    - name: Set Version Number
-      if: github.event_name == 'release'
-      run: |
-        Write-Host "GitHub Ref Name: ${{ github.ref_name }}"
-        $tag = "${{ github.ref_name }}"
-        $version = $tag -replace '^v', ''
-        "VERSION_NUMBER=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-        Write-Host "Version set to: $version"
 
-    # Restore dependencies
+    # Restore dependencies.
     - name: Restore Dependencies
       run: dotnet restore
       working-directory: src
 
-    # Build the project
+    # Build the project.
     - name: Build
       run: |
-        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
-        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
-        dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
+        dotnet build NetEx.Dialogs.WinForms/NetEx.Dialogs.WinForms.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.Hooks/NetEx.Hooks.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        dotnet build NetEx.IO/NetEx.IO.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
       working-directory: src
 
     # Set up .NET 5.0
@@ -77,7 +76,7 @@ jobs:
         dotnet test Tests/NetEx.IO.Tests/NetEx.IO.Tests.csproj --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore /p:Version=${{ env.VERSION_NUMBER }}
       working-directory: src
 
-    # Upload build artifacts
+    # Upload build artifacts.
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
