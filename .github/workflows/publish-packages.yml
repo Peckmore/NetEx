@@ -1,0 +1,29 @@
+# This workflow will publish the NuGet packages of the latest GitHub release to Nuget. It is triggered when a release is published.
+
+name: Publish Packages
+run-name: Publish Packages (${{ github.event.release.name }})
+
+on:
+  release:
+   types: [published]
+
+env:
+  BUILD_CONFIGURATION: Release
+
+jobs:
+
+  Publish:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    # Download release artifacts.
+    - name: Download Artifacts
+      uses: robinraju/release-downloader@v1
+      with:
+        tag: '${{ github.event.release.name }}'
+        fileName: '*.nupkg'
+
+    # Publish the build packages to NuGet.
+    - name: Publish to NuGet
+      run: dotnet nuget push "**/NetEx.*.nupkg" -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_API_KEY }}

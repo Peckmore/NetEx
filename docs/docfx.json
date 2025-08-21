@@ -24,7 +24,8 @@
     "content": [
       {
         "files": [
-          "index.md"
+          "index.md",
+          "changelog.md"
         ],
         "src": "../"
       },

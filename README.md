@@ -80,6 +80,8 @@ Full API documentation can be found [here](https://peckmore.github.io/NetEx/api/
 
 A full list of all releases is available on the [Releases](https://github.com/Peckmore/NetEx/releases) tab on GitHub.
 
+A complete changelog can also be found [here](https://github.com/Peckmore/NetEx/blob/main/CHANGELOG.md).
+
 ## 🔢 Versioning
 
 **NetEx** use [Semantic Versioning](https://semver.org) for all packages.
