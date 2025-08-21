@@ -8,4 +8,4 @@ Currently Supported Types:
 
 ## Documentation
 
-Documentation is available [here](https://peckmore.github.io/NetEx)
+Documentation is available [here](https://peckmore.github.io/NetEx.
