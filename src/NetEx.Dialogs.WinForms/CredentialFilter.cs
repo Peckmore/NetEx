@@ -12,7 +12,10 @@
         /// <summary>
         /// Populate the <see cref="CredentialDialog"/> with local administrators only.
         /// </summary>
-        /// <remarks>On Windows XP Home Edition this flag will filter out the well-known Administrator account. On Windows Vista and later this value is intended for User Account Control (UAC) purposes only. We recommend that external callers not set this flag.</remarks>
+        /// <remarks>
+        /// <para>This option is only applicable on Windows XP and Windows Server 2003, or on later version of Windows when using the <see cref="CredentialDialog"/> with <see cref="CredentialDialog.AutoUpgradeEnabled"/> set to false.</para>
+        /// <para>On Windows XP Home Edition this flag will filter out the well-known Administrator account.</para>
+        /// </remarks>
         AdministratorsOnly = 1,
         /// <summary>
         /// Populate the <see cref="CredentialDialog"/> with usernames only. This option will not display certificates or smart cards in the <see cref="CredentialDialog"/>.
