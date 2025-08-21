@@ -4,7 +4,7 @@
 
 # NetEx
 
-This repo is a collection of .NET controls and libraries that people might (hopefully!) find useful. :relaxed:
+A collection of .NET controls and libraries that people might (hopefully!) find useful. :relaxed:
 
 </div>
 
